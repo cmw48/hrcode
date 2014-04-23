@@ -91,7 +91,7 @@ public class IngestMain {
  		// turn this bit to 1 to load HR Active persons from file
  		// set to 0 to renew list of active HR persons - use 0 when processing new HRIS data
  		// input file should be set to process only hr new people: -f allNewHRISPeople.nt
-		Integer testingbit = 0;
+		Integer testingbit = 1;
 		if (testingbit == 0) {     
 		    logger.info("renewing list of active HR persons...");
 		    // generate a model of all HRIS uris , check against VIVO model
