@@ -173,6 +173,7 @@ public class CorrectHrData {
 			// always fix label
 
 			String hrisLabel = rw.getLiteralValue(hrisIndiv, RDFS.label);
+			// change this to use the preferred name properties!!!
 			String hrisPrefName = rw.getLiteralValue(hrisIndiv, HR_PREF_NAME);
 			if (hrisPrefName != null) {
 				if (hrisPrefName.equals("")) { 

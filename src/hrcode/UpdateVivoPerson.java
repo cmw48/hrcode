@@ -615,6 +615,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 						mdlHRISPosnRDF.write(System.out, "N-TRIPLE");
 
 					} 
+					// this is where the problem if dumps out !!!
+					logger.info("THERE IS NO D2R ORG FOR THIS POSITION.  WHY?);			
 					logger.info("vivoHRJobTitle = " + vivoHRJobTitle);
 					
 
