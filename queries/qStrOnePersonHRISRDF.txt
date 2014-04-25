@@ -37,7 +37,6 @@ CONSTRUCT {
     ?hrisperson foaf:firstName ?hrisfirstName .
     ?hrisperson foaf:lastName ?hrislastName .
     ?hrisperson hr:PrefName ?hrisPrefName .
-  } 
   }   
 WHERE {
   # querying HRIS endpoint 
