@@ -1,9 +1,10 @@
-#
+# *NOT CURRENTLY IN USE
 # qStrAllHRISTermPositions
-# updated 120907
+# updated 140608
 # returns a list of all positions with type newhr:EmploymentTerm
 # (the idea is to get a list of all positions that have been tagged as 
 #  terminated, separated, or retired)
+# edited for vivo 1.6
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/>
@@ -21,6 +22,6 @@ WHERE {
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {  
-      ?hrisposition rdf:type <http://vivoweb.org/ontology/newhr#EmploymentTerm> .
+      ?hrisposition rdf:type <http://vivoweb.org/ontology/hr#EmploymentTerm> .
     } 
 }

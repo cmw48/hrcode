@@ -2,6 +2,7 @@
 # qStrAllHRISPositions
 # updated 120907
 # returns a list of all HRIS positions
+# edited for vivo 1.6
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/>
