@@ -1,26 +1,19 @@
 #
 # qStrAllVIVOPerson
-# updated 120907
+# updated 140610 - removed DTI, dependent upon HR position
 # returns all VIVO person URI
 # where person has an core:hrJobTitle
 # and a netID OR emplID
-# modified 120917 - persons don't have hrJobTitle.  draws 22K+ names.
+#  
 # edited for vivo1.6
-
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#>
-
-#  PROBLEM: 
-#  DTI is no longer in VIVO.
-#  We need to check the D2R to see if the position is terminated.
-#  (position disconnected from job with termination type)
-#  therefore, do we need the DTI   
 
 CONSTRUCT { 
   ?vivoperson rdf:type foaf:Person .
@@ -30,17 +23,11 @@ WHERE {
 # querying VIVO service
 SERVICE <VIVOSERV>
   {  
+     ?position rdf:type hr:WdPosition .
      #?vivoperson rdf:type foaf:Person .
      #must have a position to play
-     ?vivoperson core:personInPosition ?position .  
+     ?vivoperson vivo:relatedBy ?position .  
      # must also have an emplId
      ?vivoperson hr:emplId ?emplId .
-     # does the position have an end date?
-     OPTIONAL { 
-       ?position core:dateTimeInterval ?dti .
-       ?dti core:end ?end .
-       }
-    #if the position doesn't have an end date, it's active.  
-    FILTER ( (!BOUND (?end))  )
   }
 }

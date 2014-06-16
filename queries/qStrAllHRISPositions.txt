@@ -1,24 +1,24 @@
 #
 # qStrAllHRISPositions
-# updated 120907
+# updated 140607 - edited for vivo1.6
 # returns a list of all HRIS positions
-# edited for vivo 1.6
+
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX core: <http://vivoweb.org/ontology/core#>
+PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#>
 
 CONSTRUCT { 
-  ?hrisposition rdf:type core:Position  .
+  ?hrisposition rdf:type vivo:Position  .
     } 
 WHERE {
 # querying HRIS endpoint
 SERVICE <HRISSERV>
   {  
-    ?hrisposition rdf:type core:Position .
+    ?hrisposition rdf:type vivo:Position .
   } 
 }

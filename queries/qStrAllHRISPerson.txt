@@ -1,8 +1,8 @@
 #
 # qStrAllHRISPerson
-# updated 120907
+# updated 140610 - edited for vivo 1.6 
 # returns list of persons in HRIS data
-# edited for vivo 1.6
+# 
 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

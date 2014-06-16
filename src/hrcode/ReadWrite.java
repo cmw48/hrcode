@@ -175,7 +175,9 @@ public class ReadWrite {
 				// vivo-migrate VM
                 //  serviceVIVO = "http://vivo-migrate.library.cornell.edu/VIVO/sparql";
 				// cmw48-dev vivo1.6 VM
-                 serviceVIVO = "http://cmw48-dev.library.cornell.edu/vivo16/sparql";	
+                // serviceVIVO = "http://cmw48-dev.library.cornell.edu/VIVO/sparql";	
+				// vivo-migrate vivo1.6 VM
+				serviceVIVO = "http://vivo-migrate.library.cornell.edu/vivo16/sparql";
 			}			
 
 			//  Replace VIVOSERV where ever we find it in the query text 
