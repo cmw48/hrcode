@@ -289,6 +289,8 @@ public class CreateModel {
 				//logger.debug("created model named mdlHRISmatch and wrote to file.");
 				mdlHRISAllMatch.add(mdlHRISMatchEmplId);
 
+
+				
 				// pull all HRIS netIDs from HRIS service WHERE HRIS.netId matches a VIVO.netId
 				// keep original HRIS URI for diff process
 				String qStrHRISmatchVIVONetId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISmatchVIVONetId.txt"); 
@@ -300,6 +302,8 @@ public class CreateModel {
 				//WriteRdf(HRISMatchNetIdFileName, mdlHRISMatchNetId, "N-TRIPLE");
 				//logger.debug("created model named mdlHRISMatchNetId and wrote to file.");
 
+			
+				
 				mdlHRISAllMatch.add(mdlHRISMatchNetId);
 				logger.info("for a total of "+ mdlHRISAllMatch.size() + " HR matches for VIVO persons...");   
 				// TODO: this is the statement that fails when mdlNewHRISDiff is an OntModel
@@ -307,6 +311,7 @@ public class CreateModel {
 				//create model named mdlNewHRISDiff to hold the difference between allHRPersons and allHRMatch
 				OntModel mdlNewHRISDiff = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, mdlAllHRISPerson.difference(mdlHRISAllMatch));
 
+			
 				// write diff RDF model to file
 				String HRISDiffFilename = IngestMain.fileRDFPath + "allNewHRISPeople.nt";
 				rw.WriteRdf(HRISDiffFilename, mdlNewHRISDiff, "N-TRIPLE");
