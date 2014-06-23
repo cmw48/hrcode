@@ -1,6 +1,6 @@
 #
 # qStrHRISGetPositionRDF.txt
-# updated 120907
+# updated 140623 - changed newhr > hr
 # queries HRIS for all details related to a position
 # TODO:  fix this to pull only KB2 rdf and adjust output
 # TODO: fix core references
@@ -23,8 +23,8 @@ CONSTRUCT {
       VARVALUE hr:LDAPJobNumber ?hrPosnJobNo .
       VARVALUE  core:hrJobTitle ?hrposnJobTitle .
       VARVALUE  core:positionForPerson ?hrposnPersonLink .
-      VARVALUE  newhr:company ?hrPosnCompany .
-      VARVALUE  newhr:headInd ?hrPosnHeadInd .
+      VARVALUE  hr:company ?hrPosnCompany .
+      VARVALUE  hr:headInd ?hrPosnHeadInd .
       VARVALUE  rdf:type core:Position .
       VARVALUE  hr:primaryUnitCode ?primaryUnitCode .
 }
@@ -38,8 +38,8 @@ WHERE
       VARVALUE  hr:LDAPJobNumber ?hrPosnJobNo . 
       VARVALUE  core:hrJobTitle ?hrposnJobTitle . 
       VARVALUE  core:positionForPerson ?hrposnPersonLink . 
-      VARVALUE  newhr:company ?hrPosnCompany . 
-      VARVALUE  newhr:headInd ?hrPosnHeadInd . 
+      VARVALUE  hr:company ?hrPosnCompany . 
+      VARVALUE  hr:headInd ?hrPosnHeadInd . 
       OPTIONAL { VARVALUE  hr:primaryUnitCode ?primaryUnitCode . }
       #OPTIONAL { VARVALUE  core:dateTimeInterval ?dti . }
       #OPTIONAL { ?dti core:end ?end . }

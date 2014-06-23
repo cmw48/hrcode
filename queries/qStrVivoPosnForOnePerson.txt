@@ -1,6 +1,7 @@
 #
 # qStrVivoPosnForOnePerson.txt
-# updated 121130 - limit to position in KB2 graph
+# updated 140623 - updated for v1.6 and constrained to hr:WdPosition
+# position type now "travels with" position statement
 # using presence of DTI as filter (should use vivo:end, but it doesn't work)
 # with person URI, 
 # return all VIVO positions for a person
@@ -10,7 +11,8 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 
 CONSTRUCT {
 
-VARVALUE vivo:personInPosition ?position .
+VARVALUE vivo:relatedBy ?position .
+?position a hr:WdPosition .
 
 }
 WHERE
@@ -18,11 +20,12 @@ WHERE
     # querying VIVO endpoint
   SERVICE <VIVOSERV>
     {
+      ?position a hr:WdPosition .
       #GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> {
-      VARVALUE vivo:personInPosition ?position .
-      OPTIONAL {?position vivo:dateTimeInterval ?dti. }
+      VARVALUE vivo:relatedBy ?position .
+      #OPTIONAL {?position vivo:dateTimeInterval ?dti. }
       #OPTIONAL {?dti vivo:end ?endDate . }
-      FILTER (!BOUND(?dti)) 
+      #FILTER (!BOUND(?dti)) 
       # }
     } 
 }

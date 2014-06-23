@@ -1,9 +1,11 @@
+#
 # qStrHRISPosnForOnePerson
-# modified 121130 - uses DTI as qualifier for filter
+# modified 140623 - removed DTI as qualifier for filter
 # This query returns all HRIS positions for a person
 # and any associated DTI
 
 PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#> 
 
 CONSTRUCT {
     VARVALUE  vivo:personInPosition ?position .
@@ -14,7 +16,7 @@ WHERE
   SERVICE <HRISSERV>
     { 
       VARVALUE vivo:personInJob ?job .
-      ?job hr:jobInPosition .
+      ?job hr:jobInPosition ?position .
       #OPTIONAL {?position vivo:dateTimeInterval ?dti. }
       #OPTIONAL {?dti vivo:end ?endDate . }
       #FILTER (!BOUND(?dti)) 

@@ -32,17 +32,17 @@ CONSTRUCT {
     VARVALUE vivo:organizationForPosition ?position .
     ?position vivo:positionInOrganization VARVALUE .
     VARVALUE  rdfs:label ?label .
-    VARVALUE  newhr:DeptID ?deptId .
+    VARVALUE  hr:DeptID ?deptId .
     VARVALUE  vivoc:departmentHRcode ?deptId .
-    VARVALUE  newhr:UnitID_Ldesc ?UnitID_Ldesc .
+    VARVALUE  hr:UnitID_Ldesc ?UnitID_Ldesc .
   }   
 WHERE {
    #querying HRIS endpoint	   
    SERVICE <HRISSERV>
     {
       VARVALUE rdfs:label ?label .
-      VARVALUE newhr:DeptID ?deptId . 
-      VARVALUE  newhr:UnitID_Ldesc ?UnitID_Ldesc . 
+      VARVALUE hr:DeptID ?deptId . 
+      VARVALUE hr:UnitID_Ldesc ?UnitID_Ldesc . 
     }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>

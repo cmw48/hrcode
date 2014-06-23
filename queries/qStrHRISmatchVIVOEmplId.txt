@@ -1,6 +1,6 @@
 #
 # qStrHRISmatchVIVOEmplId
-# updated 120907
+# updated 140623 - commented out class comparison
 # looks at all HRIS persons and
 # compares emplId to Joseki
 # returns all HRIS persons where 
@@ -24,7 +24,7 @@ WHERE {
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {
-      ?hrperson rdf:type <http://vivoweb.org/ontology/newhr#hasActivePosition> .
+      #?hrperson rdf:type <http://vivoweb.org/ontology/newhr#hasActivePosition> .
       ?hrperson hr:emplId ?emplId .
      } 
   # querying VIVO endpoint

@@ -1,9 +1,8 @@
 #
 # qStrHRISPositionDesc
-# modified 120907
+# modified 140623
 # gets all RDF for a given position
 # now includes termination RDF and DTI
-# TODO: fix to only return KB2 RDF and adjust rdf:type
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
 PREFIX newhr:   <http://vivoweb.org/ontology/newhr#> 
@@ -21,8 +20,8 @@ CONSTRUCT {
       ?position core:hrJobTitle ?hrposnJobTitle .
       ?position core:positionForPerson ?hrposnPersonLink .
       #?position core:positionInOrganization ?hrPosnOrgLink .
-      ?position newhr:company ?hrPosnCompany .
-      ?position newhr:headInd ?hrPosnHeadInd .
+      ?position hr:company ?hrPosnCompany .
+      ?position hr:headInd ?hrPosnHeadInd .
       #?position rdf:type core:Position .
       ?position rdf:type ?type .
       ?position core:dateTimeInterval ?dti .
@@ -41,9 +40,9 @@ WHERE
      OPTIONAL {?position core:hrJobTitle ?hrposnJobTitle . }
      OPTIONAL {?position core:positionForPerson ?hrposnPersonLink . }
      #OPTIONAL {?position core:positionInOrganization ?hrPosnOrgLink . }
-     OPTIONAL {?position newhr:company ?hrPosnCompany . }
-     OPTIONAL {?position newhr:headInd ?hrPosnHeadInd . }
-     OPTIONAL {?position newhr:headInd ?hrPosnHeadInd . } 
+     OPTIONAL {?position hr:company ?hrPosnCompany . }
+     OPTIONAL {?position hr:headInd ?hrPosnHeadInd . }
+     OPTIONAL {?position hr:headInd ?hrPosnHeadInd . } 
      OPTIONAL {?position core:dateTimeInterval ?dti .}
      OPTIONAL {?dti core:end ?end .}
      OPTIONAL {?position rdf:type ?type .}
