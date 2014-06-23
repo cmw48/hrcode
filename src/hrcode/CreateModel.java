@@ -67,7 +67,7 @@ public class CreateModel {
 		 *   TODO
 		 *   create functionality for SELECT
 		 */
-		logger.trace("constructing New Model with " + strQueryString);
+		// REMOVED 140623 logger.trace("constructing New Model with " + strQueryString);
 	    OntModel mdlNewModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		try {
 
@@ -350,7 +350,7 @@ public class CreateModel {
 			String VIVORDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrOnePersonVIVORDF.txt");
 			String[] VIVOqueryArgs = {VIVORDFBaseQuery, "VARVALUE", personId};
 			String qStrOnePersonVIVORDF = rw.ModifyQuery(VIVOqueryArgs);
-			logger.trace("query string for one person VIVO RDF: \n\n" + qStrOnePersonVIVORDF);
+			//  *REMOVED 140623**logger.trace("query string for one person VIVO RDF: \n\n" + qStrOnePersonVIVORDF);
 			//create ontology model with vivo data for single person
 			long startTime = System.currentTimeMillis();		
 			mdlOnePersonVIVORDF = this.MakeNewModelCONSTRUCT(qStrOnePersonVIVORDF); 
@@ -374,7 +374,7 @@ public class CreateModel {
 			// send emplId and netId to getQueryArgs, if emplId is blank, then use netId.
 
 			String qStrOnePersonHrisRDF = rw.ModifyQuery(rw.getQueryArgs(vivoIndiv, vivoPersonEmplId, vivoPersonNetId));
-			logger.trace("query string for one person HRIS RDF: \n\n" + qStrOnePersonHrisRDF);
+		//  *REMOVED 140623**logger.trace("query string for one person HRIS RDF: \n\n" + qStrOnePersonHrisRDF);
 
 
 			//mdlOnePersonHrisRDF = cm.MakeNewModelCONSTRUCT(qStrOnePersonHrisRDF); 	

@@ -1,22 +1,23 @@
-#
 # qStrOnePersonVIVORDF
-# updated 120907
+# updated 140623 - rewritten for vivo1.6
 # with person URI, 
 # return all VIVO RDF about that person
-# TODO: fix to return only KB2 and adjust rdf:type
-#  adjusted 120919 to add priworkTitle adn msType
+# TODO: look closely at titles. 
+# TODO: Are there any other legacy data properties to look at?
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
-PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
 PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
 
 CONSTRUCT { 
   <VARVALUE> hr:emplId ?vivoemplId .
@@ -24,33 +25,51 @@ CONSTRUCT {
   <VARVALUE> hr:netId ?vivonetId .
   <VARVALUE> hr:emplId ?vivoemplId .
   <VARVALUE> hr:WorkingTitle ?vivowtitle .
-  <VARVALUE> core:email ?vivoemail .
-  #<VARVALUE> core:mailingAddress ?vivomailaddr .
-  #<VARVALUE> core:phoneNumber ?vivophone .
-  <VARVALUE> foaf:firstName ?vivofirstName .
-  <VARVALUE> foaf:lastName ?vivolastName .
-  #<VARVALUE> acti:aiUser ?aiUser .
-  #<VARVALUE> rdf:type ?msType .
+  <VARVALUE> vivo:email ?vivoemail .
+  <VARVALUE> obo:ARG_2000028 ?vcard . 
+  
+  ?vcard obo:ARG_2000029 <VARVALUE> . 
+  ?vcard vcard:hasName ?nameUri .
+    ?nameUri a vcard:Name . 
+    ?nameUri vcard:familyName ?familyName . 
+    ?nameUri vcard:givenName ?givenName . 
+  ?vcard vcard:hasEmail ?emailUri .
+    ?emailUri rdf:type vcard:Email .
+    ?emailUri vcard:email ?emailString .
+  ?vcard vcard:hasTitle ?titleUri . 
+    ?titleUri rdf:type vcard:Title .
+    ?titleUri vcard:title ?titleString . 
+
   <VARVALUE> hr:primaryWorkingTitle ?primaryTitle .
   <VARVALUE> hr:primaryUnitCode ?primaryUnitCode .
   }   
+  
 WHERE {
   # querying VIVO endpoint
   SERVICE <VIVOSERV>
     {
      <VARVALUE> rdf:type foaf:Person .
-     OPTIONAL { <VARVALUE> rdfs:label ?vivolabel .}
+     OPTIONAL { <VARVALUE> obo:ARG_2000028 ?vcard . }
+
+     OPTIONAL { ?vcard vcard:hasName ?nameUri .
+        OPTIONAL { ?nameUri vcard:givenName ?givenName . }
+        OPTIONAL { ?nameUri vcard:familyName ?familyName . }
+     }
+     OPTIONAL { ?vcard vcard:hasEmail ?emailUri .
+         OPTIONAL { ?emailUri vcard:email ?emailString .}
+     }
+     OPTIONAL { ?vcard vcard:hasTitle ?titleUri . 
+         OPTIONAL { ?titleUri vcard:title ?titleString . }
+     }
+
+     OPTIONAL { <VARVALUE>  rdfs:label ?vivolabel .}
      OPTIONAL { <VARVALUE> hr:netId ?vivonetId .}
      OPTIONAL { <VARVALUE> hr:emplId ?vivoemplId .}	
-     OPTIONAL {<VARVALUE> hr:WorkingTitle ?vivowtitle .}
-     OPTIONAL {<VARVALUE> hr:primaryWorkingTitle ?primaryTitle .}
-     OPTIONAL { <VARVALUE> core:email ?vivoemail .}
-     #OPTIONAL { <VARVALUE> core:mailingAddress ?vivomailaddr .}
-     #OPTIONAL { <VARVALUE> core:phoneNumber ?vivophone .}
+     OPTIONAL { <VARVALUE> hr:WorkingTitle ?vivowtitle .}
+     OPTIONAL { <VARVALUE> hr:primaryWorkingTitle ?primaryTitle .}
+     OPTIONAL { <VARVALUE> vivo:email ?vivoemail .}
      OPTIONAL { <VARVALUE> foaf:firstName ?vivofirstName .}
      OPTIONAL { <VARVALUE> foaf:lastName ?vivolastName .}
      OPTIONAL { <VARVALUE> hr:primaryUnitCode ?primaryUnitCode .}
-     #OPTIONAL { <VARVALUE> acti:aiUser ?aiUser .}
-     #<VARVALUE> vitro:mostSpecificType ?msType .
     } 
 }

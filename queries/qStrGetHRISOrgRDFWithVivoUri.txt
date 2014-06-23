@@ -1,6 +1,6 @@
 #
 # qStrGetHRISOrgRDFWithVivoUri
-# updated 120907
+# updated 140623 - updated for vivo 1.6
 # to be used as a query against a model
 # grab the URI from every vivo:Position in the model
 # get the orgURI from the D2R position
@@ -9,9 +9,6 @@
 # in this case (HRIS org data) only where this orgURI does not have a
 #  pre-existing VIVO org
 # construct all org RDF with D2R HRIS ?orgURI
-
-# revised 120909 - not working right and all D2R-based orgs are always
-# presented in output RDF - uncommented filter 
 # now must be bound in VIVO to proceed
 
 # edited for vivo1.6
@@ -26,23 +23,15 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
 PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
 
-
-# TODO:  newhr -> hr
- 
-
 CONSTRUCT { 
     ?vivoorg rdf:type foaf:Organization .
-    #?vivoorg rdfs:label ?label .
-    #?vivoorg newhr:DeptID ?deptId .
-    #?vivoorg newhr:UnitID_Ldesc ?UnitID_Ldesc .
   }   
+  
 WHERE {
    # querying HRIS endpoint
    SERVICE <HRISSERV>
     {
-      #VARVALUE rdfs:label ?label .
-      VARVALUE newhr:DeptID ?deptId . 
-      #VARVALUE newhr:UnitID_Ldesc ?UnitID_Ldesc . 
+      VARVALUE hr:DeptID ?deptId . 
     }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>

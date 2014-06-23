@@ -91,8 +91,8 @@ public class IngestMain {
  		// turn this bit to 1 to load HR Active persons from file
  		// set to 0 to renew list of active HR persons - use 0 when processing new HRIS data
  		// input file should be set to process only hr new people: -f allNewHRISPeople.nt
-		Integer testingbit = 1;
-		if (testingbit == 0) {     
+		Integer testingswitch = 1;
+		if (testingswitch == 0) {     
 		    logger.info("renewing list of active HR persons...");
 		    // generate a model of all HRIS uris , check against VIVO model
 		    Model mdlAllNewHrisPerson = cm.CreateNewHrisPersonList(HrisUriFilename);
@@ -118,10 +118,22 @@ public class IngestMain {
 		}    
 
 
+ 		// turn this bit to 1 to load VIVO Eligible persons from file
+ 		// set to 0 to renew list of VIVO Eligible  persons - *ALWAYS* use 0 when processing new VIVO data
+ 		// input file should be set to process only hr new people: -f allNewHRISPeople.nt
+
+		Integer vivotestswitch = 1;
+		if (vivotestswitch == 0) {     		
+            //  get a model of all (eligible) persons in VIVO
+		    logger.info("Creating new list of VIVO persons from most recent nightly backup...");
 		
-        //  get a model of all (eligible) persons in VIVO
+		} else {
+			    logger.info("Loading active VIVO persons from most recent file...");
+			    VivoUriFilename = "allVIVOPersonURI.nt";
+
+		 }    
         Model mdlAllVIVOPerson = cm.CreateAllVIVOPersonList(VivoUriFilename);
-		logger.info("created a list of " + mdlAllVIVOPerson.size() + " eligible persons in VIVO for update.  Iterating over results...");
+	    logger.info("created a list of " + mdlAllVIVOPerson.size() + " eligible persons in VIVO for update.  Iterating over results...");
 		
 		// iterate through model and update as needed, and return a model consisting of updated URIs 
 		Model mdlVivoURIsUpdated = im.IterateThroughVivoPersonList(mdlAllVIVOPerson);

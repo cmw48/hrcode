@@ -15,6 +15,8 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
 PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
 
 CONSTRUCT { 
     #?hrisperson rdf:type foaf:Person .
@@ -23,6 +25,27 @@ CONSTRUCT {
     ?hrisperson hr:netId ?hrisnetId .
     ?hrisperson hr:Unitid ?hrisUnitId .
     ?hrisperson hr:emplId ?hrisemplId .
+  
+    ?hrisperson hr:WorkingTitle ?hrwtitle .
+    ?hrisperson vivo:email ?hremail .
+  
+   ?hrisperson obo:ARG_2000028 ?vcard . 
+   ?vcard obo:ARG_2000029 ?hrisperson . 
+   ?vcard vcard:hasName ?nameUri .
+   ?nameUri a vcard:Name . 
+   ?nameUri vcard:familyName ?hrislastName . 
+    ?nameUri vcard:givenName ?hrisfirstName . 
+  ?vcard vcard:hasEmail ?emailUri .
+    ?emailUri rdf:type vcard:Email .
+    ?emailUri vcard:email ?hrisemail .
+  ?vcard vcard:hasTitle ?titleUri . 
+    ?titleUri rdf:type vcard:Title .
+    ?titleUri vcard:title ?hriswtitle . 
+
+  <VARVALUE> hr:primaryWorkingTitle ?primaryTitle .
+  <VARVALUE> hr:primaryUnitCode ?primaryUnitCode .
+    
+    
     ?hrisperson hr:legalNameString ?hrisLegalNameString . 
     ?hrisperson hr:preferredFirstName ?hrisPreferredFirstName . 
     ?hrisperson hr:preferredLastName ?hrisPreferredLastName . 

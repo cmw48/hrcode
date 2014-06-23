@@ -20,12 +20,7 @@ WHERE
     # querying VIVO endpoint
   SERVICE <VIVOSERV>
     {
-      ?position a hr:WdPosition .
-      #GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> {
       VARVALUE vivo:relatedBy ?position .
-      #OPTIONAL {?position vivo:dateTimeInterval ?dti. }
-      #OPTIONAL {?dti vivo:end ?endDate . }
-      #FILTER (!BOUND(?dti)) 
-      # }
+      ?position a hr:WdPosition .
     } 
 }
