@@ -13,9 +13,10 @@ WHERE
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     { 
-      VARVALUE vivo:personInPosition ?position .
-      OPTIONAL {?position vivo:dateTimeInterval ?dti. }
+      VARVALUE vivo:personInJob ?job .
+      ?job hr:jobInPosition .
+      #OPTIONAL {?position vivo:dateTimeInterval ?dti. }
       #OPTIONAL {?dti vivo:end ?endDate . }
-      FILTER (!BOUND(?dti)) 
+      #FILTER (!BOUND(?dti)) 
     }   
 }

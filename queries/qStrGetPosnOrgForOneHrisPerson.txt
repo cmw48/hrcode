@@ -7,6 +7,7 @@
 # updated 121005 to include org/posn reciprocals
 
 PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 
 CONSTRUCT 
   {
@@ -18,7 +19,8 @@ WHERE
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {
-    VARVALUE vivo:personInPosition ?position .
+    VARVALUE hr:personInJob ?job .
+    ?job hr:jobInPosition ?position .
     ?position vivo:positionInOrganization ?org .
     }
 }
