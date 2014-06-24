@@ -41,11 +41,7 @@ CONSTRUCT {
   ?vcard vcard:hasTitle ?titleUri . 
     ?titleUri rdf:type vcard:Title .
     ?titleUri vcard:title ?hriswtitle . 
-
-  <VARVALUE> hr:primaryWorkingTitle ?primaryTitle .
-  <VARVALUE> hr:primaryUnitCode ?primaryUnitCode .
-    
-    
+    ?hrisperson hr:primaryWorkingTitle ?primaryTitle .
     ?hrisperson hr:legalNameString ?hrisLegalNameString . 
     ?hrisperson hr:preferredFirstName ?hrisPreferredFirstName . 
     ?hrisperson hr:preferredLastName ?hrisPreferredLastName . 
