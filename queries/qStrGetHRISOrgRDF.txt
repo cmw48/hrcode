@@ -9,9 +9,7 @@
 # in this case (HRIS org data) only where this orgURI does not have a
 #  pre-existing VIVO org
 # construct all org RDF with D2R HRIS ?orgURI
-
 # edited for vivo1.6
-
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
@@ -22,11 +20,6 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
 PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
 
-# TODO
-#   CHANGE newhr to hr
-#   EXPAND position - job - organization  
-
-
 CONSTRUCT { 
     VARVALUE  rdf:type foaf:Organization .
     VARVALUE vivo:organizationForPosition ?position .
@@ -34,7 +27,7 @@ CONSTRUCT {
     VARVALUE  rdfs:label ?label .
     VARVALUE  hr:DeptID ?deptId .
     VARVALUE  vivoc:departmentHRcode ?deptId .
-    VARVALUE  hr:UnitID_Ldesc ?UnitID_Ldesc .
+    #VARVALUE  hr:UnitID_Ldesc ?UnitID_Ldesc .
   }   
 WHERE {
    #querying HRIS endpoint	   
@@ -42,7 +35,7 @@ WHERE {
     {
       VARVALUE rdfs:label ?label .
       VARVALUE hr:DeptID ?deptId . 
-      VARVALUE hr:UnitID_Ldesc ?UnitID_Ldesc . 
+      #VARVALUE hr:UnitID_Ldesc ?UnitID_Ldesc . 
     }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>
