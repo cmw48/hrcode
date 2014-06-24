@@ -1,0 +1,56 @@
+#
+# qStrOnePersonVIVORDF
+# updated 120907
+# with person URI, 
+# return all VIVO RDF about that person
+# TODO: fix to return only KB2 and adjust rdf:type
+#  adjusted 120919 to add priworkTitle adn msType
+
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
+PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
+PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+PREFIX acti: <http://vivoweb.org/ontology/activity-insight#>
+PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
+
+CONSTRUCT { 
+  <VARVALUE> hr:emplId ?vivoemplId .
+  <VARVALUE> rdfs:label ?vivolabel .
+  <VARVALUE> hr:netId ?vivonetId .
+  <VARVALUE> hr:emplId ?vivoemplId .
+  <VARVALUE> hr:WorkingTitle ?vivowtitle .
+  <VARVALUE> core:email ?vivoemail .
+  #<VARVALUE> core:mailingAddress ?vivomailaddr .
+  #<VARVALUE> core:phoneNumber ?vivophone .
+  <VARVALUE> foaf:firstName ?vivofirstName .
+  <VARVALUE> foaf:lastName ?vivolastName .
+  #<VARVALUE> acti:aiUser ?aiUser .
+  #<VARVALUE> rdf:type ?msType .
+  <VARVALUE> hr:primaryWorkingTitle ?primaryTitle .
+  <VARVALUE> hr:primaryUnitCode ?primaryUnitCode .
+  }   
+WHERE {
+  # querying VIVO endpoint
+  SERVICE <VIVOSERV>
+    {
+     <VARVALUE> rdf:type foaf:Person .
+     OPTIONAL { <VARVALUE> rdfs:label ?vivolabel .}
+     OPTIONAL { <VARVALUE> hr:netId ?vivonetId .}
+     OPTIONAL { <VARVALUE> hr:emplId ?vivoemplId .}	
+     OPTIONAL {<VARVALUE> hr:WorkingTitle ?vivowtitle .}
+     OPTIONAL {<VARVALUE> hr:primaryWorkingTitle ?primaryTitle .}
+     OPTIONAL { <VARVALUE> core:email ?vivoemail .}
+     #OPTIONAL { <VARVALUE> core:mailingAddress ?vivomailaddr .}
+     #OPTIONAL { <VARVALUE> core:phoneNumber ?vivophone .}
+     OPTIONAL { <VARVALUE> foaf:firstName ?vivofirstName .}
+     OPTIONAL { <VARVALUE> foaf:lastName ?vivolastName .}
+     OPTIONAL { <VARVALUE> hr:primaryUnitCode ?primaryUnitCode .}
+     #OPTIONAL { <VARVALUE> acti:aiUser ?aiUser .}
+     #<VARVALUE> vitro:mostSpecificType ?msType .
+    } 
+}

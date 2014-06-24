@@ -252,7 +252,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					// construct model with all hris position RDF for one person
 
 
-					logger.trace("Here's the query for VIVO positions for " + vivoPersonURI + ":\n\n" + qStrVivoPosnRdf);
+					// REMOVED 140623 logger.trace("Here's the query for VIVO positions for " + vivoPersonURI + ":\n\n" + qStrVivoPosnRdf);
 					startTime = System.currentTimeMillis();
 
 					// now, mdlVIVOPosnRDF holds all the position information about this VIVO person

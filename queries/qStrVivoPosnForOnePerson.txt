@@ -8,6 +8,7 @@
 # TODO: removed graph specific check
 
 PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#> 
 
 CONSTRUCT {
 

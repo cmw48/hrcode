@@ -260,8 +260,8 @@ public class ReadWrite {
 
 		try {
 
-			logger.info(model);
-			//model.write(System.out, "N-TRIPLE");
+			//logger.info(model);
+			model.write(System.out, "N-TRIPLE");
 		} catch (Exception e) { 
 			// do we have file exists/overwrite/backup logic to insert here?
 			logger.error("problem with write process?, Error" + e);
