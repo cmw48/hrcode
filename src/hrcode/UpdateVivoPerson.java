@@ -667,7 +667,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						retractionsForPerson.remove(testRetractions2);
 						if(retractionsForPerson.size() > 0) {
 							logger.info("***" + retractionsForPerson.size() + " PROFILE RETRACTIONS ***");  
-							retractionsForPerson.write(System.out, "N3");   
+							retractionsForPerson.write(System.out, "NTRIPLES");   
 							//PWT and others need to be checked against Posn Additions
 							// if they appear in both
 							cdm.retractModel(retractionsForPerson);
@@ -685,7 +685,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						additionsForPerson.add(CorrectedHRISPersonRDF.difference(mdlOnePersonVIVORDF));
 						if(additionsForPerson.size() > 0) {
 							logger.info("*** " + additionsForPerson.size() + " PROFILE ADDITIONS ***");  
-							additionsForPerson.write(System.out, "N3");                
+							additionsForPerson.write(System.out, "NTRIPLES");                
 							cdm.addModel(additionsForPerson);
 							logger.trace(additionsForPerson);
 							rw.LogRDF(cdm.getAdditions(), "N-TRIPLES");
@@ -729,7 +729,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						retractionsForPosition.add(mdlVivoPosnRDF.difference(mdlHRISPosnRDF));  
 						if(retractionsForPosition.size() > 0) {
 							logger.info("***" + retractionsForPosition.size() + " POSITION RETRACTIONS ***");  
-							retractionsForPosition.write(System.out, "N3");    
+							retractionsForPosition.write(System.out, "N-TRIPLES");    
 							cdm.retractModel(retractionsForPosition);
 							logger.trace(retractionsForPosition);
 						} else  {
@@ -745,7 +745,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						//additionsForPosition.add(mdlCorrectedVIVOposnRdf);
 						if(additionsForPosition.size() > 0) {
 							logger.info("*** " + additionsForPosition.size() + " POSITION ADDITIONS ***");  
-							additionsForPosition.write(System.out, "N3"); 
+							additionsForPosition.write(System.out, "N-TRIPLES"); 
 							cdm.addModel(additionsForPosition);
 							logger.trace(additionsForPosition);
 						} else  {

@@ -1,47 +1,69 @@
-#
 # qStrHRISGetPositionRDF.txt
 # updated 140623 - changed newhr > hr
 # queries HRIS for all details related to a position
 # TODO:  fix this to pull only KB2 rdf and adjust output
-# TODO: fix core references
+# TODO: works?
 # changed 121003 to add end date where available
 # removed optionals 121115 and noted that enddate was 
 # construct, commented for now
 # made primaryUnitCode optional 130303
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
-PREFIX newhr:   <http://vivoweb.org/ontology/newhr#> 
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
 
 CONSTRUCT {
-      VARVALUE rdfs:label ?hrposnlabel . 
-      VARVALUE hr:LDAPJobNumber ?hrPosnJobNo .
-      VARVALUE  core:hrJobTitle ?hrposnJobTitle .
-      VARVALUE  core:positionForPerson ?hrposnPersonLink .
-      VARVALUE  hr:company ?hrPosnCompany .
-      VARVALUE  hr:headInd ?hrPosnHeadInd .
-      VARVALUE  rdf:type core:Position .
-      VARVALUE  hr:primaryUnitCode ?primaryUnitCode .
+      VARVALUE hr:company ?hrpPosnCompany .
+      VARVALUE hr:dLevelCode ?hrpDLevelCode .
+      VARVALUE hr:dLevelOrgName ?hrpDLevelOrgName .
+      VARVALUE hr:jobCode ?hrpJobCode .
+      VARVALUE hr:jobFamily ?hrpJobFamily .
+      VARVALUE hr:jobFamilyGroup ?hrpJobFamilyGroup .
+      VARVALUE hr:kfsOrgCode ?hrpKfsOrgCode .
+      VARVALUE hr:positionForJob ?hrpPositionForJob .
+      VARVALUE hr:supOrgCode ?hrpSupOrgCode .
+      VARVALUE vivo:positionInOrganization ?hrpPosnInOrganization .
+      ?job rdfs:label ?hrjLabel .
+      ?job hr:jobId ?hrjJobId .
+      ?job hr:jobInPosition ?hrjJobInPosition .
+      ?job hr:primaryJob ?hrjPrimaryJob .
+      ?job hr:startDate ?hrjStartDate .
+      ?job vivo:hrJobTitle ?hrjHrJobTitle .
+      ?job vivo:jobForPerson ?hrjJobForPerson .
 }
 WHERE
 {
   # querying HRIS endpoint
-  SERVICE <HRISSERV>
-
+  # get Workday->D2R format rdf, then write it as vivo 1.6 format rdf.
+  SERVICE <http://vivo-migrate.library.cornell.edu/d2r>
     {
-      VARVALUE  rdfs:label ?hrposnlabel . 
-      VARVALUE  hr:LDAPJobNumber ?hrPosnJobNo . 
-      VARVALUE  core:hrJobTitle ?hrposnJobTitle . 
-      VARVALUE  core:positionForPerson ?hrposnPersonLink . 
-      VARVALUE  hr:company ?hrPosnCompany . 
-      VARVALUE  hr:headInd ?hrPosnHeadInd . 
-      OPTIONAL { VARVALUE  hr:primaryUnitCode ?primaryUnitCode . }
-      #OPTIONAL { VARVALUE  core:dateTimeInterval ?dti . }
-      #OPTIONAL { ?dti core:end ?end . }
+      # list all position-specific RDF
+      VARVALUE hr:company ?hrpPosnCompany .
+      VARVALUE hr:dLevelCode ?hrpDLevelCode .
+      VARVALUE hr:dLevelOrgName ?hrpDLevelOrgName .
+      VARVALUE hr:jobCode ?hrpJobCode .
+      VARVALUE hr:jobFamily ?hrpJobFamily .
+      VARVALUE hr:jobFamilyGroup ?hrpJobFamilyGroup .
+      VARVALUE hr:kfsOrgCode ?hrpKfsOrgCode .
+      VARVALUE hr:positionForJob ?job .
+      VARVALUE hr:supOrgCode ?hrpSupOrgCode .
+      VARVALUE vivo:positionInOrganization ?hrpPosnInOrganization .
+
+      #then, list all job-specific RDF
+      ?job rdfs:label ?hrjLabel .
+      ?job hr:jobId ?hrjJobId .
+      ?job hr:jobInPosition ?hrjJobInPosition .
+      ?job hr:primaryJob ?hrjPrimaryJob .
+      ?job hr:startDate ?hrjStartDate .
+      ?job vivo:hrJobTitle ?hrjHrJobTitle .
+      ?job vivo:jobForPerson ?hrjJobForPerson .
+
+      #OPTIONAL { VARVALUE  hr:primaryUnitCode ?primaryUnitCode . }
+      #OPTIONAL { VARVALUE  vivo:dateTimeInterval ?dti . }
+      #OPTIONAL { ?dti vivo:end ?end . }
      } 
 }
