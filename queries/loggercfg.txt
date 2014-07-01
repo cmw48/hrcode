@@ -21,7 +21,7 @@ log4j.appender.A1.layout.ConversionPattern=%d %-5p %C{1}-%m%n
 
 log4j.appender.DailyRoller=org.apache.log4j.DailyRollingFileAppender
 log4j.appender.DailyRoller.datePattern='.'yy-MM-dd
-log4j.appender.DailyRoller.file=./hringest.log
+log4j.appender.DailyRoller.file=./rdfdump/hringest.log
 log4j.appender.DailyRoller.layout=org.apache.log4j.PatternLayout
 #log4j.appender.DailyRoller.layout.ConversionPattern=%d{ISO8601} %-5p [%t] %c: %m%n
 #log4j.appender.DailyRoller.layout.ConversionPattern=%d{ISO8601} %5p [%t] (%F:%L) - %m%n
