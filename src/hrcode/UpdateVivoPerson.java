@@ -101,7 +101,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 			// log VIVO rdf with VIVO netId
 			logger.debug("VIVO RDF for " + vivoPersonNetId);			
-			rw.LogRDF(mdlOnePersonVIVORDF, "N-TRIPLES");
+			rw.LogRDF(mdlOnePersonVIVORDF, "N-TRIPLE");
 
 			if (vivoPersonEmplId.equals("")) {
 				logger.warn("WARNING: blank VIVO emplID for " + vivoIndiv + " does not exist in HRIS data.");
@@ -117,7 +117,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 			OntModel mdlOnePersonHRISRDF = cm.CreateOnePersonHrisRDF(vivoIndiv, vivoPersonEmplId, vivoPersonNetId);
 			logger.debug("HRIS RDF for " + vivoPersonNetId);			
-			rw.LogRDF(mdlOnePersonHRISRDF, "N-TRIPLES");
+			rw.LogRDF(mdlOnePersonHRISRDF, "N-TRIPLE");
 
 
 			// send emplId and netId to getQueryArgs, if emplId is blank, then use netId.
@@ -133,11 +133,11 @@ public class UpdateVivoPerson extends IteratorMethods {
 				Model CorrectedHRISPersonRDF = chd.processHRISCorrections(mdlOnePersonHRISRDF, vivoIndiv);
 				logger.info("done correcting HRIS statements for " + personId + ".");
 
-				//WriteRdf(blankVIVOEmplIdExFile, blankVIVOEmplIdException, "N3");
+				//WriteRdf(blankVIVOEmplIdExFile, blankVIVOEmplIdException, "N-TRIPLE");
 				logger.debug("VIVO RDF");
-				rw.LogRDF(mdlOnePersonVIVORDF, "N3");
+				rw.LogRDF(mdlOnePersonVIVORDF, "N-TRIPLE");
 				logger.debug("CorrectedHRISPerson RDF");
-				rw.LogRDF(CorrectedHRISPersonRDF, "N3");
+				rw.LogRDF(CorrectedHRISPersonRDF, "N-TRIPLE");
 				Long numHRStatements = CorrectedHRISPersonRDF.size();
 				if (numHRStatements < 1) {
 					logger.warn("No statements in HRIS for "+ vivoIndiv + " : " + vivoPersonEmplId + " : " + vivoPersonNetId + ".  Does this person belong in VIVO?");
@@ -228,7 +228,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 				long startTime = System.currentTimeMillis();
 				OntModel mdlVivoPositions = cm.MakeNewModelCONSTRUCT(qStrVivoPositions); 	
 				logger.debug("\n*Vivo positions for " + vivoPersonURI + ":\n\n" + mdlVivoPositions);
-				rw.LogRDF(mdlVivoPositions, "N3");
+				rw.LogRDF(mdlVivoPositions, "N-TRIPLE");
 				logger.debug("\nVivoposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
 				OntModel mdlVivoPersonInPosn = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 				OntModel mdlVivoPosnRDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
@@ -267,7 +267,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					OntModel mdlVivoOnePosnRDF = cm.MakeNewModelCONSTRUCT(qStrVivoPosnRdf); 	
 					mdlVivoPosnRDF.add(mdlVivoOnePosnRDF);
 					logger.debug("\n*Vivo position RDF before corrections*");
-					rw.LogRDF(mdlVivoOnePosnRDF, "N3");
+					rw.LogRDF(mdlVivoOnePosnRDF, "N-TRIPLE");
 					logger.debug("\nVivo posnRDF link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
 				} //end if for vivo posn rdf
 				mdlVivoPosnRDF.add(mdlVivoPersonInPosn);
@@ -332,7 +332,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					startTime = System.currentTimeMillis();
 					OntModel mdlVivoOrgRDF = cm.MakeNewModelCONSTRUCT(qStrmdlVivoOrgRDF); 	
 					logger.debug("Here's the list of D2R orgs attached to this position.");
-					rw.LogRDF(mdlVivoOrgRDF, "N3");
+					rw.LogRDF(mdlVivoOrgRDF, "N-TRIPLE");
 					logger.debug("\nVIVOposn org link query time: " + (System.currentTimeMillis() - startTime) + "\n");	
 
 					mdlVivoPosnRDF.add(mdlVivoOrgRDF);
@@ -341,7 +341,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 				// this is all existing VIVO position RDF - will be retracted!
 				logger.debug("\n*VIVO position RDF*");
-				rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLES");
+				rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLE");
 
 				// TODO consider renaming to MakeNewModel, parse as describe first?
 
@@ -363,7 +363,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					startTime = System.currentTimeMillis();
 					OntModel mdlHRISPositions = cm.MakeNewModelCONSTRUCT(qStrHRISPositions); 	
 					logger.debug("\n*HRIS position RDF before corrections*");
-					rw.LogRDF(mdlHRISPositions, "N3");
+					rw.LogRDF(mdlHRISPositions, "N-TRIPLE");
 					logger.debug("\nHRISposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
 					OntModel mdlHRISPersonInPosn = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 					List<Statement> hrisPosnList = mdlHRISPositions.listStatements().toList();
@@ -390,7 +390,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						OntModel mdlHRISOnePosnRDF = cm.MakeNewModelCONSTRUCT(qStrHRISRdf); 	
 						mdlHRISPosnRDF.add(mdlHRISOnePosnRDF);
 						logger.debug("\n*HRIS position RDF before corrections*");
-						rw.LogRDF(mdlHRISOnePosnRDF, "N3");
+						rw.LogRDF(mdlHRISOnePosnRDF, "N-TRIPLE");
 						logger.debug("\nHRISposnRDF link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
 					} //end if for hris posn rdf
 					mdlHRISPosnRDF.add(mdlHRISPersonInPosn);
@@ -486,7 +486,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 						try {
 							logger.debug("*HRIS position RDF BEFORE corrections* \n");
-							rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLES");
+							rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLE");
 
 							mdlHRISPosnRDF.add(mdlCorrectedHRISposnRdf);
 
@@ -502,7 +502,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 							}				
 							// this is all HRIS position information minus org links - 
 							logger.debug("\n*HRIS position RDF after corrections*");
-							rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLES");
+							rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLE");
 
 						} catch  ( Exception e ) {
 							logger.error("problem getting position subclass. Error", e );
@@ -526,7 +526,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					// if !match, then use org generated by D2R
 
 					logger.debug("**mdlVIVOPosnRDF:\n");
-					rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLES");
+					rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLE");
 					//TODO: this depends on rdf:type Position being in the model.  FIX THIS!
 					//mdlHRISPosnRDF.add(cm.getVivoOrgLinks(mdlVIVOPosnRDF));
 					//after VIVO org addition
@@ -546,7 +546,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					startTime = System.currentTimeMillis();
 					OntModel mdlHRISOrgRDF = cm.MakeNewModelCONSTRUCT(qStrmdlHRISOrgRDF); 	
 					logger.debug("Here's the list of D2R orgs attached to this position.");
-					rw.LogRDF(mdlHRISOrgRDF, "N-TRIPLES");
+					rw.LogRDF(mdlHRISOrgRDF, "N-TRIPLE");
 					logger.debug("\nHRISposn org link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
 
 					// TODO: somewhere in here, we need to make sure that core#organizationForPosition is in the VIVO model (if it exists)
@@ -597,7 +597,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 								}
 							}	
 							logger.debug("RDF for HRIS org.");
-							rw.LogRDF(mdlHRISOneOrgRDF, "N-TRIPLES");
+							rw.LogRDF(mdlHRISOneOrgRDF, "N-TRIPLE");
 							logger.debug("\nHRISOneOrg link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
 							logger.debug("\nwe have the person's VIVO URI:" + vivoPersonURIString);
 							logger.debug("we have the person' D2R URI:" + hrisURIString);
@@ -667,12 +667,12 @@ public class UpdateVivoPerson extends IteratorMethods {
 						retractionsForPerson.remove(testRetractions2);
 						if(retractionsForPerson.size() > 0) {
 							logger.info("***" + retractionsForPerson.size() + " PROFILE RETRACTIONS ***");  
-							retractionsForPerson.write(System.out, "NTRIPLES");   
+							retractionsForPerson.write(System.out, "N-TRIPLE");   
 							//PWT and others need to be checked against Posn Additions
 							// if they appear in both
 							cdm.retractModel(retractionsForPerson);
 							logger.trace(retractionsForPerson);
-							rw.LogRDF(cdm.getRetractions(), "N-TRIPLES");
+							rw.LogRDF(cdm.getRetractions(), "N-TRIPLE");
 
 						} else  {
 							logger.info("*** NO PROFILE RETRACTIONS ***");
@@ -685,10 +685,10 @@ public class UpdateVivoPerson extends IteratorMethods {
 						additionsForPerson.add(CorrectedHRISPersonRDF.difference(mdlOnePersonVIVORDF));
 						if(additionsForPerson.size() > 0) {
 							logger.info("*** " + additionsForPerson.size() + " PROFILE ADDITIONS ***");  
-							additionsForPerson.write(System.out, "NTRIPLES");                
+							additionsForPerson.write(System.out, "N-TRIPLE");                
 							cdm.addModel(additionsForPerson);
 							logger.trace(additionsForPerson);
-							rw.LogRDF(cdm.getAdditions(), "N-TRIPLES");
+							rw.LogRDF(cdm.getAdditions(), "N-TRIPLE");
 						} else  {
 							logger.info("*** NO PROFILE ADDITIONS ***");
 						}
@@ -717,9 +717,9 @@ public class UpdateVivoPerson extends IteratorMethods {
 					// take the difference between current and existing RDF models
 
 					logger.info("\n*HRIS position RDF BEFORE retract*");
-					rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLES");
+					rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLE");
 					logger.info("\n*VIVO position RDF BEFORE retract*");
-					rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLES");					
+					rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLE");					
 
 					
 					
@@ -729,7 +729,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						retractionsForPosition.add(mdlVivoPosnRDF.difference(mdlHRISPosnRDF));  
 						if(retractionsForPosition.size() > 0) {
 							logger.info("***" + retractionsForPosition.size() + " POSITION RETRACTIONS ***");  
-							retractionsForPosition.write(System.out, "N-TRIPLES");    
+							retractionsForPosition.write(System.out, "N-TRIPLE");    
 							cdm.retractModel(retractionsForPosition);
 							logger.trace(retractionsForPosition);
 						} else  {
@@ -745,7 +745,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						//additionsForPosition.add(mdlCorrectedVIVOposnRdf);
 						if(additionsForPosition.size() > 0) {
 							logger.info("*** " + additionsForPosition.size() + " POSITION ADDITIONS ***");  
-							additionsForPosition.write(System.out, "N-TRIPLES"); 
+							additionsForPosition.write(System.out, "N-TRIPLE"); 
 							cdm.addModel(additionsForPosition);
 							logger.trace(additionsForPosition);
 						} else  {

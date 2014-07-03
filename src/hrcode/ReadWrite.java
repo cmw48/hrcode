@@ -234,7 +234,7 @@ public class ReadWrite {
 	}
 	
 	public void WriteRdf(String filename, Model model, String RDFFormat) throws IOException  {
-		//now, use RDFWriter to write the VIVO emplIDs to N-TRIPLES file
+		//now, use RDFWriter to write the VIVO emplIDs to NTRIPLES file
 		FileOutputStream fstream = null;
 		try {
 			fstream = new FileOutputStream(filename);
@@ -260,11 +260,11 @@ public class ReadWrite {
 
 		try {
 
-			//logger.info(model);
+			logger.info(model);
 			model.write(System.out, "N-TRIPLE");
 		} catch (Exception e) { 
 			// do we have file exists/overwrite/backup logic to insert here?
-			logger.error("problem with write process?, Error" + e);
+			logger.error("problem with rdf logging process?, Error" + e);
 
 		} finally {
 

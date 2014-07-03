@@ -1,8 +1,8 @@
+#
 # qStrHRISGetPositionRDF.txt
 # updated 140623 - changed newhr > hr
 # queries HRIS for all details related to a position
-# TODO:  fix this to pull only KB2 rdf and adjust output
-# TODO: works?
+# TODO:  fix this to pull only HR Graph rdf and adjust output
 # changed 121003 to add end date where available
 # removed optionals 121115 and noted that enddate was 
 # construct, commented for now
@@ -17,16 +17,16 @@ PREFIX vivo: <http://vivoweb.org/ontology/core#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
 
 CONSTRUCT {
-      VARVALUE hr:company ?hrpPosnCompany .
-      VARVALUE hr:dLevelCode ?hrpDLevelCode .
-      VARVALUE hr:dLevelOrgName ?hrpDLevelOrgName .
-      VARVALUE hr:jobCode ?hrpJobCode .
-      VARVALUE hr:jobFamily ?hrpJobFamily .
-      VARVALUE hr:jobFamilyGroup ?hrpJobFamilyGroup .
-      VARVALUE hr:kfsOrgCode ?hrpKfsOrgCode .
-      VARVALUE hr:positionForJob ?hrpPositionForJob .
-      VARVALUE hr:supOrgCode ?hrpSupOrgCode .
-      VARVALUE vivo:positionInOrganization ?hrpPosnInOrganization .
+      ?job hr:company ?hrpPosnCompany .
+      ?job hr:dLevelCode ?hrpDLevelCode .
+      ?job hr:dLevelOrgName ?hrpDLevelOrgName .
+      ?job hr:jobCode ?hrpJobCode .
+      ?job hr:jobFamily ?hrpJobFamily .
+      ?job hr:jobFamilyGroup ?hrpJobFamilyGroup .
+      ?job hr:kfsOrgCode ?hrpKfsOrgCode .
+      ?job hr:positionForJob ?hrpPositionForJob .
+      ?job hr:supOrgCode ?hrpSupOrgCode .
+      ?job vivo:positionInOrganization ?hrpPosnInOrganization .
       ?job rdfs:label ?hrjLabel .
       ?job hr:jobId ?hrjJobId .
       ?job hr:jobInPosition ?hrjJobInPosition .
@@ -62,8 +62,6 @@ WHERE
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
       ?job vivo:jobForPerson ?hrjJobForPerson .
 
-      #OPTIONAL { VARVALUE  hr:primaryUnitCode ?primaryUnitCode . }
-      #OPTIONAL { VARVALUE  vivo:dateTimeInterval ?dti . }
-      #OPTIONAL { ?dti vivo:end ?end . }
+
      } 
 }
