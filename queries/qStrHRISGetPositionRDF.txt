@@ -3,9 +3,8 @@
 # updated 140623 - changed newhr > hr
 # queries HRIS for all details related to a position
 # TODO:  fix this to pull only HR Graph rdf and adjust output
-# changed 121003 to add end date where available
-# removed optionals 121115 and noted that enddate was 
-# construct, commented for now
+# TODO: this needs to exclude explicit links to organization.  We do that bit elsewhere.
+# DONE: commented links to non essential RDF
 # made primaryUnitCode optional 130303
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
@@ -20,18 +19,18 @@ CONSTRUCT {
       ?job hr:company ?hrpPosnCompany .
       ?job hr:dLevelCode ?hrpDLevelCode .
       ?job hr:dLevelOrgName ?hrpDLevelOrgName .
-      ?job hr:jobCode ?hrpJobCode .
+      #?job hr:jobCode ?hrpJobCode .
       ?job hr:jobFamily ?hrpJobFamily .
       ?job hr:jobFamilyGroup ?hrpJobFamilyGroup .
-      ?job hr:kfsOrgCode ?hrpKfsOrgCode .
-      ?job hr:positionForJob ?hrpPositionForJob .
+      #?job hr:kfsOrgCode ?hrpKfsOrgCode .
+      #?job hr:positionForJob ?hrpPositionForJob .
       ?job hr:supOrgCode ?hrpSupOrgCode .
-      ?job vivo:positionInOrganization ?hrpPosnInOrganization .
+      #?job vivo:positionInOrganization ?hrpPosnInOrganization .
       ?job rdfs:label ?hrjLabel .
-      ?job hr:jobId ?hrjJobId .
-      ?job hr:jobInPosition ?hrjJobInPosition .
+      #?job hr:jobId ?hrjJobId .
+      #?job hr:jobInPosition ?hrjJobInPosition .
       ?job hr:primaryJob ?hrjPrimaryJob .
-      ?job hr:startDate ?hrjStartDate .
+      #?job hr:startDate ?hrjStartDate .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
       ?job vivo:jobForPerson ?hrjJobForPerson .
 }
