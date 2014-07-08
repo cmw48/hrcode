@@ -53,6 +53,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 	private final Logger logger = Logger.getLogger(this.getClass());
 
 	public String titleMapFile = IngestMain.fileRDFPath + "jobtitles5.csv";
+	public String individualRdfPath = IngestMain.fileRDFPath +"addretfiles/";
 	//CumulativeDeltaModeler cdm = new CumulativeDeltaModeler();
 
 
@@ -668,12 +669,13 @@ public class UpdateVivoPerson extends IteratorMethods {
 						if(retractionsForPerson.size() > 0) {
 							logger.info("***" + retractionsForPerson.size() + " PROFILE RETRACTIONS ***");  
 							retractionsForPerson.write(System.out, "N-TRIPLE");   
-							rw.WriteRdf(vivoPersonNetId+".ret.nt", retractionsForPerson, "N-TRIPLE");
+							rw.WriteRdf(individualRdfPath + vivoPersonNetId + ".ret.nt", retractionsForPerson, "N-TRIPLE");
 							//PWT and others need to be checked against Posn Additions
 							// if they appear in both
 							cdm.retractModel(retractionsForPerson);
 							logger.trace(retractionsForPerson);
-							rw.LogRDF(cdm.getRetractions(), "N-TRIPLE");
+							// don't show all retracts/adds here
+							// rw.LogRDF(cdm.getRetractions(), "N-TRIPLE");
 
 						} else  {
 							logger.info("*** NO PROFILE RETRACTIONS ***");
@@ -687,10 +689,11 @@ public class UpdateVivoPerson extends IteratorMethods {
 						if(additionsForPerson.size() > 0) {
 							logger.info("*** " + additionsForPerson.size() + " PROFILE ADDITIONS ***");  
 							additionsForPerson.write(System.out, "N-TRIPLE");      
-							rw.WriteRdf(vivoPersonNetId+".add.nt", additionsForPerson, "N-TRIPLE");
+							rw.WriteRdf(individualRdfPath + vivoPersonNetId + ".add.nt", additionsForPerson, "N-TRIPLE");
 							cdm.addModel(additionsForPerson);
 							logger.trace(additionsForPerson);
-							rw.LogRDF(cdm.getAdditions(), "N-TRIPLE");
+							//dont' show all retracts/adds here
+							//rw.LogRDF(cdm.getAdditions(), "N-TRIPLE");
 						} else  {
 							logger.info("*** NO PROFILE ADDITIONS ***");
 						}
@@ -732,6 +735,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						if(retractionsForPosition.size() > 0) {
 							logger.info("***" + retractionsForPosition.size() + " POSITION RETRACTIONS ***");  
 							retractionsForPosition.write(System.out, "N-TRIPLE");    
+							rw.WriteRdf(individualRdfPath + vivoPersonNetId + ".add.nt", additionsForPerson, "N-TRIPLE");
 							cdm.retractModel(retractionsForPosition);
 							logger.trace(retractionsForPosition);
 						} else  {
@@ -748,6 +752,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						if(additionsForPosition.size() > 0) {
 							logger.info("*** " + additionsForPosition.size() + " POSITION ADDITIONS ***");  
 							additionsForPosition.write(System.out, "N-TRIPLE"); 
+							rw.WriteRdf(individualRdfPath + vivoPersonNetId + ".add.nt", additionsForPerson, "N-TRIPLE");
 							cdm.addModel(additionsForPosition);
 							logger.trace(additionsForPosition);
 						} else  {

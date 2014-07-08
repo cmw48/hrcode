@@ -261,7 +261,8 @@ public class ReadWrite {
 		try {
 
 			logger.info(model);
-			model.write(System.out, "N-TRIPLE");
+			//logger.info("IS THIS IT?");
+			//model.write(System.out, "N-TRIPLE");
 		} catch (Exception e) { 
 			// do we have file exists/overwrite/backup logic to insert here?
 			logger.error("problem with rdf logging process?, Error" + e);
