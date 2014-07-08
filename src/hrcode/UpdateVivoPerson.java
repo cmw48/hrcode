@@ -668,6 +668,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						if(retractionsForPerson.size() > 0) {
 							logger.info("***" + retractionsForPerson.size() + " PROFILE RETRACTIONS ***");  
 							retractionsForPerson.write(System.out, "N-TRIPLE");   
+							rw.WriteRdf(vivoPersonNetId+".ret.nt", retractionsForPerson, "N-TRIPLE");
 							//PWT and others need to be checked against Posn Additions
 							// if they appear in both
 							cdm.retractModel(retractionsForPerson);
@@ -685,7 +686,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 						additionsForPerson.add(CorrectedHRISPersonRDF.difference(mdlOnePersonVIVORDF));
 						if(additionsForPerson.size() > 0) {
 							logger.info("*** " + additionsForPerson.size() + " PROFILE ADDITIONS ***");  
-							additionsForPerson.write(System.out, "N-TRIPLE");                
+							additionsForPerson.write(System.out, "N-TRIPLE");      
+							rw.WriteRdf(vivoPersonNetId+".add.nt", additionsForPerson, "N-TRIPLE");
 							cdm.addModel(additionsForPerson);
 							logger.trace(additionsForPerson);
 							rw.LogRDF(cdm.getAdditions(), "N-TRIPLE");
