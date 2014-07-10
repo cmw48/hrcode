@@ -1,4 +1,3 @@
-
 #
 # qStrHRISmatchVIVOnetId
 # updated 140623 - modified to comment out class comparison

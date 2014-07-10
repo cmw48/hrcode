@@ -7,8 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 import org.apache.log4j.Logger;
 
@@ -256,20 +258,23 @@ public class ReadWrite {
 	}
 	
 	public void LogRDF(Model model, String RDFFormat) throws IOException  {
-		//now, use RDFWriter to write the VIVO emplIDs to N-TRIPLES file
-
+	
+        StringWriter strw = new StringWriter();
+		
 		try {
-
-			logger.info(model);
-			//logger.info("IS THIS IT?");
-			//model.write(System.out, "N-TRIPLE");
+			logger.trace(model.write(System.out, "N-TRIPLE"));
+			model.write(strw, "N-TRIPLE");
+			logger.trace(strw);
 		} catch (Exception e) { 
 			// do we have file exists/overwrite/backup logic to insert here?
 			logger.error("problem with rdf logging process?, Error" + e);
 
 		} finally {
-
-		}
+			// close filestream
+			if (strw != null) {
+				strw.flush();
+				strw.close();
+	    	}
+     	}
 	}
-	
 }

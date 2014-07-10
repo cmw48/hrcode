@@ -25,7 +25,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 import org.skife.csv.CSVReader;
 import org.skife.csv.SimpleReader; 
 
-public class CorrectHrData {
+public class CopyOfCorrectHrData {
 	
 	public static final Property PRIMARY_JOBCODE_LDESC = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc");
 	public static final Property PRIMARY_WORKING_TITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle");
@@ -74,7 +74,7 @@ public class CorrectHrData {
 		// see if vivoperson exists in hris data (if not, why not? are they CCE, or non-exempt?)
 		// find a way to add prettytitle to model and/or update hrisWorkingTitle  ( DONE, but remove is not working so well.)
 		// compare hrisWorkingTitle and vivoWorkingTitle, if no match, use hrisWorkingTitle
-
+		// fix label comma space problem
 
 		Model CorrectedHRISPersonRDF = ModelFactory.createDefaultModel();
 
@@ -107,34 +107,28 @@ public class CorrectHrData {
 				manuallyCurated = true;
 			}
 
+			// check to see if we have a person as listed flag set for this person
+			if (vivoIndiv.hasRDFType(PERSON_AS_LISTED)) {
+				logger.info("Person As Listed!");
+				manuallyCurated = true;
+			}
+
+
 			Resource hrisURI = mdlOnePersonHRISRDF.listStatements().nextStatement().getSubject();
 
 			// fill up corrected HRIS model with all statements from original HRIS model
-			// no longer renaming all statement subjects
-			//TODO: determine if we still need to copy HRIS statements to a new model...
 			StmtIterator hrisIter = mdlOnePersonHRISRDF.listStatements();
 			while (hrisIter.hasNext()) {
 				Statement stmt      = hrisIter.nextStatement();  // get next statement
 				Resource  subject   = stmt.getSubject();     // get the subject
 				Property  predicate = stmt.getPredicate();   // get the predicate
 				RDFNode   object    = stmt.getObject();      // get the object
-				//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
-				CorrectedHRISPersonRDF.add(subject, predicate, object);
+				CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
+			}
 
 			// with subject (hrisURI), create OntResource with all statements for individual
 			OntResource hrisIndiv = mdlOnePersonHRISRDF.getOntResource(hrisURI);
-			} 
-		}catch  ( Exception e ) {
-			
-	
 
-				logger.error("Rats.  Something happened while looking at HRIS person statements. Error" , e );
-			} finally {
-				logger.info("done with statements for " + vivoIndiv + ".");
-			}
-			return CorrectedHRISPersonRDF;
-	}
-			/*TODO REMOVE PRETTY TITLE CHECK?
 			String hrisWorkingTitle = rw.getLiteralValue(hrisIndiv, WORKING_TITLE);
 			String prettyTitle = this.getPrettyTitle(hrisWorkingTitle);
 
@@ -174,12 +168,150 @@ public class CorrectHrData {
 				CorrectedHRISPersonRDF.add(vivoIndiv, WORKING_TITLE, prettyTitle);
 				//ignoreAddRetract
 			} // end else 
-			
+
+
+			// always fix label
+
+			String hrisLabel = rw.getLiteralValue(hrisIndiv, RDFS.label);
+			// change this to use the preferred name properties!!!
+			String hrisPrefName = rw.getLiteralValue(hrisIndiv, HR_PREF_NAME);
+			if (hrisPrefName != null) {
+				if (hrisPrefName.equals("")) { 
+					logger.info("hrisPrefName for " + hrisLabel + " blank and not null.");
+							
+				} else {
+					if (hrisLabel.equals(hrisPrefName)) {
+						logger.debug("label  " + hrisLabel + " and prefName " + hrisPrefName + " are identical.");
+					} else {
+				        logger.info("changing label " + hrisLabel + " to hrisPrefName " + hrisPrefName);
+				        hrisLabel = hrisPrefName;
+					}// end prefname check
+
+				// TODO: output all preferred name changes to review log
+				}
+			}
+			String newLabel = null;
+			//test vivoLabel for unicode
+			if (containsUnicode(vivoLabel)) {
+				logger.info("VIVO label contains unicode!  Don't overwrite with HRIS label.");
+				try {
+					RDFNode hrisLabelNode =  hrisIndiv.getPropertyValue(RDFS.label);
+					if (hrisLabelNode != null) {
+					//CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisIndiv.getPropertyValue(RDFS.label));
+					CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisLabelNode);
+					CorrectedHRISPersonRDF.add(vivoIndiv, RDFS.label, vivoLabel);
+					} else {
+						logger.info("What's wrong with vivoLabel" + vivoLabel + " or hrisLabeL : " + hrisLabel );
+					}
+				} catch ( Exception e ) {
+					logger.error("problem correcting HRIS label RDF. Error" , e );
+				} finally {
+
+				}
+			} else {
+
+				String delimiter = "\\,";
+				String[] labelParts;
+				newLabel = "";
+				labelParts = hrisLabel.split(delimiter);
+				int firstPartLength = labelParts[0].length();
+				if (firstPartLength >= 3) {
+				    logger.info(labelParts[0].substring((firstPartLength-3), firstPartLength));
+				
+				     if (labelParts[0].substring((firstPartLength-3), firstPartLength).equals("Esq")) {
+				    	logger.info("****!!!! FOUND ESQ !!!!****");
+				     } else {
+				     	logger.debug(labelParts[0]);
+		     		}
+				
+			     	if (labelParts[1].substring(0,1).equals(" ")) {
+		     			newLabel = labelParts[0] + "," + labelParts[1];			
+	      			    logger.info("HRIS label not modified.");
+	      			} else {
+	     			    newLabel = labelParts[0] + ", " + labelParts[1];	
+     				    logger.info("HRIS label modified."); 
+    				    Map<String, String> labelHash = correctLabel(hrisLabel);  
+      				    newLabel = labelHash.get("newLabel");
+		    	    }
+				} else {
+					logger.info("Label part too short to contain a suffix");
+				}
+			}
+
+			//System.out.print(strSubject);
+			//System.out.print(" " + strPredicate + " ");
+			//System.out.print(" \"" + newLabel + "\"");
+			//System.out.print("\n\n");
+			//System.out.print(" \"" + strObject + "\"");
+			try {
+
+				RDFNode hrisLabelNode =  hrisIndiv.getPropertyValue(RDFS.label);
+				logger.info("hrisLabelNode: " + hrisLabelNode);
+				if (hrisLabelNode != null) {
+					
+					//CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisIndiv.getPropertyValue(RDFS.label));
+					CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisLabelNode);
+					
+					//CorrectedHRISPersonRDF.add(vivoIndiv, RDFS.label, newLabel);
+					CorrectedHRISPersonRDF.add(vivoIndiv, RDFS.label, vivoLabel);
+				} else {
+					logger.info("What's wrong with vivoLabel" + vivoLabel + " or hrisLabeL : " + hrisLabel );
+				}
+			} catch ( Exception e ) {
+				logger.error("problem correcting HRIS label RDF. Error" , e );
+			} finally {
+
+			}
+			 
+			try {
+		    String hrisFirstName = hrisIndiv.getPropertyValue(FIRST_NAME).toString();
+			  if (hrisFirstName.equals("") || hrisFirstName == null) {
+			      logger.info("NO FIRST NAME IN HR.");
+				  //CorrectedHRISPersonRDF.add(vivoIndiv, FIRST_NAME, vivoFirstName);
+			    }	  
+			    String hrisLastName = hrisIndiv.getPropertyValue(LAST_NAME).toString();
+			    if (hrisLastName.equals("") || hrisLastName == null) {
+				      logger.info("NO LAST NAME IN HR.");
+					//  CorrectedHRISPersonRDF.add(vivoIndiv, LAST_NAME, vivoLastName);
+				    }	 
+ 
+			} catch (Exception e) {
+				logger.error ( "hrisFirst is null");
+			} finally {
+
+				
+			}
+
+			// TODO Consolidate these in a more efficient and effective method
+			if (containsUnicode(vivoFirstName)) {
+				logger.info("VIVO first name contains unicode!  Don't overwrite with HRIS first name.");
+				try {
+					CorrectedHRISPersonRDF.remove(vivoIndiv, FIRST_NAME, hrisIndiv.getPropertyValue(FIRST_NAME));
+					CorrectedHRISPersonRDF.add(vivoIndiv, FIRST_NAME, vivoFirstName);
+				} catch ( Exception e ) {
+					logger.error("problem correcting HRIS firstname RDF. Error" , e );
+				} finally {
+
+				}
+			}
+ 
+			if (containsUnicode(vivoLastName)) {
+				logger.info("VIVO last name contains unicode!  Don't overwrite with HRIS last name.");
+				try {
+					CorrectedHRISPersonRDF.remove(vivoIndiv, LAST_NAME, hrisIndiv.getPropertyValue(LAST_NAME));
+					CorrectedHRISPersonRDF.add(vivoIndiv, LAST_NAME, vivoLastName);
+				} catch ( Exception e ) {
+					logger.error("problem correcting HRIS lastname RDF. Error" , e );
+				} finally {
+
+				}
+			}
+
+
 			// all statements: 
 			//Resource renameIt = CorrectedHRISPersonRDF.getResource(subject.toString());
 			//ResourceUtils.renameResource( renameIt, VIVOmatchURI);
-			}
-		
+
 		} catch  ( Exception e ) {
 
 			logger.error("Rats.  Something happened while looking at HRIS person statements. Error" , e );
@@ -187,9 +319,9 @@ public class CorrectHrData {
 			logger.info("done with statements for " + vivoIndiv + ".");
 		}
 		return CorrectedHRISPersonRDF;
+
 	}
 	
-	// REMOVE PRETTY TITLE
 	public String getPrettyTitle(String hrisWorkingTitle) throws Exception {	
 
 		String prettyTitleQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrPrettyTitle.txt");
@@ -213,9 +345,8 @@ public class CorrectHrData {
 			logger.debug("changing " + hrisWorkingTitle + " to " + prettyTitle);
 		}
 		return prettyTitle;
-	
 	}
-*/
+	
 	private static boolean containsUnicode(String s) {
 		char[] asCharArr = s.toCharArray();
 		for(int i=0;i <asCharArr.length;i++) {
@@ -226,7 +357,45 @@ public class CorrectHrData {
 		return false;   
 	}
 	
-	
+	public Map<String, String> correctLabel(String correctThisLabel) throws Exception {
+		// first, split on the comma
+		String delimiterComma = "\\,";
+		String[] labelParts;
+		String[] leftSideParts;
+		String[] rightSideParts;
+
+		labelParts = correctThisLabel.split(delimiterComma);
+		// split label at comma 
+
+
+		// the first thing to the right is firstName
+		// anything with a delimiter after firstName should be middleName
+		String leftSide = labelParts[0];
+		// everything to the right is lastname and suffix
+		String rightSide = labelParts[1];
+
+		//setup a hash to return all the parts we find
+		Map<String, String> result = new HashMap<String, String>();
+
+		if (rightSide.substring(0,1).equals(" ")) {
+			// check to see if string already has a space between comma and right part
+			result.put("newLabel", leftSide + "," + rightSide);			
+			//logger.info("HRIS label not modified.");
+		} else {
+			// if not, add the space in the final label
+			result.put("newLabel", leftSide + ", " + rightSide);
+			//logger.info("HRIS label modified.");
+		}
+		String delimiterSpace = "\\ ";
+		leftSideParts = leftSide.split(delimiterSpace);
+		rightSideParts = rightSide.split(delimiterSpace);
+		logger.debug("leftSide has " + leftSideParts.length + " parts.");
+		logger.debug("rightSide has " + rightSideParts.length + " parts.");		
+
+		return result;
+		
+
+	}
 	
 	public boolean isSpecialFacultyTitle(String jobtitle) {
 		return (
