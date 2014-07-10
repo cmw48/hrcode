@@ -1,0 +1,71 @@
+<http://vivo.cornell.edu/individual/individual22585> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/individual22585> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn-ggp1-00135256> .
+<http://vivo.cornell.edu/individual/xw93> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/xw93> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn-xw93-00174835> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org2057575382_1> <http://vivoweb.org/ontology/core#relatedBy> <http://vivo.cornell.edu/individual/posn-ggp1-00135256> .
+<http://vivo.cornell.edu/individual/individual253> <http://vivoweb.org/ontology/core#relatedBy> <http://vivo.cornell.edu/individual/posn-ahb3-00103745> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000002> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyPosition> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000020> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#PrimaryPosition> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Relationship> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000001> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivoweb.org/ontology/core#relates> <http://vivo.cornell.edu/individual/individual253> .
+<http://vivo.cornell.edu/individual/individual416> <http://vivoweb.org/ontology/core#relatedBy> <http://vivo.cornell.edu/individual/posn-mct6-00112810> .
+<http://vivo.cornell.edu/individual/individual22395> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn-hth3-00120448> .
+<http://vivo.cornell.edu/individual/individual22395> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/individual467> <http://vivoweb.org/ontology/core#relatedBy> <http://vivo.cornell.edu/individual/posn-ahb3-00145534> .
+<http://vivo.cornell.edu/individual/individual4902> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn-ahb3-00103745> .
+<http://vivo.cornell.edu/individual/individual4902> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn-ahb3-00145534> .
+<http://vivo.cornell.edu/individual/individual4902> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.library.cornell.edu/ns/abox/hri2#org712399624> <http://vivoweb.org/ontology/core#relatedBy> <http://vivo.cornell.edu/individual/posn-xw93-00174835> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000001> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000020> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivoweb.org/ontology/core#relates> <http://vivo.library.cornell.edu/ns/abox/hri2#org712399624> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Relationship> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/2000/01/rdf-schema#label> "Visiting Scholar" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivoweb.org/ontology/core#hrJobTitle> "Visiting Scholar" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#PrimaryPosition> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000002> .
+<http://vivo.cornell.edu/individual/individual23869> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/individual23869> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn-mct6-00112810> .
+<http://vivo.cornell.edu/individual/individual5303> <http://vivoweb.org/ontology/core#relatedBy> <http://vivo.cornell.edu/individual/posn-hth3-00120448> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Relationship> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000002> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000001> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#PrimaryPosition> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000020> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonFacultyAcademicPosition> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivoweb.org/ontology/core#relates> <http://vivo.library.cornell.edu/ns/abox/hri2#org2057575382_1> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivoweb.org/ontology/core#hrJobTitle> "Senior Lecturer" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/2000/01/rdf-schema#label> "Associate Professor" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivoweb.org/ontology/core#relates> <http://vivo.cornell.edu/individual/individual5303> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyPosition> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivoweb.org/ontology/core#hrJobTitle> "Associate Professor" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000001> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000002> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Relationship> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000020> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#PrimaryPosition> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Relationship> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000001> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#PrimaryPosition> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000020> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000002> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivoweb.org/ontology/core#relates> <http://vivo.cornell.edu/individual/individual416> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#NonAcademicPosition> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivoweb.org/ontology/core#hrJobTitle> "Research Support Specialist II" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000020> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WdPosition> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#FacultyAdministrativePosition> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Relationship> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivoweb.org/ontology/core#hrJobTitle> "Associate Vice Provost" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000001> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.obolibrary.org/obo/BFO_0000002> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivoweb.org/ontology/core#relates> <http://vivo.cornell.edu/individual/individual467> .

@@ -1,1 +1,141 @@
-<http://vivo.cornell.edu/individual/dmc66> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00137847> .
+<http://vivo.cornell.edu/individual/individual22395> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00120448> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamilyGroup> "Academic Non-Faculty" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#supOrgCode> "2400" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivoweb.org/ontology/core#hrJobTitle> "Lecturer Sr" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#company> "END" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelOrgName> "SHA -Associate Dean for Academic Affairs" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelCode> "2405" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJob> "P" .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivoweb.org/ontology/core#jobForPerson> <http://vivo.cornell.edu/individual/ggp1> .
+<http://vivo.cornell.edu/individual/posn-ggp1-00135256> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamily> "Teaching" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredNameString> "Mary C. Thurn" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredSocialSuffix> "" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleInitial> "C" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleName> "Catherine" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredLastName> "Thurn" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredFirstName> "Mary" .
+<http://vivo.cornell.edu/individual/n1698320> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#legalNameString> "Mary Catherine Thurn" .
+<http://vivo.cornell.edu/individual/n7418872> <http://purl.obolibrary.org/obo/ARG_2000029> <http://vivo.cornell.edu/individual/ahb3> .
+<http://vivo.cornell.edu/individual/wdorgPM-00135056> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#DeptID> "2405" .
+<http://vivo.cornell.edu/individual/wdorgPM-00135056> <http://vivo.library.cornell.edu/ns/0.1#departmentHRcode> "2405" .
+<http://vivo.cornell.edu/individual/wdorgPM-00135056> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<http://vivo.cornell.edu/individual/wdorgPM-00135056> <http://www.w3.org/2000/01/rdf-schema#label> "Associate Dean for Academic Affairs" .
+<http://vivo.cornell.edu/individual/n6343564> <http://purl.obolibrary.org/obo/ARG_2000029> <http://vivo.cornell.edu/individual/mct6> .
+<http://vivo.cornell.edu/individual/ahb3> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1004598" .
+<http://vivo.cornell.edu/individual/ahb3> <http://www.w3.org/2000/01/rdf-schema#label> "Bass, Andrew H." .
+<http://vivo.cornell.edu/individual/ahb3> <http://purl.obolibrary.org/obo/ARG_2000028> <http://vivo.cornell.edu/individual/n7418872> .
+<http://vivo.cornell.edu/individual/ahb3> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "ahb3" .
+<http://vivo.cornell.edu/individual/wdorgHC-00142748> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#DeptID> "3456" .
+<http://vivo.cornell.edu/individual/wdorgHC-00142748> <http://vivo.library.cornell.edu/ns/0.1#departmentHRcode> "3456" .
+<http://vivo.cornell.edu/individual/wdorgHC-00142748> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<http://vivo.cornell.edu/individual/wdorgHC-00142748> <http://www.w3.org/2000/01/rdf-schema#label> "Weill Inst for Cell & Mol Bio HC" .
+<http://vivo.cornell.edu/individual/wdorgPM-00148276> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#DeptID> "2181" .
+<http://vivo.cornell.edu/individual/wdorgPM-00148276> <http://vivo.library.cornell.edu/ns/0.1#departmentHRcode> "2181" .
+<http://vivo.cornell.edu/individual/wdorgPM-00148276> <http://www.w3.org/2000/01/rdf-schema#label> "Neurobiology & Behavior DEPT" .
+<http://vivo.cornell.edu/individual/wdorgPM-00148276> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<http://vivo.cornell.edu/individual/ggp1> <http://purl.obolibrary.org/obo/ARG_2000028> <http://vivo.cornell.edu/individual/n1274801> .
+<http://vivo.cornell.edu/individual/ggp1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "ggp1" .
+<http://vivo.cornell.edu/individual/ggp1> <http://www.w3.org/2000/01/rdf-schema#label> "Pezzotti, Giuseppe G." .
+<http://vivo.cornell.edu/individual/ggp1> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1008961" .
+<http://vivo.cornell.edu/individual/n5393515> <http://purl.obolibrary.org/obo/ARG_2000029> <http://vivo.cornell.edu/individual/hth3> .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredNameString> "Giuseppe G. Pezzotti" .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleName> "G B" .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#legalNameString> "Giuseppe G B Pezzotti" .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredSocialSuffix> "" .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredLastName> "Pezzotti" .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredFirstName> "Giuseppe" .
+<http://vivo.cornell.edu/individual/n4621956> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleInitial> "G" .
+<http://vivo.cornell.edu/individual/hth3> <http://www.w3.org/2000/01/rdf-schema#label> "Hodes, Harold T." .
+<http://vivo.cornell.edu/individual/hth3> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1006885" .
+<http://vivo.cornell.edu/individual/hth3> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "hth3" .
+<http://vivo.cornell.edu/individual/hth3> <http://purl.obolibrary.org/obo/ARG_2000028> <http://vivo.cornell.edu/individual/n5393515> .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleName> "" .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredSocialSuffix> "" .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#legalNameString> "Xiaomu Wei" .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredLastName> "Wei" .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredNameString> "Xiaomu Wei" .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleInitial> "" .
+<http://vivo.cornell.edu/individual/n8581175> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredFirstName> "Xiaomu" .
+<http://vivo.cornell.edu/individual/n1274801> <http://purl.obolibrary.org/obo/ARG_2000029> <http://vivo.cornell.edu/individual/ggp1> .
+<http://vivo.cornell.edu/individual/individual4902> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00103745> .
+<http://vivo.cornell.edu/individual/individual4902> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00145534> .
+<http://vivo.cornell.edu/individual/mct6> <http://www.w3.org/2000/01/rdf-schema#label> "Thurn, Mary C." .
+<http://vivo.cornell.edu/individual/mct6> <http://purl.obolibrary.org/obo/ARG_2000028> <http://vivo.cornell.edu/individual/n6343564> .
+<http://vivo.cornell.edu/individual/mct6> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1123703" .
+<http://vivo.cornell.edu/individual/mct6> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "mct6" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelCode> "0144" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivoweb.org/ontology/core#jobForPerson> <http://vivo.cornell.edu/individual/mct6> .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivoweb.org/ontology/core#hrJobTitle> "Research Support Spec II" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#company> "STA" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelOrgName> "CALS Horticulture" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamilyGroup> "Staff" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#supOrgCode> "0100" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJob> "P" .
+<http://vivo.cornell.edu/individual/posn-mct6-00112810> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamily> "Academic Support" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamily> "Academic Administrative" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://www.w3.org/2000/01/rdf-schema#label> "Sr. Associate Vice Provost for Research" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivoweb.org/ontology/core#jobForPerson> <http://vivo.cornell.edu/individual/ahb3> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJob> "S" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamilyGroup> "Faculty" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelOrgName> "Office of the Vice Provost for Research" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivoweb.org/ontology/core#hrJobTitle> "Vice Provost Assoc" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelCode> "3444" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#supOrgCode> "3400" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00145534> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#company> "END" .
+<http://vivo.cornell.edu/individual/wdorgPM-00121780> <http://www.w3.org/2000/01/rdf-schema#label> "VP Research" .
+<http://vivo.cornell.edu/individual/wdorgPM-00121780> <http://vivo.library.cornell.edu/ns/0.1#departmentHRcode> "3448" .
+<http://vivo.cornell.edu/individual/wdorgPM-00121780> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<http://vivo.cornell.edu/individual/wdorgPM-00121780> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#DeptID> "3448" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredNameString> "Harold T. Hodes" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredLastName> "Hodes" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#legalNameString> "Harold Theodore Hodes" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleInitial> "T" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredSocialSuffix> "" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleName> "Theodore" .
+<http://vivo.cornell.edu/individual/n4025444> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredFirstName> "Harold" .
+<http://vivo.cornell.edu/individual/individual23869> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00112810> .
+<http://vivo.cornell.edu/individual/xw93> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00174835> .
+<http://vivo.cornell.edu/individual/wdorgPM-00112477> <http://www.w3.org/2000/01/rdf-schema#label> "Horticulture SUBD" .
+<http://vivo.cornell.edu/individual/wdorgPM-00112477> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#DeptID> "0144" .
+<http://vivo.cornell.edu/individual/wdorgPM-00112477> <http://vivo.library.cornell.edu/ns/0.1#departmentHRcode> "0144" .
+<http://vivo.cornell.edu/individual/wdorgPM-00112477> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamily> "Professorial" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamilyGroup> "Faculty" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#company> "END" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelCode> "2184" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://www.w3.org/2000/01/rdf-schema#label> "Prof Assoc" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#supOrgCode> "2100" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelOrgName> "Philosophy" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJob> "P" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivoweb.org/ontology/core#hrJobTitle> "Prof Assoc" .
+<http://vivo.cornell.edu/individual/posn-hth3-00120448> <http://vivoweb.org/ontology/core#jobForPerson> <http://vivo.cornell.edu/individual/hth3> .
+<http://vivo.cornell.edu/individual/wdorgPM-00135554> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#DeptID> "2184" .
+<http://vivo.cornell.edu/individual/wdorgPM-00135554> <http://vivo.library.cornell.edu/ns/0.1#departmentHRcode> "2184" .
+<http://vivo.cornell.edu/individual/wdorgPM-00135554> <http://www.w3.org/2000/01/rdf-schema#label> "Philosophy SUBD" .
+<http://vivo.cornell.edu/individual/wdorgPM-00135554> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#company> "END" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#supOrgCode> "2100" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamilyGroup> "Faculty" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJob> "P" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamily> "Professorial" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivoweb.org/ontology/core#jobForPerson> <http://vivo.cornell.edu/individual/ahb3> .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelCode> "2181" .
+<http://vivo.cornell.edu/individual/posn-ahb3-00103745> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelOrgName> "Neurobiology and Behavior" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredNameString> "Andrew H. Bass" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleName> "Howard" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredSocialSuffix> "" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleInitial> "H" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#legalNameString> "Andrew Howard Bass" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredLastName> "Bass" .
+<http://vivo.cornell.edu/individual/n9102622> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredFirstName> "Andrew" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamilyGroup> "Academic Oth" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#jobFamily> "Academic Other" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJob> "P" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelCode> "3456" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#company> "END" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivoweb.org/ontology/core#jobForPerson> <http://vivo.cornell.edu/individual/xw93> .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#supOrgCode> "3400" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#dLevelOrgName> "Weill Institute" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://www.w3.org/2000/01/rdf-schema#label> "Scholar Visit" .
+<http://vivo.cornell.edu/individual/posn-xw93-00174835> <http://vivoweb.org/ontology/core#hrJobTitle> "Scholar Visit" .
+<http://vivo.cornell.edu/individual/individual22585> <http://vivoweb.org/ontology/core#personInPosition> <http://vivo.cornell.edu/individual/posn00135256> .
