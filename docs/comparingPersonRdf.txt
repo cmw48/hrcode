@@ -1,0 +1,30 @@
+<http://vivo.cornell.edu/individual/n6363375> <http://www.w3.org/2006/vcard/ns#email> "bmb43@cornell.edu" .
+<http://vivo.cornell.edu/individual/n6363375> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/vcard/ns#Email> .
+<http://vivo.cornell.edu/individual/n9965877> <http://purl.obolibrary.org/obo/ARG_2000029> <http://vivo.cornell.edu/individual/bmb43> .
+<http://vivo.cornell.edu/individual/n9965877> <http://www.w3.org/2006/vcard/ns#hasName> <http://vivo.cornell.edu/individual/n8289546> .
+<http://vivo.cornell.edu/individual/n9965877> <http://www.w3.org/2006/vcard/ns#hasEmail> <http://vivo.cornell.edu/individual/n6363375> .
+<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1835551" .
+<http://vivo.cornell.edu/individual/bmb43> <http://purl.obolibrary.org/obo/ARG_2000028> <http://vivo.cornell.edu/individual/n9965877> .
+NO <http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Visiting Lecturer" .
+<http://vivo.cornell.edu/individual/bmb43> <http://www.w3.org/2000/01/rdf-schema#label> "Bienvenue, Breton M." .
+<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "bmb43" .
+<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle> "Visiting Lecturer" .
+<http://vivo.cornell.edu/individual/n8289546> <http://www.w3.org/2006/vcard/ns#familyName> "Bienvenue" .
+<http://vivo.cornell.edu/individual/n8289546> <http://www.w3.org/2006/vcard/ns#givenName> "Breton" .
+<http://vivo.cornell.edu/individual/n8289546> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/vcard/ns#Name> .
+
+0 PrimaryUnitId <http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#Unitid> "CAS" .
+? <http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredNameString> "Breton M. Bienvenue" .
++ <http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredLastName> "Bienvenue" .
++<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryUnitCode> "2100" .
++<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleInitial> "M" .
+?<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredSocialSuffix> "" .
+?<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredMiddleName> "M." .
+V<http://vivo.cornell.edu/individual/bmb43> <http://xmlns.com/foaf/0.1/firstName> "Breton" .
+OK<http://vivo.cornell.edu/individual/bmb43> <http://www.w3.org/2000/01/rdf-schema#label> "Bienvenue, Breton M." .
+OK<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId> "1835551" .
+OK<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId> "bmb43" .
++<http://vivo.cornell.edu/individual/bmb43> <http://xmlns.com/foaf/0.1/lastName> "Bienvenue" .
+0 primaryWorkingTitle <http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle> "Temp Serv Prof Exempt" .
+?<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#legalNameString> "Breton M. Bienvenue" .
++<http://vivo.cornell.edu/individual/bmb43> <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#preferredFirstName> "Breton" .

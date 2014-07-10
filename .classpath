@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="dist/hr.jar"/>
 	<classpathentry kind="lib" path="dist/lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="dist/lib/aduna-appbase-core-3.4.jar"/>
@@ -63,7 +64,7 @@
 	<classpathentry kind="lib" path="dist/lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jdom.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jena-2.6.4-tests.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jena-2.6.4.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jena-2.6.4.jar" sourcepath="lib/jena-2.6.4.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jga-0.8.jar"/>
 	<classpathentry kind="lib" path="dist/lib/jgrapht-jdk1.5.jar"/>
 	<classpathentry kind="lib" path="dist/lib/joda-time-1.4.jar"/>
@@ -73,7 +74,7 @@
 	<classpathentry kind="lib" path="dist/lib/jtidy-8.0-20060801.124516-2.jar"/>
 	<classpathentry kind="lib" path="dist/lib/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="dist/lib/ldap.jar"/>
-	<classpathentry kind="lib" path="dist/lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="dist/lib/log4j-1.2.14.jar" sourcepath="lib/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="dist/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="dist/lib/mail-1.4.jar"/>
 	<classpathentry kind="lib" path="dist/lib/mysql-connector-java-5.1.16-bin.jar"/>

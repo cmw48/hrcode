@@ -5,6 +5,7 @@
 /dist/*
 
 # log files #
-hringest.log
-hringest.log.*
+/logs/hringest.log
+/logs/hringest.log.*
 /bin
+/rdfdump/*

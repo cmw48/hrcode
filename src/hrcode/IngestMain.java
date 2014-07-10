@@ -21,6 +21,7 @@ public class IngestMain {
 
 	public static String fileRDFPath = "./rdfdump/";
 	public static String fileQryPath = "./queries/";     
+	public static String fileLogPath = "./logs/";  
 	// added to band-aid title/position subclass mapping.  TODO: make this a reader and open/close via in the read method.
 	//public static String titleMapFile = fileRDFPath + "jobtitles5.csv";
 	
@@ -64,7 +65,7 @@ public class IngestMain {
 		*/
 	    try {	
 		// setup logging	
-		PropertyConfigurator.configure(fileQryPath + "loggercfg.txt");
+		PropertyConfigurator.configure(fileLogPath + "loggercfg.txt");
 		logger.info("Entering application - initializing models.");
 		String VivoUriFilename = null;
 		CreateModel cm = new CreateModel();

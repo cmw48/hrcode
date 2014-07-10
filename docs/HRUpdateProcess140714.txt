@@ -1,0 +1,66 @@
+get HR data from webservice
+transform (2X) into mysql tables
+
+D2R server acts as an endpoint for HR RDF based on mysql database
+*D2R Mapping is currently modeled on VIVO 1.5 style predicates and object relationships
+
+VIVO nightly backup is loaded to mysql on VM
+acts as a clone of previous day's VIVO.
+allows interaction through VIVO interface
+VM provides a separate fuseki endpoint that connects directly to mysql independent of the VIVO code
+ 
+ code execution
+ create list of all HRIS active persons
+  - write to .nt file
+ 
+ create list of all VIVO active persons
+  - write to .nt file
+  
+  provide option to load either/both of these two models from an .nt file.
+  (note: still querying "live" data on VIVO and HR side, just working from preset lists of players)
+  
+  diff the hrisPerson and vivoPerson models to come up with a list of persons in HR but not in VIVO
+   - write to .nt file
+   
+   With NEW persons list, 
+     
+	 run new person code.
+	 generate all basic RDF about new persons and mint new URI structure.
+	 (note, this does not include position information or organization connections)
+	   - write individual .nt files for each new addition
+	 with resultant RDF for all NEW persons, 
+	   run a SPARQL update to add this RDF to the VM VIVO.  (not production!)
+	 
+    once all the RDF for NEW persons has been loaded to the VM VIVO via SPARQL update, 
+    the list of HR persons and the list of VIVO persons should agree. (do we test this again?  I forget.)
+	
+Iterate through list of active HR persons
+  find VIVO uri
+  gather all HRIS profile RDF  (all triples pertaining to person or associated VCARDs)
+  rewrite HRIS profile RDF to correct VIVO uris via CONSTRUCT query
+  gather all VIVO profile RDF (as-is, or rather "as-was" as of the last vivoNightly backup)
+  diff/compare HR profile RDF with VIVO profile rdf (HR data wins, unless previously marked as "manually curated")
+  diff the other way to get retraction RDF
+  write adds and retracts to individual files (and cumulativeDelta model)
+  
+  For each person, query HR for all positions
+    comparing individually?  
+    then dumping the RDF into a single model
+    generate RDF for all positions in VIVO
+     	individually?
+    somewhere in here we look for the HRIS organization attached to each position
+	then bounce that position code/unitCode off VIVO to find a uri match.
+		If we get a match, substitute the URI for that organization and write the RDF to the position model
+		If no match, then mint the statements using the HR organization URI, and (write to .nt for further review).
+	generate all the RDF for the organization connection (needs to include VCARD goodness)	
+	
+	create adds for newly minted orgs and drop them into position adds.  No need to diff again, since these are new
+	
+we now have all profile adds and retracts and also 
+	
+		
+  
+
+	
+  
+ 
