@@ -5,10 +5,9 @@
 # grab the URI from every vivo:Position in the model
 # get the orgURI from the D2R position
 # return the deptId from the D2R org (and label and UnitIdDesc if available)
-# check the orgURI against the VIVO Joseki, return optional ?vivoorg URI
-# in this case (HRIS org data) only where this orgURI does not have a
-#  pre-existing VIVO org
-# construct all org RDF with D2R HRIS ?orgURI
+# check the orgURI against the VIVO Joseki, query for optional ?vivoorg URI
+# return results ONLY where this orgURI does NOT have a pre-existing VIVO org
+# construct all org RDF with v1.6 format RDF and HRIS ?orgURI for minting in VIVO
 # edited for vivo1.6
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
@@ -19,29 +18,48 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
 PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 
 CONSTRUCT { 
-    VARVALUE  rdf:type foaf:Organization .
-    VARVALUE vivo:organizationForPosition ?position .
-    ?position vivo:positionInOrganization VARVALUE .
-    VARVALUE  rdfs:label ?label .
-    VARVALUE  hr:DeptID ?deptId .
-    VARVALUE  vivoc:departmentHRcode ?deptId .
-    #VARVALUE  hr:UnitID_Ldesc ?UnitID_Ldesc .
+    ?varHrOrg  rdf:type foaf:Organization .
+    ?varHrOrg vivo:relatedBy ?position .
+    ?position vivo:relates ?varHrOrg .
+    ?varHrOrg rdfs:label ?label .
+    
+    # mint vcard rdf for non-vivo orgs
+    ?varHrOrg  obo:ARG_2000028 ?hrOrgVcardUri .
+    ?hrOrgVcardUri vcard:hasName ?hrOrgVcardNameUri .
+    ?hrOrgVcardNameUri obo:ARG_2000029 ?varHrOrg .
+    ?varHrOrg rdfs:label ?label .
+ 
+    # add rdf for workday data properties
+    ?varHrOrg hr:deptCode ?deptCode .
+    ?varHrOrg hr:UnitCode ?unitCode .
+    ?varHrOrg hr:kfsOrgCode ?kfsOrgCode .
+    ?varHrOrg hr:DeptID ?deptId .
+    ?varHrOrg vivoc:departmentHRcode ?deptId .
+
   }   
 WHERE {
+   BIND (IRI (VARVALUE) AS ?varHrOrg )
+   BIND (IRI (CONCAT(?varHrOrg, "-vc")) AS ?hrOrgVcardUri )  .
+   BIND (IRI (CONCAT(?varHrOrg, "-vc-name")) AS ?hrOrgVcardNameUri ) . 
    #querying HRIS endpoint	   
    SERVICE <HRISSERV>
     {
-      VARVALUE rdfs:label ?label .
-      VARVALUE hr:DeptID ?deptId . 
-      #VARVALUE hr:UnitID_Ldesc ?UnitID_Ldesc . 
+      ?varHrOrg rdfs:label ?label .
+      ?varHrOrg hr:DeptID ?deptId . 
+      ?varHrOrg hr:deptCode ?deptCode .
+      ?varHrOrg hr:UnitCode ?unitCode .
+      ?varHrOrg hr:kfsOrgCode ?kfsOrgCode .
+      
     }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>
       {
         OPTIONAL {?vivoorg vivoc:departmentHRcode ?deptId . }
       }  
-
+    # There is no matching VIVO org. Mint new org with HR uri.
     FILTER (!BOUND(?vivoorg)) 
 }
