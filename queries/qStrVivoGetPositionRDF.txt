@@ -9,7 +9,7 @@ PREFIX cuvivo: <http://vivo.cornell.edu/individual/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#> 
 PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
@@ -17,12 +17,12 @@ PREFIX vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#>
 CONSTRUCT {
      
       ?varPosition rdfs:label ?hrposnlabel . 
-      ?varPosition core:hrJobTitle ?hrJobTitle . 
-      ?varPosition core:relates ?vivoPerson . 
-      ?varPosition core:relates ?vivoOrg . 
+      ?varPosition vivo:hrJobTitle ?hrJobTitle . 
+      ?varPosition vivo:relates ?vivoPerson . 
+      ?varPosition vivo:relates ?vivoOrg . 
       ?varPosition hr:company ?hrCompany .
-      ?varPosition rdf:type ?rdftype .
-      ?vivoOrg core:relatedBy ?varPosition  . 
+      ?varPosition rdf:type vivo:Position .
+      ?vivoOrg vivo:relatedBy ?varPosition  . 
       ?vivoOrg rdf:type foaf:Organization . 
       ?vivoPerson hr:primaryWorkingTitle ?primaryWorkingTitle .
       ?vivoPerson rdf:type ?personType .
@@ -39,9 +39,9 @@ WHERE
       ?varPosition  rdf:type ?rdftype .
       OPTIONAL {?varPosition rdfs:label ?hrposnlabel . }
       #OPTIONAL {?varPosition hr:LDAPJobNumber ?hrPosnJobNo . }
-      OPTIONAL {?varPosition core:hrJobTitle ?hrJobTitle . }
-      OPTIONAL {?varPosition core:relates ?vivoPerson . }
-      OPTIONAL {?varPosition core:relates ?vivoOrg . }
+      OPTIONAL {?varPosition vivo:hrJobTitle ?hrJobTitle . }
+      OPTIONAL {?varPosition vivo:relates ?vivoPerson . }
+      OPTIONAL {?varPosition vivo:relates ?vivoOrg . }
       OPTIONAL {?varPosition hr:company ?hrCompany . }
       OPTIONAL {?varPosition hr:positionInUnit ?positionInUnit .}
       OPTIONAL {?varPosition hr:jobFamily ?hrJobFamily .}

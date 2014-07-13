@@ -32,11 +32,11 @@ public class UpdateVivoPerson extends IteratorMethods {
 	public final Property HR_NETID = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId"); 
 
 	public static final Property JOB_TITLE = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#hrJobTitle");
-	public static final Property PERSON_IN_POSN = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#personInPosition");
-	public static final Property POSN_FOR_PERSON = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#positionForPerson");
-	public static final Property POSITION_IN_ORGANIZATION = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#positionInOrganization");
-	public static final Property ORGANIZATION_FOR_POSITION = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#organizationForPosition");
-	public static final Property HEAD_IND = ResourceFactory.createProperty("http://vivoweb.org/ontology/newhr#headInd");
+	//public static final Property PERSON_IN_POSN = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#personInPosition");
+	//public static final Property POSN_FOR_PERSON = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#positionForPerson");
+	//public static final Property POSITION_IN_ORGANIZATION = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#positionInOrganization");
+	//public static final Property ORGANIZATION_FOR_POSITION = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#organizationForPosition");
+	public static final Property PRIMARY_JOB = ResourceFactory.createProperty("http://vivoweb.org/ontology/hr#primaryJob");
 	public static final Property PRIMARY_WORKING_TITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle");
 	public static final Property PRIMARY_UNIT_CODE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryUnitCode");	 
 	public static final Property EMERTI_PROF = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#EmeritusProfessor"); 
@@ -45,6 +45,15 @@ public class UpdateVivoPerson extends IteratorMethods {
 	
 	public static final Resource PRIMARY_POSITION = ResourceFactory.createResource("http://vivoweb.org/ontology/core#PrimaryPosition");	
 
+	//assign object properties to Resource variables
+	public static final Property HAS_CONTACT_INFO = ResourceFactory.createProperty("http://purl.obolibrary.org/obo/ARG_2000028");
+	public static final Property CONTACT_INFO_FOR = ResourceFactory.createProperty("http://purl.obolibrary.org/obo/ARG_2000029");	
+	public static final Property PERSON_IN_POSN = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#relatedBy");
+	public static final Property POSN_FOR_PERSON = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#relates");
+	public static final Property POSITION_IN_ORGANIZATION = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#relatedBy");
+	public static final Property ORGANIZATION_FOR_POSITION = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#relates");
+			
+	
 	public static final Resource POSITION_TYPE = ResourceFactory.createResource("http://vivoweb.org/ontology/core#Position");
 	public static final Resource THING_TYPE = ResourceFactory.createResource("http://www.w3.org/2002/07/owl#Thing");
 	public static final Resource MOST_SPECIFIC_TYPE = ResourceFactory.createResource("http://vitro.mannlib.cornell.edu/ns/vitro/0.7#mostSpecificType");
@@ -427,16 +436,17 @@ public class UpdateVivoPerson extends IteratorMethods {
 						} 		
 
 						// this try added 02/14 as bandaid fix for position subclass
-
+                        String primaryJobValue = null;
 						try {
 							Resource positionType = chd.getPositionType(prettyTitle, title2family);
 
 							logger.debug("HRIS Position Type from pretty Title: " + positionType);
 							//mdlVIVOPosnRDF.add(stmt.getSubject(),  RDF.type, positionType );
-							List<Statement> checkPrimaryPosn = mdlHRISPosnRDF.listStatements(stmt1.getSubject(), HEAD_IND, (RDFNode) null).toList();
+							// create a list of 
+							List<Statement> checkPrimaryPosn = mdlHRISPosnRDF.listStatements(stmt1.getSubject(), PRIMARY_JOB, (RDFNode) null).toList();
 							for (Statement stmt9 : checkPrimaryPosn ) {
 								//logger.info("PRIMARY? : " + stmt9);
-								headIndValue = stmt9.getObject().toString();
+								primaryJobValue = stmt9.getObject().toString();
 								//mdlHRISPosnRDF.remove(stmt3);
 								//mdlHRISPosnRDF.add(stmt3.getSubject(), POSN_FOR_PERSON, vivoIndiv );
 							}
@@ -444,7 +454,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 							if (positionType != null) {
 								mdlCorrectedHRISposnRdf.add(stmt1.getSubject(),  RDF.type, positionType );
 
-								if (headIndValue.equals("P")) {
+								if (primaryJobValue.equals("P")) {
 									mdlCorrectedHRISposnRdf.add(stmt1.getSubject(),  RDF.type, PRIMARY_POSITION );   
 									Resource employeeType = chd.getEmployeeType(positionType);
 									mdlCorrectedHRISposnRdf.add(vivoIndiv,  RDF.type, employeeType );
