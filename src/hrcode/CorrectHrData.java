@@ -330,15 +330,19 @@ public class CorrectHrData {
 return CorrectedHRISPersonRDF;
 }
 
-// REMOVE PRETTY TITLE
-public String getPrettyTitle(String hrisWorkingTitle) throws Exception {	
 
+public String getPrettyTitle(String hrisWorkingTitle) throws Exception {	
+   
 	String prettyTitleQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrPrettyTitle.txt");
 	String[] prettyTitleQueryArg = {prettyTitleQuery, "VARVALUE" , hrisWorkingTitle};
 	String qStrPrettyTitleRDF = rw.ModifyQuery(prettyTitleQueryArg); 
+	
+	// initialize a new variable to hold the prettyTitle
 	String prettyTitle = "";
 
-	//logger.trace(qStrPrettyTitleRDF);
+	// write query text to log
+	logger.trace(qStrPrettyTitleRDF);
+	
 	long startTime = System.currentTimeMillis();			
 	OntModel mdlPrettyTitleRDF = cm.MakeNewModelCONSTRUCT(qStrPrettyTitleRDF); 
 	logger.debug("pretty title query time: " + (System.currentTimeMillis() - startTime) + " \n\n\n");	

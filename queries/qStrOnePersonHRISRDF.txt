@@ -38,6 +38,7 @@ CONSTRUCT {
     ?vivovcard vcard:hasEmail ?vivoEmailUri .
     ?vivoEmailUri rdf:type vcard:Email .
     ?vivoEmailUri vcard:email ?hrisemail .
+    ?hrisperson hr:WorkingTitle ?hriswtitle .
    # ?vivovcard vcard:hasTitle ?titleUri . 
    # ?vivoTitleUri rdf:type vcard:Title .
    # ?vivoTitleUri vcard:title ?hriswtitle . 
@@ -78,7 +79,7 @@ WHERE {
     OPTIONAL { ?hrisperson hr:preferredSocialSuffix ?hrisPreferredSocialSuffix. }
     #OPTIONAL { ?hrisperson hr:primaryUnitCode ?hrisPrimaryUnitCode . }
     OPTIONAL { ?hrisperson vivo:middleInitial ?hrisMiddleInitial . }
-    #OPTIONAL { ?hrisperson hr:WorkingTitle ?hriswtitle .}
+    OPTIONAL { ?hrisperson hr:WorkingTitle ?hriswtitle .}
     OPTIONAL { ?hrisperson vivo:email ?hrisemail .}
     OPTIONAL { ?hrisperson foaf:firstName ?hrisfirstName .}
     OPTIONAL { ?hrisperson foaf:lastName ?hrislastName .}
