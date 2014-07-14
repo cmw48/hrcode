@@ -133,6 +133,7 @@ public class CorrectHrData {
 				//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
 				CorrectedHRISPersonRDF.add(subject, predicate, object);
 				logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
+				
 			  }
 				// with subject (hrisURI), create OntResource with all statements for individual
 				OntResource hrisIndiv = mdlOnePersonHRISRDF.getOntResource(hrisURI);
@@ -180,6 +181,7 @@ public class CorrectHrData {
 
 
 				// always fix label
+				/*  Removed for testing
 
 				String hrisLabel = rw.getLiteralValue(hrisIndiv, RDFS.label);
 				// change this to use the preferred name properties!!!
@@ -246,14 +248,17 @@ public class CorrectHrData {
 						logger.info("Label part too short to contain a suffix");
 					}
 				}
+				*/
 
 				//System.out.print(strSubject);
 				//System.out.print(" " + strPredicate + " ");
 				//System.out.print(" \"" + newLabel + "\"");
 				//System.out.print("\n\n");
 				//System.out.print(" \"" + strObject + "\"");
-				try {
 
+				/*
+				try {
+          
 					RDFNode hrisLabelNode =  hrisIndiv.getPropertyValue(RDFS.label);
 					logger.info("hrisLabelNode: " + hrisLabelNode);
 					if (hrisLabelNode != null) {
@@ -271,7 +276,10 @@ public class CorrectHrData {
 				} finally {
 
 				}
-
+               */
+				
+				
+				/*
 				try {
 					String hrisFirstName = hrisIndiv.getPropertyValue(FIRST_NAME).toString();
 					if (hrisFirstName.equals("") || hrisFirstName == null) {
@@ -288,10 +296,11 @@ public class CorrectHrData {
 					logger.error ( "hrisFirst is null");
 				} finally {
 
-
 				}
-
+               */
+				
 				// TODO Consolidate these in a more efficient and effective method
+				/*
 				if (containsUnicode(vivoFirstName)) {
 					logger.info("VIVO first name contains unicode!  Don't overwrite with HRIS first name.");
 					try {
@@ -303,7 +312,9 @@ public class CorrectHrData {
 
 					}
 				}
-
+                */
+				
+				/*
 				if (containsUnicode(vivoLastName)) {
 					logger.info("VIVO last name contains unicode!  Don't overwrite with HRIS last name.");
 					try {
@@ -315,7 +326,8 @@ public class CorrectHrData {
 
 					}
 				}
-
+                */
+				
 				// all statements: 
 				//Resource renameIt = CorrectedHRISPersonRDF.getResource(subject.toString());
 				//ResourceUtils.renameResource( renameIt, VIVOmatchURI);

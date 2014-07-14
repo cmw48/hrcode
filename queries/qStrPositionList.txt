@@ -1,29 +1,29 @@
 #
 # qStrPositionList
-# udpated 120907
+# udpated 140714
 # with emplID in hand, 
 # return HRIS person URI and optional position
 # but type ?position anyway, even if there is not one?
-# ERROR?
-# usage?
+# trade 'position' for 'job' as it relates to HR D2R
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
 PREFIX cuvivo: <http://vivo.cornell.edu/individual/> 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
 
 CONSTRUCT { 
-     ?position rdf:type core:Position .
+     ?job rdf:type vivo:Position .
   }   
 WHERE {
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {
     ?hrperson hr:emplId "VARVALUE" .
-    OPTIONAL {?hrperson core:personInPosition ?position .}
-     ?position rdf:type core:Position .
+    OPTIONAL {?hrperson vivo:personInJob ?job .}
+    OPTIONAL {?job vivo:jobInPosition ?position .}
+    ?job rdf:type vivo:Position .
   } 
 }

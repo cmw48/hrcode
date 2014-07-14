@@ -267,7 +267,7 @@ public class ReadWrite {
 		try {
 			fstream = new FileOutputStream(filename);
 			model.write(fstream, RDFFormat);
-			logger.trace("rw thread slowdown disabled...");
+			//logger.trace("rw thread slowdown disabled...");
 			//Thread.sleep(100);
 		} catch (Exception e) { 
 			// do we have file exists/overwrite/backup logic to insert here?

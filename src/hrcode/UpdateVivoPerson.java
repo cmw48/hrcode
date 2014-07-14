@@ -363,6 +363,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISPosnForOnePerson.txt");
 
 					//  get D2R person URI and pass to HRIS position query
+					//!! THIS IS WHERE THE PROBLEM IS
 					Resource hrisURI = mdlOnePersonHRISRDF.listSubjects().toList().get(0);
 					String hrisURIString = ("<" + hrisURI.getURI() + ">");
 					String[] queryArg11 = {hrisPosnQuery, "VARVALUE" , hrisURIString};
