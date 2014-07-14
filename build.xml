@@ -59,7 +59,6 @@
   <target name="clean">
     <delete dir="${build.dir}" />
     <delete dir="${docs.dir}" />
-    <delete dir="${logs.dir}" />
     <delete dir="${dist.dir}" />
   </target>
 
