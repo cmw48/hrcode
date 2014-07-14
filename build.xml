@@ -52,13 +52,14 @@
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
   <property name="docs.dir" location="docs" />
-
+  <property name="logs.dir" location="logs" />
 
 
   <!-- Deletes the existing build, docs and dist directory-->
   <target name="clean">
     <delete dir="${build.dir}" />
     <delete dir="${docs.dir}" />
+    <delete dir="${logs.dir}" />
     <delete dir="${dist.dir}" />
   </target>
 
@@ -70,6 +71,7 @@
     <mkdir dir="${dist.dir}/queries" />
     <mkdir dir="${dist.dir}/rdfdump" />
     <mkdir dir="${dist.dir}/lib" />
+    <mkdir dir="${dist.dir}/logs" />
 
 
     <copy todir="dist/queries">
@@ -90,6 +92,12 @@
       </fileset>
     </copy>
 
+    <copy todir="dist/logs">
+      <fileset dir="./logs">
+        <include name="**"/>
+      </fileset>
+    </copy>
+  	
   </target>
 
   <!-- Creates Javadoc -->
