@@ -28,7 +28,7 @@ CONSTRUCT {
       #?job vivo:positionInOrganization ?hrpPosnInOrganization .
       ?job rdfs:label ?hrjLabel .
       #?job hr:jobId ?hrjJobId .
-      #?job hr:jobInPosition ?hrjJobInPosition .
+      #?job hr:jobInPosition ?position .
       ?job hr:primaryJob ?hrjPrimaryJob .
       #?job hr:startDate ?hrjStartDate .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
@@ -40,26 +40,30 @@ WHERE
   # get Workday->D2R format rdf, then write it as vivo 1.6 format rdf.
   SERVICE <http://vivo-migrate.library.cornell.edu/d2r>
     {
-      # list all position-specific RDF
-      VARVALUE hr:company ?hrpPosnCompany .
-      VARVALUE hr:dLevelCode ?hrpDLevelCode .
-      VARVALUE hr:dLevelOrgName ?hrpDLevelOrgName .
-      VARVALUE hr:jobCode ?hrpJobCode .
-      VARVALUE hr:jobFamily ?hrpJobFamily .
-      VARVALUE hr:jobFamilyGroup ?hrpJobFamilyGroup .
-      VARVALUE hr:kfsOrgCode ?hrpKfsOrgCode .
-      VARVALUE hr:positionForJob ?job .
-      VARVALUE hr:supOrgCode ?hrpSupOrgCode .
-      VARVALUE vivo:positionInOrganization ?hrpPosnInOrganization .
-
+     BIND (IRI (VARVALUE) AS ?job )
+     
       #then, list all job-specific RDF
       ?job rdfs:label ?hrjLabel .
       ?job hr:jobId ?hrjJobId .
-      ?job hr:jobInPosition ?hrjJobInPosition .
+      ?job hr:jobInPosition ?position .
       ?job hr:primaryJob ?hrjPrimaryJob .
       ?job hr:startDate ?hrjStartDate .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
       ?job vivo:jobForPerson ?hrjJobForPerson .
+     
+      # list all position-specific RDF
+      ?position hr:company ?hrpPosnCompany .
+      ?position hr:dLevelCode ?hrpDLevelCode .
+      ?position hr:dLevelOrgName ?hrpDLevelOrgName .
+      ?position hr:jobCode ?hrpJobCode .
+      ?position hr:jobFamily ?hrpJobFamily .
+      ?position hr:jobFamilyGroup ?hrpJobFamilyGroup .
+      ?position hr:kfsOrgCode ?hrpKfsOrgCode .
+      ?position hr:positionForJob ?job .
+      ?position hr:supOrgCode ?hrpSupOrgCode .
+      ?position vivo:positionInOrganization ?hrpPosnInOrganization .
+
+     
 
 
      } 

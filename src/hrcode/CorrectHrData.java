@@ -116,7 +116,7 @@ public class CorrectHrData {
 			}
 
 			Resource hrisURI = mdlOnePersonHRISRDF.listStatements().nextStatement().getSubject();
-
+			Resource hrisPersonUri = null;
 			// fill up corrected HRIS model with all statements from original HRIS model
 			// no longer renaming all statement subjects
 			//TODO: determine if we still need to copy HRIS statements to a new model...
@@ -133,10 +133,16 @@ public class CorrectHrData {
 				//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
 				CorrectedHRISPersonRDF.add(subject, predicate, object);
 				logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
+				if (predicate.toString() == WORKING_TITLE.toString()) {
+				 hrisPersonUri = subject;
+				 logger.info("here's the person uri! : " + hrisPersonUri);
+				} else {
+					//nothing
+				}
 				
 			  }
 				// with subject (hrisURI), create OntResource with all statements for individual
-				OntResource hrisIndiv = mdlOnePersonHRISRDF.getOntResource(hrisURI);
+				OntResource hrisIndiv = mdlOnePersonHRISRDF.getOntResource(hrisPersonUri);
 
 				String hrisWorkingTitle = rw.getLiteralValue(hrisIndiv, WORKING_TITLE);
 

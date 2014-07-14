@@ -83,7 +83,7 @@ public class CreateModel {
 		    		// execute queries and populate model
 	    			// create CONSTRUCT rdf and push to HRIS model /
                 
-			    	logger.trace("cm thread slowdown disabled...");
+			    	//logger.trace("cm thread slowdown disabled...");
 				    //Thread.sleep(100);
 				
 		    		try {

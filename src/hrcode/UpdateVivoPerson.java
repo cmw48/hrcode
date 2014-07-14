@@ -23,6 +23,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -40,7 +41,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 	public static final Property PRIMARY_WORKING_TITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle");
 	public static final Property PRIMARY_UNIT_CODE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryUnitCode");	 
 	public static final Property EMERTI_PROF = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#EmeritusProfessor"); 
-
+	public static final Property WORKING_TITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle");
+	
 	public static final Resource ORGANIZATION = ResourceFactory.createProperty("http://vivoweb.org/ontology/foaf#Organization");
 	
 	public static final Resource PRIMARY_POSITION = ResourceFactory.createResource("http://vivoweb.org/ontology/core#PrimaryPosition");	
@@ -354,7 +356,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 				rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLE");
 
 				// TODO consider renaming to MakeNewModel, parse as describe first?
-
+				Resource hrisPersonUri = null;
 				OntModel mdlHRISPosnRDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 				// now setup HRIS positions
 				try {
@@ -364,8 +366,28 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 					//  get D2R person URI and pass to HRIS position query
 					//!! THIS IS WHERE THE PROBLEM IS
-					Resource hrisURI = mdlOnePersonHRISRDF.listSubjects().toList().get(0);
-					String hrisURIString = ("<" + hrisURI.getURI() + ">");
+//					Resource hrisURI = mdlOnePersonHRISRDF.listSubjects().toList().get(0);
+					// with a model, iterate through all statements
+					StmtIterator hrisIter = mdlOnePersonHRISRDF.listStatements();
+
+
+					while (hrisIter.hasNext()) {
+						Statement stmt      = hrisIter.nextStatement();  // get next statement
+						Resource  subject   = stmt.getSubject();     // get the subject
+						Property  predicate = stmt.getPredicate();   // get the predicate
+						RDFNode   object    = stmt.getObject();      // get the object
+						//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
+						CorrectedHRISPersonRDF.add(subject, predicate, object);
+						logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
+						if (predicate.toString() == WORKING_TITLE.toString()) {
+						 hrisPersonUri = subject;
+						 logger.info("here's the person uri! : " + hrisPersonUri);
+						} else {
+							//nothing
+						}
+					}
+					
+					String hrisURIString = ("<" + hrisPersonUri.getURI() + ">");
 					String[] queryArg11 = {hrisPosnQuery, "VARVALUE" , hrisURIString};
 					String qStrHRISPositions = rw.ModifyQuery(queryArg11); 
 					// construct model with all hris position RDF for one person
@@ -376,6 +398,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					logger.debug("\n*HRIS position RDF before corrections*");
 					rw.LogRDF(mdlHRISPositions, "N-TRIPLE");
 					logger.debug("\nHRISposn link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
+					
 					OntModel mdlHRISPersonInPosn = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 					List<Statement> hrisPosnList = mdlHRISPositions.listStatements().toList();
 					Integer numHRISPosn = hrisPosnList.size();
@@ -383,7 +406,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					// with list of positions in mdlHRISPositions, iterate to get all Hris Posn Rdf
 					for (Statement stmt11 : hrisPosnList ) {
 						String positionURI = stmt11.getObject().toString();
-						mdlHRISPersonInPosn.add(hrisURI, PERSON_IN_POSN, stmt11.getObject() );
+						mdlHRISPersonInPosn.add(hrisPersonUri, PERSON_IN_POSN, stmt11.getObject() );
 						logger.info("just added it: "+ mdlHRISPersonInPosn);
 
 						String hrisPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISGetPositionRDF.txt");
@@ -569,6 +592,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						// with each statement in mdlHRISOrgRDF, get full position data
 						String hrisOrgVivoUriQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHRISOrgRDFWithVivoUri.txt");
 						String hrisOrgHrisUriQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHRISOrgRDF.txt");		
+						logger.debug("mdlHRISORGRDF: " + mdlHRISOrgRDF);
 						List<Statement> hrisOrgList = mdlHRISOrgRDF.listStatements((Resource) null, POSITION_IN_ORGANIZATION, (RDFNode) null).toList();
 						Integer numHRISOrg = hrisOrgList.size();
 						logger.debug("there are " + numHRISOrg + " orgs for this person.");
