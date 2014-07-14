@@ -214,6 +214,32 @@ public class ReadWrite {
 		return queryString;
 	}
 	
+	public String ReadStringFromFile(String filePath) throws IOException {
+		String filetextString = "";
+		boolean useProductionVIVO = false;
+
+		try {
+			StringBuffer fileData = new StringBuffer(1000);
+			BufferedReader reader = new BufferedReader(new FileReader(filePath));
+			char[] buf = new char[1024];
+			int numRead=0;
+			while((numRead=reader.read(buf)) != -1){
+				fileData.append(buf, 0, numRead);
+			}
+			reader.close();
+			filetextString = fileData.toString();
+
+			// determine whether we are using production endpoint or offline production mirror endpoint
+			// return value of SERVICE 
+		
+		} catch (Exception e) {
+			logger.error("whoops.  What happened?  " + e);
+		} finally {
+
+		}
+		return filetextString;
+	}
+	
 	public Model ReadRdf(String args[]) throws IOException {
 		String filename = args[0];
 		String basename = args[1];
@@ -241,8 +267,8 @@ public class ReadWrite {
 		try {
 			fstream = new FileOutputStream(filename);
 			model.write(fstream, RDFFormat);
-			logger.trace("rw thread slowdown enabled...");
-			Thread.sleep(100);
+			logger.trace("rw thread slowdown disabled...");
+			//Thread.sleep(100);
 		} catch (Exception e) { 
 			// do we have file exists/overwrite/backup logic to insert here?
 			logger.error("problem with write process?, Error" + e);

@@ -1,15 +1,17 @@
 #
 # qStrPersonFromActivePosition
-# updated 120907
+# updated 140713
 # with a person URI in hand
 # queries HRIS endpoint and returns
 # a single foaf:Person triple 
-# usage?  cleanup?
+# used by initial counters, using 1.5 style predicates to query d2r
+# TODO: change vivo:jobForPerson to hr:jobForPerson
+
 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX vivo: <http://vivoweb.org/ontology/core#>
-
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 
 CONSTRUCT { 
   ?person rdf:type foaf:Person  .
@@ -19,6 +21,7 @@ WHERE {
   #querying HRIS endpoint
   SERVICE <HRISSERV>
     {  
-      VARVALUE vivo:positionForPerson ?person .
+      VARVALUE hr:positionForJob ?job .
+      ?job vivo:jobForPerson ?person .
     } 
 }

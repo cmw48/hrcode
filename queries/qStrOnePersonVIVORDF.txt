@@ -34,7 +34,7 @@ CONSTRUCT {
     ?nameUri vcard:familyName ?familyName . 
     ?nameUri vcard:givenName ?givenName . 
   ?vcard vcard:hasEmail ?emailUri .
-    ?emailUri rdf:type vcard:Email .
+    ?emailUri rdf:type vcard:email .
     ?emailUri vcard:email ?emailString .
   ?vcard vcard:hasTitle ?titleUri . 
     ?titleUri rdf:type vcard:Title .

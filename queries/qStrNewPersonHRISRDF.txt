@@ -9,36 +9,49 @@ PREFIX cuvivo: <http://vivo.cornell.edu/individual/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-PREFIX core: <http://vivoweb.org/ontology/core#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX newhr: <http://vivoweb.org/ontology/newhr#>
-PREFIX vivo: <http://vivo.library.cornell.edu/ns/0.1#>
+PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
 PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#> 
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
 
 CONSTRUCT { 
   VARVALUE rdfs:label ?hrislabel .
   VARVALUE hr:netId ?hrisnetId .
   VARVALUE hr:emplId ?hrisemplId .
-  VARVALUE hr:WorkingTitle ?hriswtitle .
+  VARVALUE obo:ARG_2000028 ?vcardUri .
+  ?vcard obo:ARG_2000029 VARVALUE .
+ 
+  ?vcard vcard:hasName ?nameUri .
+    ?nameUri a vcard:Name . 
+    ?nameUri vcard:familyName ?familyName . 
+    ?nameUri vcard:givenName ?givenName . 
+  ?vcard vcard:hasEmail ?emailUri .
+    ?emailUri rdf:type vcard:email .
+    ?emailUri vcard:email ?emailString .
+  ?vcard vcard:hasTitle ?titleUri . 
+    ?titleUri rdf:type vcard:Title .
+    #?titleUri vcard:title ?titleString . 
+  
   VARVALUE hr:WorkingTitle ?prettyTitle .
-  #VARVALUE core:email ?hrisemail .
-  #VARVALUE core:mailingAddress ?hrismailaddr .
-  #VARVALUE core:phoneNumber ?hrisphone .
   VARVALUE foaf:firstName ?hrisfirstName .
-  VARVALUE foaf:lastName ?hrislastName .
+  VARVALUE vcard:familyName ?hrislastName .
   }   
 WHERE {
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {
-    #VARVALUE rdf:type foaf:Person .
-    VARVALUE hr:emplId ?hrisemplId .
-    OPTIONAL { VARVALUE rdfs:label ?hrislabel .}
-    OPTIONAL { VARVALUE hr:netId ?hrisnetId .}
-    OPTIONAL { VARVALUE hr:WorkingTitle ?hriswtitle . }
-    #OPTIONAL { VARVALUE core:email ?hrisemail .}
-    #OPTIONAL { VARVALUE  core:mailingAddress ?hrismailaddr .}
-    #OPTIONAL { VARVALUE core:phoneNumber ?hrisphone .}
-    OPTIONAL { VARVALUE foaf:firstName ?hrisfirstName .}
-    OPTIONAL { VARVALUE foaf:lastName ?hrislastName .}
+    BIND (IRI (VARVALUE) AS ?hrperson .
+    BIND (str(?hrperson) AS ?uriString))
+    OPTIONAL { ?hrperson rdfs:label ?hrislabel .}
+    OPTIONAL { ?hrperson hr:netId ?hrisnetId .}
+    OPTIONAL { ?hrperson hr:WorkingTitle ?hriswtitle . }
+    OPTIONAL { ?hrperson vivo:email ?hrisemail .}
+    OPTIONAL { ?hrperson foaf:firstName ?givenName .}
+    OPTIONAL { ?hrperson foaf:lastName ?familyName .}
+    BIND (IRI (CONCAT(?uriString, "-vc")) AS ?vcardUri )  .
+    BIND (IRI (CONCAT(?uriString, "-vcn" )) AS ?nameUri ) . 
+    BIND (IRI (CONCAT(?uriString, "-vce" )) AS ?emailUri ) . 
     } 
 }

@@ -133,6 +133,7 @@ public class CorrectHrData {
 				//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
 				CorrectedHRISPersonRDF.add(subject, predicate, object);
 				logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
+			  }
 				// with subject (hrisURI), create OntResource with all statements for individual
 				OntResource hrisIndiv = mdlOnePersonHRISRDF.getOntResource(hrisURI);
 
@@ -319,7 +320,7 @@ public class CorrectHrData {
 				//Resource renameIt = CorrectedHRISPersonRDF.getResource(subject.toString());
 				//ResourceUtils.renameResource( renameIt, VIVOmatchURI);
 
-			}
+			
 		} catch  ( Exception e ) {
 
 			logger.error("Rats.  Something happened while looking at HRIS person statements. Error" , e );

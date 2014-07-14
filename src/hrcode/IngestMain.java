@@ -40,7 +40,9 @@ public class IngestMain {
 	
 	//set up logging for this class
     private static final Logger logger = Logger.getLogger(IngestMain.class);
-
+	
+  //set up SPARQLupdate class
+    static UpdateDelete ud = new UpdateDelete();
 	
 	public static void main(String[] args) throws Exception {
 		/** main method does the following: 
@@ -87,12 +89,12 @@ public class IngestMain {
 		String ActiveHrisPersonFilename = null;
 
 		// this is all NEW HRIS PERSON stuff
-		
+		String updateStatus = null;
  		String allNEWAdditionsFileName = fileRDFPath + "allNEWAdditions.nt";	
- 		// turn this bit to 1 to load HR Active persons from file
+ 		// turn this switch to 1 to load HR Active persons from file
  		// set to 0 to renew list of active HR persons - use 0 when processing new HRIS data
  		// input file should be set to process only hr new people: -f allNewHRISPeople.nt
-		Integer testingswitch = 1;
+		Integer testingswitch = 0;
 		if (testingswitch == 0) {     
 		    logger.info("renewing list of active HR persons...");
 		    // generate a model of all HRIS uris , check against VIVO model
@@ -103,11 +105,11 @@ public class IngestMain {
 		    logger.info("New HRIS person additions complete.");
 		    
 		    // pause for user input to allow loading of New Person RDF
-			long totalHRISAdditions = mdlAllUrisAdded.size();
+			long totalHRISAdditions = mdlAllUrisAdded.size(); 
+			logger.info(totalHRISAdditions + " new persons found.  Adding via SPARQL update.");
+
 			if (totalHRISAdditions != 0) {
-				logger.info("Pausing for user input - load RDF for " + totalHRISAdditions + " new HRIS persons and hit ENTER..." );
-				Scanner sc = new Scanner(System.in);
-			    while(!sc.nextLine().equals(""));	
+		           updateStatus = ud.sparqlUpdate(mdlAllUrisAdded);
 			} else {
 				logger.info("No new HRIS persons to add!" );
 			}
