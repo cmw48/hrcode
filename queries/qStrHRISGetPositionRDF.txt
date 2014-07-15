@@ -19,18 +19,13 @@ CONSTRUCT {
       ?job hr:company ?hrpPosnCompany .
       ?job hr:dLevelCode ?hrpDLevelCode .
       ?job hr:dLevelOrgName ?hrpDLevelOrgName .
-      #?job hr:jobCode ?hrpJobCode .
       ?job hr:jobFamily ?hrpJobFamily .
       ?job hr:jobFamilyGroup ?hrpJobFamilyGroup .
-      #?job hr:kfsOrgCode ?hrpKfsOrgCode .
-      #?job hr:positionForJob ?hrpPositionForJob .
       ?job hr:supOrgCode ?hrpSupOrgCode .
-      #?job vivo:positionInOrganization ?hrpPosnInOrganization .
-      ?job rdfs:label ?hrjLabel .
-      #?job hr:jobId ?hrjJobId .
-      #?job hr:jobInPosition ?position .
+      ?job vivo:positionInOrganization ?hrpPosnInOrganization .
+      ?job rdfs:label ?jobLabel .
+      ?job hr:jobInPosition ?position .
       ?job hr:primaryJob ?hrjPrimaryJob .
-      #?job hr:startDate ?hrjStartDate .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
       ?job vivo:jobForPerson ?hrjJobForPerson .
 }
@@ -40,16 +35,16 @@ WHERE
   # get Workday->D2R format rdf, then write it as vivo 1.6 format rdf.
   SERVICE <http://vivo-migrate.library.cornell.edu/d2r>
     {
-     BIND (IRI (VARVALUE) AS ?job )
+     
      
       #then, list all job-specific RDF
-      ?job rdfs:label ?hrjLabel .
-      ?job hr:jobId ?hrjJobId .
-      ?job hr:jobInPosition ?position .
-      ?job hr:primaryJob ?hrjPrimaryJob .
-      ?job hr:startDate ?hrjStartDate .
-      ?job vivo:hrJobTitle ?hrjHrJobTitle .
-      ?job vivo:jobForPerson ?hrjJobForPerson .
+      VARVALUE rdfs:label ?jobLabel .
+      VARVALUE hr:jobId ?hrjJobId .
+      VARVALUE hr:jobInPosition ?position .
+      VARVALUE hr:primaryJob ?hrjPrimaryJob .
+      VARVALUE hr:startDate ?hrjStartDate .
+      VARVALUE vivo:hrJobTitle ?hrjHrJobTitle .
+      VARVALUE vivo:jobForPerson ?hrjJobForPerson .
      
       # list all position-specific RDF
       ?position hr:company ?hrpPosnCompany .
@@ -62,9 +57,5 @@ WHERE
       ?position hr:positionForJob ?job .
       ?position hr:supOrgCode ?hrpSupOrgCode .
       ?position vivo:positionInOrganization ?hrpPosnInOrganization .
-
-     
-
-
      } 
 }

@@ -29,19 +29,14 @@ import org.skife.csv.SimpleReader;
 
 public class CorrectHrData {
 
-	public static final Property PRIMARY_JOBCODE_LDESC = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryJobcodeLdesc");
 	public static final Property PRIMARY_WORKING_TITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#primaryWorkingTitle");
 	public static final Property WORKING_TITLE = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#WorkingTitle");
-	public static final Property AIUSER = ResourceFactory.createProperty("http://vivoweb.org/ontology/activity-insight#aiUser");	   
 	public static final Property HR_EMPLID = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#emplId"); 
 	public static final Property HR_NETID = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId"); 
 	public static final Property MAN_CURATED = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#ManuallyCurated"); 
 	public static final Property EMERTI_PROF = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#EmeritusProfessor"); 
 	public static final Property PERSON_AS_LISTED = ResourceFactory.createProperty("http://vivoweb.org/ontology/provenance-support#PersonAsListed"); 
 	public static final Property PRETTY_TITLE = ResourceFactory.createProperty("http://vivo.library.cornell.edu/ns/hr/titleMapping#titlemapping_modifiedTitleStr");
-	public static final Property POSN_IN_ORG = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#positionInOrganization");
-	public static final Property PERSON_IN_POSN = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#personInPosition");
-	public static final Property POSN_FOR_PERSON = ResourceFactory.createProperty("http://vivoweb.org/ontology/core#positionForPerson");
 	public static final Property FIRST_NAME = ResourceFactory.createProperty("http://xmlns.com/foaf/0.1/firstName");
 	public static final Property LAST_NAME = ResourceFactory.createProperty("http://xmlns.com/foaf/0.1/lastName");
 	public static final Property HR_PREF_NAME = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#PrefName");
@@ -59,7 +54,6 @@ public class CorrectHrData {
 	public static final Resource STAFF = ResourceFactory.createResource("http://vivo.cornell.edu/ns/mannadditions/0.1#CornellNonAcademicStaff");
 	public static final Resource NON_ACAD = ResourceFactory.createResource("http://vivoweb.org/ontology/core#NonAcademic");
 
-	public static final Resource THING_TYPE = ResourceFactory.createResource("http://www.w3.org/2002/07/owl#Thing");
 	public static final Resource POSITION_TYPE = ResourceFactory.createResource("http://vivoweb.org/ontology/core#Position");
 	public static final Resource WD_POSITION_TYPE = ResourceFactory.createResource("http://vivoweb.org/ontology/hr#WdPosition");
 
@@ -73,7 +67,7 @@ public class CorrectHrData {
 	public Model processHRISCorrections(OntModel mdlOnePersonHRISRDF, OntResource vivoIndiv) throws Exception {
 
 		//TODO  This method is too long and confusing.  Work to break this down into its component parts
-
+       // TODO  This method tends to
 		//TODO: review and rewrite this list of things that this method does
 
 		// mdlOnePersonHRISRDF contains relevant HRIS RDF for this person so we can match against VIVO RDF.
@@ -94,8 +88,8 @@ public class CorrectHrData {
 			// get some data from the vivo OntRes and put in variables
 			String vivoLabel = rw.getLiteralValue(vivoIndiv, RDFS.label);
 			String vivoWorkingTitle = rw.getLiteralValue(vivoIndiv, WORKING_TITLE);
-			String vivoFirstName = rw.getLiteralValue(vivoIndiv, FIRST_NAME);
-			String vivoLastName = rw.getLiteralValue(vivoIndiv, LAST_NAME);
+//			String vivoFirstName = rw.getLiteralValue(vivoIndiv, FIRST_NAME);
+//			String vivoLastName = rw.getLiteralValue(vivoIndiv, LAST_NAME);
 
 			// if we want to see what's in the HR model we passed, write it to the log 
 			rw.LogRDF(mdlOnePersonHRISRDF, "N-TRIPLE");
@@ -103,6 +97,8 @@ public class CorrectHrData {
 			// conditionals here to modify RDF before rewriting to model
 			// create a SELECT CASE style list of things to to do person RDF
 
+// lets do this somewhere else too			
+/*			
 			// check to see if we have a manually curated flag set for this node
 			if (vivoIndiv.hasRDFType(EMERTI_PROF)) {
 				logger.info("is Emeritus!");
@@ -114,7 +110,7 @@ public class CorrectHrData {
 				logger.info("Manually Curated!");
 				manuallyCurated = true;
 			}
-
+*/
 			Resource hrisURI = mdlOnePersonHRISRDF.listStatements().nextStatement().getSubject();
 			Resource hrisPersonUri = null;
 			// fill up corrected HRIS model with all statements from original HRIS model
@@ -123,7 +119,6 @@ public class CorrectHrData {
 
 			// with a model, iterate through all statements
 			StmtIterator hrisIter = mdlOnePersonHRISRDF.listStatements();
-
 
 			while (hrisIter.hasNext()) {
 				Statement stmt      = hrisIter.nextStatement();  // get next statement
@@ -185,126 +180,7 @@ public class CorrectHrData {
 					//ignoreAddRetract
 				} // end else 
 
-
-				// always fix label
-				/*  Removed for testing
-
-				String hrisLabel = rw.getLiteralValue(hrisIndiv, RDFS.label);
-				// change this to use the preferred name properties!!!
-				String hrisPrefName = rw.getLiteralValue(hrisIndiv, HR_PREF_NAME);
-				if (hrisPrefName != null) {
-					if (hrisPrefName.equals("")) { 
-						logger.info("hrisPrefName for " + hrisLabel + " blank and not null.");
-
-					} else {
-						if (hrisLabel.equals(hrisPrefName)) {
-							logger.debug("label  " + hrisLabel + " and prefName " + hrisPrefName + " are identical.");
-						} else {
-							logger.info("changing label " + hrisLabel + " to hrisPrefName " + hrisPrefName);
-							hrisLabel = hrisPrefName;
-						}// end prefname check
-
-						// TODO: output all preferred name changes to review log
-					}
-				}
-				String newLabel = null;
-				//test vivoLabel for unicode
-				if (containsUnicode(vivoLabel)) {
-					logger.info("VIVO label contains unicode!  Don't overwrite with HRIS label.");
-					try {
-						RDFNode hrisLabelNode =  hrisIndiv.getPropertyValue(RDFS.label);
-						if (hrisLabelNode != null) {
-							//CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisIndiv.getPropertyValue(RDFS.label));
-							CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisLabelNode);
-							CorrectedHRISPersonRDF.add(vivoIndiv, RDFS.label, vivoLabel);
-						} else {
-							logger.info("What's wrong with vivoLabel" + vivoLabel + " or hrisLabeL : " + hrisLabel );
-						}
-					} catch ( Exception e ) {
-						logger.error("problem correcting HRIS label RDF. Error" , e );
-					} finally {
-
-					}
-				} else {
-
-					String delimiter = "\\,";
-					String[] labelParts;
-					newLabel = "";
-					labelParts = hrisLabel.split(delimiter);
-					int firstPartLength = labelParts[0].length();
-					if (firstPartLength >= 3) {
-						logger.info(labelParts[0].substring((firstPartLength-3), firstPartLength));
-
-						if (labelParts[0].substring((firstPartLength-3), firstPartLength).equals("Esq")) {
-							logger.info("****!!!! FOUND ESQ !!!!****");
-						} else {
-							logger.debug(labelParts[0]);
-						}
-
-						if (labelParts[1].substring(0,1).equals(" ")) {
-							newLabel = labelParts[0] + "," + labelParts[1];			
-							logger.info("HRIS label not modified.");
-						} else {
-							newLabel = labelParts[0] + ", " + labelParts[1];	
-							logger.info("HRIS label modified."); 
-							Map<String, String> labelHash = correctLabel(hrisLabel);  
-							newLabel = labelHash.get("newLabel");
-						}
-					} else {
-						logger.info("Label part too short to contain a suffix");
-					}
-				}
-				*/
-
-				//System.out.print(strSubject);
-				//System.out.print(" " + strPredicate + " ");
-				//System.out.print(" \"" + newLabel + "\"");
-				//System.out.print("\n\n");
-				//System.out.print(" \"" + strObject + "\"");
-
-				/*
-				try {
-          
-					RDFNode hrisLabelNode =  hrisIndiv.getPropertyValue(RDFS.label);
-					logger.info("hrisLabelNode: " + hrisLabelNode);
-					if (hrisLabelNode != null) {
-
-						//CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisIndiv.getPropertyValue(RDFS.label));
-						CorrectedHRISPersonRDF.remove(vivoIndiv, RDFS.label, hrisLabelNode);
-
-						//CorrectedHRISPersonRDF.add(vivoIndiv, RDFS.label, newLabel);
-						CorrectedHRISPersonRDF.add(vivoIndiv, RDFS.label, vivoLabel);
-					} else {
-						logger.info("What's wrong with vivoLabel" + vivoLabel + " or hrisLabeL : " + hrisLabel );
-					}
-				} catch ( Exception e ) {
-					logger.error("problem correcting HRIS label RDF. Error" , e );
-				} finally {
-
-				}
-               */
-				
-				
-				/*
-				try {
-					String hrisFirstName = hrisIndiv.getPropertyValue(FIRST_NAME).toString();
-					if (hrisFirstName.equals("") || hrisFirstName == null) {
-						logger.info("NO FIRST NAME IN HR.");
-						//CorrectedHRISPersonRDF.add(vivoIndiv, FIRST_NAME, vivoFirstName);
-					}	  
-					String hrisLastName = hrisIndiv.getPropertyValue(LAST_NAME).toString();
-					if (hrisLastName.equals("") || hrisLastName == null) {
-						logger.info("NO LAST NAME IN HR.");
-						//  CorrectedHRISPersonRDF.add(vivoIndiv, LAST_NAME, vivoLastName);
-					}	 
-
-				} catch (Exception e) {
-					logger.error ( "hrisFirst is null");
-				} finally {
-
-				}
-               */
-				
+	
 				// TODO Consolidate these in a more efficient and effective method
 				/*
 				if (containsUnicode(vivoFirstName)) {

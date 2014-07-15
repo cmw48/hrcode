@@ -281,8 +281,8 @@ public class CreateModel {
 				// keep original HRIS URI for diff process
 				String qStrHRISmatchVIVOEmplId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISmatchVIVOEmplId.txt"); 
 				String HRISMatchFileName = IngestMain.fileRDFPath + "hrisMatchEmplId.nt";
-				logger.trace("creating model where HRIS matches VIVO emplIds..");
 				logger.trace(qStrHRISmatchVIVOEmplId);
+				logger.trace("creating model where HRIS matches VIVO emplIds..may take a minute or so");
 				Model mdlHRISMatchEmplId = MakeNewModelCONSTRUCT(qStrHRISmatchVIVOEmplId);   
 				logger.info("found "+ mdlHRISMatchEmplId.size() + " HR matches for VIVO empl ids...");                   
 				//WriteRdf(HRISMatchFileName, mdlHRISMatchEmplId, "N-TRIPLE");
@@ -295,8 +295,8 @@ public class CreateModel {
 				// keep original HRIS URI for diff process
 				String qStrHRISmatchVIVONetId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISmatchVIVONetId.txt"); 
 				String HRISMatchNetIdFileName = IngestMain.fileRDFPath + "hrisMatchNetId.nt";
-				logger.trace("creating model where HRIS matches VIVO netIds..");
 				logger.trace(qStrHRISmatchVIVONetId);
+				logger.trace("creating cross-check model where HRIS matches VIVO netIds..");
 				Model mdlHRISMatchNetId = MakeNewModelCONSTRUCT(qStrHRISmatchVIVONetId);   
 				logger.info("found "+ mdlHRISMatchNetId.size() + " HR matches for VIVO net ids...");                     
 				//WriteRdf(HRISMatchNetIdFileName, mdlHRISMatchNetId, "N-TRIPLE");
