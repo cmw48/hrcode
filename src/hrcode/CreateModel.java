@@ -58,6 +58,7 @@ public class CreateModel {
 		return readFromFile;
 	}
 
+	
 
 	public OntModel MakeNewModelCONSTRUCT(String strQueryString) throws Exception {
 		/**

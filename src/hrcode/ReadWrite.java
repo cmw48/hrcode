@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+
 import org.apache.log4j.Logger;
 
 import com.hp.hpl.jena.ontology.OntResource;
@@ -303,4 +304,52 @@ public class ReadWrite {
 	    	}
      	}
 	}
+
+// use this method for improved args processing
+public String processArgs(String[] args) throws Exception {
+    int i = 0, j;
+    String arg;
+    char flag;
+    boolean vflag = false;
+    String outputfile = "";
+	String readFromFile = null;
+	
+	try {
+		 while (i < args.length && args[i].startsWith("-")) {
+	            arg = args[i++];
+
+	        if (arg.equals("-verbose")) {
+	                System.out.println("verbose mode on");
+	                vflag = true;
+	        }    
+		
+			if (args[0].equals("-f")) {
+				logger.info("reading VIVO URI's from file " + args[1]);
+				readFromFile = args[1];
+			}
+			
+            else if (arg.equals("-output")) {
+                if (i < args.length)
+                    outputfile = args[i++];
+                else
+                    System.err.println("-output requires a filename");
+                if (vflag)
+                    System.out.println("output file = " + outputfile);
+            }
+			
+			//if (args[2].equals("-u")) {
+			//	logger.info("reading HRIS person URI's from file " + args[3]);
+			//	readFromFile = args[3];
+			//}
+		}
+	} catch (Exception e) { 
+		logger.error("exception reading args!  Error" + e);
+		throw e; 
+	} finally {
+		//logger.debug("created new model...");
+	
+	}
+	return readFromFile;
+}
+
 }

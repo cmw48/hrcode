@@ -1,7 +1,7 @@
 #
 
 # qStrGetPosnOrgForOneHrisPerson
-# updated 120907
+# updated 140715 - v1.6
 # This query takes a position URI varvalue and returns 
 # position and org pairs
 
@@ -12,9 +12,12 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
 CONSTRUCT 
   {
-  ?job vivo:positionInOrganization ?org .
-  ?org vivo:organizationForPosition ?job .
-  }
+  #?job vivo:positionInOrganization ?org .
+  #?org vivo:organizationForPosition ?job .
+  ?job vivo:relates ?org .
+  ?org vivo:relatedBy ?job .
+   }
+
 WHERE
 {
   # querying HRIS endpoint
@@ -25,5 +28,6 @@ WHERE
     VARVALUE hr:personInJob ?job .
     ?job hr:jobInPosition ?position .
     ?position vivo:positionInOrganization ?org .
+    ?org a foaf:Organization .
     }
 }
