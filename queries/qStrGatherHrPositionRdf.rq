@@ -1,5 +1,5 @@
 #
-# qStrHRISGetPositionRDF.txt
+# qStrGatherHrPositionRdf.rq
 # updated 140623 - changed newhr > hr
 # queries HRIS for all details related to a position
 # TODO:  fix this to pull only HR Graph rdf and adjust output

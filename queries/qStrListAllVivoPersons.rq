@@ -1,5 +1,5 @@
 #
-# qStrAllVIVOPerson
+# qStrListAllVivoPersons.rq
 # updated 140610 - removed DTI, dependent upon HR position
 # returns all VIVO person URI
 # where person has an core:hrJobTitle

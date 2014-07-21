@@ -1,11 +1,11 @@
 #
-# qStrHRISmatchVIVOEmplId
-# updated 140623 - commented out class comparison
+# qStrListAllHrPersonWithVivoNetId.rq
+# updated 140623 - modified to comment out class comparison
 # looks at all HRIS persons and
-# compares emplId to Joseki
+# compares netId to Joseki
 # returns all HRIS persons where 
-# emplId matches a VIVO emplId
-# modified 120913 - all hris should have an emplId
+# netId matches a VIVO netId
+# modified 120913 - all hris should have a netId
 # and no more CornellEmployee
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>  
@@ -24,12 +24,12 @@ WHERE {
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {
-      #?hrperson rdf:type <http://vivoweb.org/ontology/newhr#hasActivePosition> .
-      ?hrperson hr:emplId ?emplId .
+      #?hrperson rdf:type <http://vivoweb.org/ontology/hr#hasActivePosition> .
+      ?hrperson hr:netId ?hrnetId .
      } 
   # querying VIVO endpoint
   SERVICE <VIVOSERV>
     {
-      ?vivoperson hr:emplId ?emplId .
+      ?vivoperson hr:netId ?hrnetId .
     }
 }

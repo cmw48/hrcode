@@ -1,8 +1,8 @@
 #
-# qStrOnePersonHRISRDF
+# qStrGatherHrPersonRdfWithEmplId.rq
 # with an emplID, 
-# construct all HRIS RDF about a person
-# updated 140425
+# construct all HR rdf about a person
+# updated 140720
 # added hr preferred and legal name parts
 # attach to VIVO vcard
 

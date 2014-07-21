@@ -1,5 +1,5 @@
 #
-# qStrNewPersonHRISRDF
+# qStrGatherNewHrPersonRdf.rq
 # with hr URI in hand, collect all D2R RDF about a new person.
 # updated140714 
 

@@ -1,5 +1,5 @@
 #
-# qStrPersonFromActivePosition
+# qStrGetHrPersonForPosition.rq
 # updated 140713
 # with a person URI in hand
 # queries HRIS endpoint and returns

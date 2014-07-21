@@ -1,5 +1,5 @@
 #
-# qStrVivoPosnForOnePerson.txt
+# qStrGetVivoPositionsForPerson.rq
 # updated 140623 - updated for v1.6 and constrained to hr:WdPosition
 # position type now "travels with" position statement
 # using presence of DTI as filter (should use vivo:end, but it doesn't work)
@@ -13,8 +13,6 @@ PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 CONSTRUCT {
 
 VARVALUE vivo:relatedBy ?position .
-?position a hr:WdPosition .
-
 }
 WHERE
 {

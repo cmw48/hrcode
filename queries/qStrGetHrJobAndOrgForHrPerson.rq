@@ -1,6 +1,6 @@
 #
 
-# qStrGetPosnOrgForOneHrisPerson
+# qStrGetHrJobAndOrgForHrPerson.rq
 # updated 140715 - v1.6
 # This query takes a position URI varvalue and returns 
 # position and org pairs
@@ -14,8 +14,8 @@ CONSTRUCT
   {
   #?job vivo:positionInOrganization ?org .
   #?org vivo:organizationForPosition ?job .
-  ?job vivo:relates ?org .
-  ?org vivo:relatedBy ?job .
+  ?job vivo:relates ?vivoorg .
+  ?vivoorg vivo:relatedBy ?job .
    }
 
 WHERE
@@ -28,6 +28,12 @@ WHERE
     VARVALUE hr:personInJob ?job .
     ?job hr:jobInPosition ?position .
     ?position vivo:positionInOrganization ?org .
-    ?org a foaf:Organization .
+    #?org a foaf:Organization .
+    ?org hr:deptCode ?deptCode .
     }
+  # querying VIVO endpoint
+  SERVICE <VIVOSERV>
+    {
+       ?vivoorg vivoc:departmentHRcode ?deptCode .   
+    }  
 }

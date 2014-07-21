@@ -1,4 +1,4 @@
-# qStrVivoGetPositionRDF
+# qStrGatherVivoPositionRdf.rq
 # updated 140711
 # this query takes position uri and returns all rdf for VIVO Position
 # TODO: return only KB2 RDF and adjust rdf:type

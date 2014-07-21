@@ -57,13 +57,15 @@ public class ReadWrite {
 	
 	public String[] getQueryArgs(Resource vivoIndiv, String vivoPersonEmplId, String vivoPersonNetId) throws IOException  {
 		// setup query for grabbing VIVO rdf
-
-		String HRISRDFBaseQuery = ReadQueryString(IngestMain.fileQryPath + "qStrOnePersonHRISRDF.txt");
-		String HRISRDFnetIdQuery = ReadQueryString(IngestMain.fileQryPath + "qStrOnePersonHRISNetIDRDF.txt");
+       //TODO: don't these need to generate 1.6 rdf with vcard?
+		
+		String HRISRDFBaseQuery = ReadQueryString(IngestMain.fileQryPath + "qStrGatherHrPersonRdfWithEmplId.rq");
+		String HRISRDFnetIdQuery = ReadQueryString(IngestMain.fileQryPath + "qStrGatherHrPersonRdfWithNetId.rq");
 
 		if (vivoPersonEmplId.equals(""))  {
 			//String vivoPersonNetId = getLiteralValue(vivoIndiv, HR_NETID);
 			// pass VIVO netID to HRIS query to get HRIS RDF
+            logger.info("EMPL ID blank!");
 			logger.info("constructing HRIS RDF for " + vivoPersonNetId + "...");
 			String[] temp =  {HRISRDFnetIdQuery, "VARVALUE", vivoPersonNetId};
 			return temp;

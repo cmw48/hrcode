@@ -1,7 +1,9 @@
-#
-# qStrAllHRISPositions
-# updated 140607 - edited for vivo1.6
-# returns a list of all HRIS positions
+# 
+# qStrListAllHrTermPositions.rq
+# updated 140623 -edited for vivo 1.6
+# returns a list of all positions with type newhr:EmploymentTerm
+# (the idea is to get a list of all positions that have been tagged as 
+#  terminated, separated, or retired)
 
 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
@@ -15,10 +17,11 @@ PREFIX titlemap: <http://vivo.library.cornell.edu/ns/hr/titleMapping#>
 CONSTRUCT { 
   ?hrisposition rdf:type vivo:Position  .
     } 
+
 WHERE {
-# querying HRIS endpoint
-SERVICE <HRISSERV>
-  {  
-    ?hrisposition rdf:type vivo:Position .
-  } 
+  # querying HRIS endpoint
+  SERVICE <HRISSERV>
+    {  
+      ?hrisposition rdf:type hr:EmploymentTerm .
+    } 
 }

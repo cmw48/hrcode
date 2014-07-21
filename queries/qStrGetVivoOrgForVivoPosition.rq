@@ -1,5 +1,5 @@
 #
-# qStrGetPosnOrgForOneVivoPosition.txt
+# qStrGetVivoOrgForVivoPosition.rq
 # updated 140623 - updated for vivo1.6
 # This query takes a position URI varvalue and returns 
 # position and org pairs

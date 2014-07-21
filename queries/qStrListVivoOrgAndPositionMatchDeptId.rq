@@ -1,5 +1,5 @@
 #
-# qStrOrgLinkQueryVIVO
+# qStrListVivoOrgAndPositionMatchDeptId.rq
 # updated 120907
 # with all positions in ThisVIVO, 
 # find all orgURI and deptID

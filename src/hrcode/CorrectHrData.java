@@ -87,7 +87,7 @@ public class CorrectHrData {
 		try {
 			// get some data from the vivo OntRes and put in variables
 			String vivoLabel = rw.getLiteralValue(vivoIndiv, RDFS.label);
-			String vivoWorkingTitle = rw.getLiteralValue(vivoIndiv, WORKING_TITLE);
+//			String vivoWorkingTitle = rw.getLiteralValue(vivoIndiv, WORKING_TITLE);
 //			String vivoFirstName = rw.getLiteralValue(vivoIndiv, FIRST_NAME);
 //			String vivoLastName = rw.getLiteralValue(vivoIndiv, LAST_NAME);
 
@@ -127,8 +127,8 @@ public class CorrectHrData {
 				RDFNode   object    = stmt.getObject();      // get the object
 				//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
 				CorrectedHRISPersonRDF.add(subject, predicate, object);
-				logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
-				if (predicate.toString() == WORKING_TITLE.toString()) {
+				//logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
+				if (predicate.toString() == HR_EMPLID.toString()) {
 				 hrisPersonUri = subject;
 				 logger.info("here's the person uri! : " + hrisPersonUri);
 				} else {
@@ -138,7 +138,8 @@ public class CorrectHrData {
 			  }
 				// with subject (hrisURI), create OntResource with all statements for individual
 				OntResource hrisIndiv = mdlOnePersonHRISRDF.getOntResource(hrisPersonUri);
-
+ 
+				/*  moving prettyTitle creation to position
 				String hrisWorkingTitle = rw.getLiteralValue(hrisIndiv, WORKING_TITLE);
 
 				String prettyTitle = this.getPrettyTitle(hrisWorkingTitle);
@@ -179,7 +180,7 @@ public class CorrectHrData {
 					CorrectedHRISPersonRDF.add(vivoIndiv, WORKING_TITLE, prettyTitle);
 					//ignoreAddRetract
 				} // end else 
-
+               */
 	
 				// TODO Consolidate these in a more efficient and effective method
 				/*
@@ -228,7 +229,7 @@ return CorrectedHRISPersonRDF;
 
 public String getPrettyTitle(String hrisWorkingTitle) throws Exception {	
    
-	String prettyTitleQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrPrettyTitle.txt");
+	String prettyTitleQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrPrettyTitle.rq");
 	String[] prettyTitleQueryArg = {prettyTitleQuery, "VARVALUE" , hrisWorkingTitle};
 	String qStrPrettyTitleRDF = rw.ModifyQuery(prettyTitleQueryArg); 
 	

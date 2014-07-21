@@ -1,5 +1,5 @@
 #
-# qStrGetHRISOrgRDFWithVivoUri
+# qStrListVivoOrgMatchDeptId.rq
 # updated 140623 - updated for vivo 1.6
 # to be used as a query against a model
 # grab the URI from every vivo:Position in the model
@@ -31,12 +31,14 @@ WHERE {
    # querying HRIS endpoint
    SERVICE <HRISSERV>
     {
-      VARVALUE hr:DeptID ?deptId . 
+      <VARVALUE> hr:jobInPosition ?position .
+      ?position vivo:positionInOrganization ?organization .
+      ?organization hr:deptCode ?deptCode . 
     }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>
       {
-        ?vivoorg vivoc:departmentHRcode ?deptId .
+      OPTIONAL {?vivoorg vivoc:departmentHRcode ?deptCode .}
       }  
 
     FILTER (BOUND(?vivoorg)) 

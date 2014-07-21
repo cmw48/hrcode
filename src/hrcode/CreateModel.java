@@ -139,7 +139,7 @@ public class CreateModel {
 			try {
 				//  gather ALL VIVO person (with either netId or emplId) in a model 
 				ReadWrite rw = new ReadWrite();
-				String qStrAllVIVOPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllVIVOPerson.txt");
+				String qStrAllVIVOPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllVivoPersons.rq");
 				String allVIVOFileName = IngestMain.fileRDFPath + "allVIVOPersonURI.nt";
 				logger.info("creating VIVO model...");
 				logger.trace("using this query: \n" + qStrAllVIVOPerson);
@@ -183,7 +183,7 @@ public class CreateModel {
 				/*
 				//  gather ALL VIVO person (with either netId or emplId) in a model 
 				ReadWrite rw = new ReadWrite();
-				String qStrAllVIVOPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllVIVOPerson.txt");
+				String qStrAllVIVOPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllVivoPersons.rq");
 				String allVIVOFileName = IngestMain.fileRDFPath + "allVIVOPersonURI.nt";
 				logger.info("creating VIVO model...");
 				logger.trace("using this query: \n" + qStrAllVIVOPerson);
@@ -192,7 +192,7 @@ public class CreateModel {
 				logger.info("querying VIVOsource and populating Model mdlAllVIVOPerson...");
                 */
 			//  gather ALL HRIS positions in a model 
-							String qStrAllHRISPositions=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISPositions.txt");
+							String qStrAllHRISPositions=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllHrPositions.rq");
 							logger.trace(qStrAllHRISPositions);
 							String allHRISPosnFileName = IngestMain.fileRDFPath + "allHRISPositionsURI.nt";
 							logger.info("creating model with ALL HRIS positions...");
@@ -202,7 +202,7 @@ public class CreateModel {
 							logger.info("found " + mdlHrisAllPositions.size() + " positions for mdlHrisAllPositions...");
 							
 							//  gather ALL Terminated HRIS positions in a model 
-							String qStrAllTermPositions=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISTermPositions.txt");
+							String qStrAllTermPositions=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllHrTermPositions.rq");
 							logger.trace(qStrAllTermPositions);
 							String allTermHRISPosnFileName = IngestMain.fileRDFPath + "allTermHRISPositionsURI.nt";
 
@@ -267,7 +267,7 @@ public class CreateModel {
 				logger.info("Model mdlAllHRISPerson now contains all active HR persons...");
 			    
 				//  gather ALL HRIS emplIds in a model 
-				//String qStrAllHRISPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrAllHRISPerson.txt");
+				//String qStrAllHRISPerson=  rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllHrPersons.rq");
 				//String allHRISFileName = IngestMain.fileRDFPath + "allHRISPersonURI.nt";
 				//logger.info("creating model with ALL HRIS URIs...");
 
@@ -280,7 +280,7 @@ public class CreateModel {
 			    
 				// pull all HRIS emplIDs from HRIS service WHERE HRIS.emplId matches a VIVO.emplId
 				// keep original HRIS URI for diff process
-				String qStrHRISmatchVIVOEmplId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISmatchVIVOEmplId.txt"); 
+				String qStrHRISmatchVIVOEmplId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllHrPersonWithVivoEmplId.rq"); 
 				String HRISMatchFileName = IngestMain.fileRDFPath + "hrisMatchEmplId.nt";
 				logger.trace(qStrHRISmatchVIVOEmplId);
 				logger.trace("creating model where HRIS matches VIVO emplIds..may take a minute or so");
@@ -294,7 +294,7 @@ public class CreateModel {
 				
 				// pull all HRIS netIDs from HRIS service WHERE HRIS.netId matches a VIVO.netId
 				// keep original HRIS URI for diff process
-				String qStrHRISmatchVIVONetId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISmatchVIVONetId.txt"); 
+				String qStrHRISmatchVIVONetId = rw.ReadQueryString(IngestMain.fileQryPath + "qStrListAllHrPersonWithVivoNetId.rq"); 
 				String HRISMatchNetIdFileName = IngestMain.fileRDFPath + "hrisMatchNetId.nt";
 				logger.trace(qStrHRISmatchVIVONetId);
 				logger.trace("creating cross-check model where HRIS matches VIVO netIds..");
@@ -348,7 +348,7 @@ public class CreateModel {
 		OntModel mdlOnePersonVIVORDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		try {
 			// modify VIVO query with personId
-			String VIVORDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrOnePersonVIVORDF.txt");
+			String VIVORDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGatherVivoPersonRdf.rq");
 			String[] VIVOqueryArgs = {VIVORDFBaseQuery, "VARVALUE", personId};
 			String qStrOnePersonVIVORDF = rw.ModifyQuery(VIVOqueryArgs);
 			//  *REMOVED 140623**logger.trace("query string for one person VIVO RDF: \n\n" + qStrOnePersonVIVORDF);
@@ -369,7 +369,7 @@ public class CreateModel {
 		OntModel mdlOnePersonHrisRDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		try {
 			// modify VIVO query with personId
-			String HrisRDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrOnePersonHRISRDF.txt");
+			String HrisRDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGatherHrPersonRdfWithEmplId.rq");
 			//String[] VIVOqueryArgs = {HrisRDFBaseQuery, "VARVALUE", personId};
 
 			// send emplId and netId to getQueryArgs, if emplId is blank, then use netId.
@@ -397,7 +397,7 @@ public class CreateModel {
 	public Model getVivoOrgLinks(Model mdlVIVOPosnRDF) throws Exception {
 
 		try {
-			String vivoOrgsQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrOrgLinkQueryVIVO.txt");
+			String vivoOrgsQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrListVivoOrgAndPositionMatchDeptId");
 			logger.info("here is the Org Links query: \n\n" + vivoOrgsQuery);
 			long startTime = System.currentTimeMillis();
 			
@@ -433,7 +433,7 @@ public class CreateModel {
 	public Model getHRISOrgLinks(Model mdlHRISPosnRDF) throws Exception {
 
 		try {
-			String hrisOrgsQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrOrgLinkQueryHRIS.txt");
+			String hrisOrgsQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrListHrOrgNotInVivo.rq");
 			//String hrisOrgsQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetPosnForOneHrisPerson.txt");
 			long startTime = System.currentTimeMillis();			
 			Model mdlOrgPosnLinksHRIS = QueryAgainstExistingModel(hrisOrgsQuery, mdlHRISPosnRDF); 

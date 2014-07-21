@@ -219,10 +219,10 @@ public Model IterateThroughVivoPersonList(Model mdlAllVIVOPerson) throws Excepti
 				// we want newHRISIndiv to be an OntResource, but mdlNewHrisDiff can't do that for us
 				// clunky fix is to create an OntModel, and add the "Model" mdlNewHrisDiff to it.
 				//look- passing as Model
-				//String qStrAllHRISActivePersons =  rw.ReadQueryString(IngestMain.fileQryPath + "qStrPersonFromActivePosition.txt");
+				//String qStrAllHRISActivePersons =  rw.ReadQueryString(IngestMain.fileQryPath + "
 				//logger.info(qStrAllHRISActivePersons);
 				String allHRISActivePersonsFileName = IngestMain.fileRDFPath + "allHRISActivePersonsURI.nt";
-				String NEWHRISActivePersonBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrPersonFromActivePosition.txt");
+				String NEWHRISActivePersonBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrPersonForPosition.rq");
 				String hrisActivePosnURIString = ("<" + positionId + ">");
 				String[] NEWHRISActivePersonQueryArg = {NEWHRISActivePersonBaseQuery, "VARVALUE" , hrisActivePosnURIString};
 				String qStrNEWHRISActivePersonRDF = rw.ModifyQuery(NEWHRISActivePersonQueryArg); 

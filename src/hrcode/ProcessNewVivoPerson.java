@@ -45,7 +45,7 @@ public class ProcessNewVivoPerson extends IteratorMethods {
 		Model additionsForNEWHRISPerson = ModelFactory.createDefaultModel();
 		logger.info("personId" + personId );
 		boolean ignoreHRISAdd = false;
-		String NEWHRISRDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrNewPersonHRISRDF.txt");
+		String NEWHRISRDFBaseQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGatherNewHrPersonRdf.rq");
 
 		String hrisURIString = ("<" + newHRISIndiv.getURI() + ">");
 		String[] NEWHRISQueryArg = {NEWHRISRDFBaseQuery, "VARVALUE" , hrisURIString};

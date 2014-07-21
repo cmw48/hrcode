@@ -1,5 +1,5 @@
 #
-# qStrHRISPosnForOnePerson
+# qStrGetHrJobForHrPerson.rq
 # modified 140623 - removed DTI as qualifier for filter
 # This query returns all HRIS positions for a person
 # and any associated DTI

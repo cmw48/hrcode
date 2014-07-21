@@ -230,7 +230,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 				// fixing here
 				// get list of D2R positions for person
-				String vivoPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrVivoPosnForOnePerson.txt");
+				String vivoPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetVivoPositionsForPerson.rq");
 
 				String[] queryArg12 = {vivoPosnQuery, "VARVALUE" , vivoPersonURIString};
 				String qStrVivoPositions = rw.ModifyQuery(queryArg12); 
@@ -254,7 +254,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					mdlVivoPersonInPosn.add( vivoIndiv, PERSON_IN_POSN, stmt12.getObject() );
 					logger.info("just added it: "+ mdlVivoPersonInPosn);
 
-					String vivoPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrVivoGetPositionRDF.txt");
+					String vivoPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGatherVivoPositionRdf.rq");
 
 					//  pass position RDF to VIVO getPositionRDF query
 
@@ -336,7 +336,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 					// shouldn't we be getting the org info from each position here
 					String vivoPositionURIString = ("<" + stmt.getSubject() + ">");
-					String VivoOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetPosnOrgForOneVivoPosition.txt");
+					String VivoOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetVivoOrgForVivoPosition.rq");
 					String[] queryArg6 = {VivoOrgQuery, "VARVALUE", vivoPositionURIString} ;
 					String qStrmdlVivoOrgRDF = rw.ModifyQuery(queryArg6); 
 					logger.debug("This is the query for getting all the Orgs for one position: \n");
@@ -362,7 +362,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 				try {
 
 					// get list of D2R positions for person
-					String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISPosnForOnePerson.txt");
+					String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrJobForHrPerson.rq");
 
 					//  get D2R person URI and pass to HRIS position query
 					//!! THIS IS WHERE THE PROBLEM IS
@@ -379,7 +379,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						//CorrectedHRISPersonRDF.add(vivoIndiv, predicate, object);
 						CorrectedHRISPersonRDF.add(subject, predicate, object);
 						logger.info ("sub:"+subject+",  pred:"+predicate+", obj:"+object);
-						if (predicate.toString() == WORKING_TITLE.toString()) {
+						if (predicate.toString() == HR_EMPLID.toString()) {
 						 hrisPersonUri = subject;
 						 logger.info("here's the person uri! : " + hrisPersonUri);
 						} else {
@@ -409,7 +409,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 						mdlHRISPersonInPosn.add(hrisPersonUri, PERSON_IN_POSN, stmt11.getObject() );
 						logger.info("just added it: "+ mdlHRISPersonInPosn);
 
-						String hrisPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrHRISGetPositionRDF.txt");
+						String hrisPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGatherHrPositionRdf.rq");
 
 						//  pass position RDF to HRIS getPositionRDF query
 
@@ -574,7 +574,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					// query contains all D2R RDF for the orgs in question
 
 					//String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetPosnForOneHrisPerson.txt");
-					String hrisOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetPosnOrgForOneHrisPerson.txt");
+					String hrisOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrJobAndOrgForHrPerson.rq");
 					String[] queryArg4 = {hrisOrgQuery, "VARVALUE" , hrisURIString};
 					String qStrmdlHRISOrgRDF = rw.ModifyQuery(queryArg4); 
 					logger.trace("This is the query for getting all the Orgs for one person: \n");
@@ -590,8 +590,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 					//was Model mdlHRISOrgRDF = cm.getHRISOrgLinks(mdlHRISPosnRDF);
 					if (!mdlHRISOrgRDF.isEmpty()) {
 						// with each statement in mdlHRISOrgRDF, get full position data
-						String hrisOrgVivoUriQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHRISOrgRDFWithVivoUri.txt");
-						String hrisOrgHrisUriQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHRISOrgRDF.txt");		
+						String hrisOrgVivoUriQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrListVivoOrgMatchDeptId.rq");
+						String hrisOrgHrisUriQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrMintNewHrOrgNotInVivo.rq");		
 						logger.debug("mdlHRISORGRDF: " + mdlHRISOrgRDF);
 						List<Statement> hrisOrgList = mdlHRISOrgRDF.listStatements((Resource) null, POSITION_IN_ORGANIZATION, (RDFNode) null).toList();
 						Integer numHRISOrg = hrisOrgList.size();
@@ -602,8 +602,9 @@ public class UpdateVivoPerson extends IteratorMethods {
 							String positionUriString = positionUri.toString();
 							RDFNode hrisOrgUri = stmt5.getObject();
 							String hrisOrgUriString = hrisOrgUri.toString();
-							hrisOrgUriString = "<" + hrisOrgUriString + ">";
-
+							//hrisOrgUriString = "<" + hrisOrgUriString + ">";
+                            // removed <> from string
+							
 							// does this HRIS org exist in VIVO? 
 							/////  TODO This is killing newly minted D2R orgs.  Need to fix.
 							String[] queryArg5 = {hrisOrgVivoUriQuery, "VARVALUE" , hrisOrgUriString};	
