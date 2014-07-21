@@ -9,7 +9,9 @@
 PREFIX vivo: <http://vivoweb.org/ontology/core#> 
 PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
 
+vivoc:
 CONSTRUCT 
   {
   #?job vivo:positionInOrganization ?org .

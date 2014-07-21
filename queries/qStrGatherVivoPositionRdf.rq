@@ -23,7 +23,7 @@ CONSTRUCT {
       ?varPosition hr:company ?hrCompany .
       ?varPosition rdf:type vivo:Position .
       ?vivoOrg vivo:relatedBy ?varPosition  . 
-      ?vivoOrg rdf:type foaf:Organization . 
+      #?vivoOrg rdf:type foaf:Organization . 
       ?vivoPerson hr:primaryWorkingTitle ?primaryWorkingTitle .
       ?vivoPerson rdf:type ?personType .
       ?varPosition hr:positionInUnit ?positionInUnit .
