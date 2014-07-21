@@ -22,12 +22,14 @@ CONSTRUCT {
       ?job hr:jobFamily ?hrpJobFamily .
       ?job hr:jobFamilyGroup ?hrpJobFamilyGroup .
       ?job hr:supOrgCode ?hrpSupOrgCode .
-      ?job vivo:positionInOrganization ?hrpPosnInOrganization .
+      ?job vivo:relates ?hrpPosnInOrganization .
+      ?hrpPosnInOrganization vivo:relatedBy ?job  .
       ?job rdfs:label ?jobLabel .
-      ?job hr:jobInPosition ?position .
+      #?job hr:jobInPosition ?position .
       ?job hr:primaryJob ?hrjPrimaryJob .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
-      ?job vivo:jobForPerson ?hrjJobForPerson .
+      ?hrjJobForPerson vivo:relatedBy ?job .
+      ?job vivo:relates ?hrjJobForPerson .
 }
 WHERE
 {

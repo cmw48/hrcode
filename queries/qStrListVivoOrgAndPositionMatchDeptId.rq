@@ -19,8 +19,8 @@ PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
 
 
 CONSTRUCT { 
-    ?vivoorg vivo:organizationForPosition ?position .
-    ?position vivo:positionInOrganization ?vivoorg .
+    ?vivoorg vivo:relatedBy ?position .
+    ?position vivo:related ?vivoorg .
   }   
 WHERE {
    ?position rdf:type vivo:Position .
@@ -28,11 +28,11 @@ WHERE {
   SERVICE <HRISSERV>
     {
       ?position vivo:positionInOrganization ?orgURI .
-	  ?orgURI newhr:DeptID ?deptId    
+	  ?orgURI hr:deptCode ?deptCode .   
      } 
   # querying VIVO endpoint
   SERVICE <VIVOSERV>
     {
-       ?vivoorg vivoc:departmentHRcode ?deptId .   
+       ?vivoorg vivoc:departmentHRcode ?deptCode .   
     }  
 }
