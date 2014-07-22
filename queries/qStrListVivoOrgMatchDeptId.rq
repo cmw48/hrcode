@@ -4,7 +4,7 @@
 # to be used as a query against a model
 # grab the URI from every vivo:Position in the model
 # get the orgURI from the D2R position
-# return the deptId from the D2R org (and label and UnitIdDesc if available)
+# return the deptCode from the D2R org (and label and UnitIdDesc if available)
 # check the orgURI against the VIVO Joseki, return optional ?vivoorg URI
 # in this case (HRIS org data) only where this orgURI does not have a
 #  pre-existing VIVO org

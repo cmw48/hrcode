@@ -375,7 +375,7 @@ public class CreateModel {
 			// send emplId and netId to getQueryArgs, if emplId is blank, then use netId.
 
 			String qStrOnePersonHrisRDF = rw.ModifyQuery(rw.getQueryArgs(vivoIndiv, vivoPersonEmplId, vivoPersonNetId));
-		//  *REMOVED 140623**logger.trace("query string for one person HRIS RDF: \n\n" + qStrOnePersonHrisRDF);
+		    logger.trace("query string for one person HRIS RDF: \n\n" + qStrOnePersonHrisRDF);
 
 
 			//mdlOnePersonHrisRDF = cm.MakeNewModelCONSTRUCT(qStrOnePersonHrisRDF); 	

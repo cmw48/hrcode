@@ -25,7 +25,6 @@ CONSTRUCT {
       ?job vivo:relates ?hrpPosnInOrganization .
       ?hrpPosnInOrganization vivo:relatedBy ?job  .
       ?job rdfs:label ?jobLabel .
-      #?job hr:jobInPosition ?position .
       ?job hr:primaryJob ?hrjPrimaryJob .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .
       ?hrjJobForPerson vivo:relatedBy ?job .
@@ -37,8 +36,6 @@ WHERE
   # get Workday->D2R format rdf, then write it as vivo 1.6 format rdf.
   SERVICE <http://vivo-migrate.library.cornell.edu/d2r>
     {
-     
-     
       #then, list all job-specific RDF
       VARVALUE rdfs:label ?jobLabel .
       VARVALUE hr:jobId ?hrjJobId .

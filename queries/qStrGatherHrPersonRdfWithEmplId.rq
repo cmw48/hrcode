@@ -25,7 +25,6 @@ CONSTRUCT {
     ?hrisperson obo:ARG_2000028 ?vivovcard . 
     ?vivovcard obo:ARG_2000029 ?hrisperson . 
     ?vivovcard vcard:hasName ?vivoNameUri .
-    #?vivoNameUri a vcard:Name . 
     ?vivoNameUri vcard:familyName ?hrislastName . 
     ?vivoNameUri vcard:givenName ?hrisfirstName . 
     ?vivoNameUri hr:legalNameString ?hrisLegalNameString .
@@ -39,37 +38,15 @@ CONSTRUCT {
     ?vivoEmailUri rdf:type vcard:Email .
     ?vivoEmailUri vcard:email ?hrisemail .
     ?hrisperson hr:WorkingTitle ?hriswtitle .
-   # ?vivovcard vcard:hasTitle ?titleUri . 
-   # ?vivoTitleUri rdf:type vcard:Title .
-   # ?vivoTitleUri vcard:title ?hriswtitle . 
-   # ?hrisperson hr:primaryWorkingTitle ?primaryTitle .
-   # ?hrisperson hr:legalNameString ?hrisLegalNameString . 
-   # ?hrisperson hr:preferredFirstName ?hrisPreferredFirstName . 
-   # ?hrisperson hr:preferredLastName ?hrisPreferredLastName . 
-   # ?hrisperson hr:preferredMiddleInitial ?hrisPreferredMiddleInitial . 
-   # ?hrisperson hr:preferredMiddleName ?hrisPreferredMiddleName . 
-   # ?hrisperson hr:preferredNameString ?hrisPreferredNameString . 
-   # ?hrisperson hr:preferredSocialSuffix ?hrisPreferredSocialSuffix. 
-   # ?hrisperson hr:primaryUnitCode ?hrisPrimaryUnitCode . 
-   # ?hrisperson vivo:middleInitial ?hrisMiddleInitial . 
-   # ?hrisperson hr:WorkingTitle ?hriswtitle .
-   # ?hrisperson vivo:email ?hrisemail .
-   # ?hrisperson foaf:firstName ?hrisfirstName .
-   # ?hrisperson foaf:lastName ?hrislastName .
-   # ?hrisperson hr:PrefName ?hrisPrefName .
   }   
 WHERE {
   BIND (str("VARVALUE") as ?variableEmplId)
   # querying HRIS endpoint 
   SERVICE <HRISSERV>
     {
-
-    #?hrisperson rdf:type foaf:Person .
     ?hrisperson hr:emplId ?variableEmplId .
     ?hrisperson rdfs:label ?hrislabel .
     ?hrisperson hr:netId ?hrisnetId .
-    #?hrisperson hr:Unitid ?hrisUnitId .
-    #?hrisperson hr:emplId ?hrisemplId .
     OPTIONAL { ?hrisperson hr:legalNameString ?hrisLegalNameString . }
     OPTIONAL { ?hrisperson hr:preferredFirstName ?hrisPreferredFirstName . }
     OPTIONAL { ?hrisperson hr:preferredLastName ?hrisPreferredLastName . }

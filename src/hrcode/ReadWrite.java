@@ -125,19 +125,6 @@ public class ReadWrite {
 		String baseQuery = args[0];
 
 		try {
-	        // at one point, I thought it would be nifty to pass 5 args and do two regexReplace at once.
-			// there aren't any situations where that makes sense.  This code should go away.
-			/**
-			 * if (args.length == 5) {
-			 *
-			*	//two replacements to be done, use 3,4
-			*	String[] replArgs = {baseQuery, args[3], args[4]};
-			*	interimString = ReplaceRegex(replArgs);
-			*} else {
-			*	// only one replacement, use 1,2
-			*	interimString = baseQuery;
-			*}
-			*/
 			interimString = baseQuery;
 			String[] replArgs = {interimString, args[1], args[2]};
 			String tempString = ReplaceRegex(replArgs);
@@ -147,7 +134,6 @@ public class ReadWrite {
 		} finally {
 
 		}
-
 		return modifiedString;
 	}
 	
