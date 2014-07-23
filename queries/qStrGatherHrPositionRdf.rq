@@ -22,8 +22,6 @@ CONSTRUCT {
       ?job hr:jobFamily ?hrpJobFamily .
       ?job hr:jobFamilyGroup ?hrpJobFamilyGroup .
       ?job hr:supOrgCode ?hrpSupOrgCode .
-      ?job vivo:relates ?hrpPosnInOrganization .
-      ?hrpPosnInOrganization vivo:relatedBy ?job  .
       ?job rdfs:label ?jobLabel .
       ?job hr:primaryJob ?hrjPrimaryJob .
       ?job vivo:hrJobTitle ?hrjHrJobTitle .

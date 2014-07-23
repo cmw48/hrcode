@@ -1,0 +1,43 @@
+#
+
+# qStrGetHrJobAndOrgForHrPosition.rq
+# updated 140715 - v1.6
+# This query takes a position URI varvalue and returns 
+# position and org pairs
+
+
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+PREFIX hr: <http://vivo.cornell.edu/ns/hr/0.9/hr.owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX vivoc: <http://vivo.library.cornell.edu/ns/0.1#>
+
+CONSTRUCT 
+  {
+  VARVALUE vivo:relates ?vivoorg .
+  ?vivoorg vivo:relatedBy VARVALUE .
+  VARVALUE hr:positionInUnit ?vivounit .
+  ?vivounit hr:unitForPosition VARVALUE .
+  ?vivoorg hr:orgHeadedBy ?vivoperson .
+   }
+
+WHERE
+{
+  # querying HRIS endpoint
+  SERVICE <HRISSERV>
+    {
+    VARVALUE hr:jobInPosition ?position .
+    ?position vivo:positionInOrganization ?org .
+    ?org hr:DeptID ?deptId .
+    ?sisterOrg hr:DeptID ?deptId .
+    ?sisterOrg hr:deptCode ?deptCode .
+    ?org hr:UnitID ?unitId .
+    ?org hr:orgHeadedBy ?headedByNetId .
+    }
+  # querying VIVO endpoint
+  SERVICE <VIVOSERV>
+    {
+      OPTIONAL {?vivoorg vivoc:departmentHRcode ?deptCode .}
+      OPTIONAL {?vivounit hr:unitId ?unitId .} 
+      OPTIONAL {?vivoperson hr:netId ?headedByNetId . }
+    }  
+}

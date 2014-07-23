@@ -164,47 +164,6 @@ public class UpdateVivoPerson extends IteratorMethods {
 					ignorePosnDiffAdd = true;
 	
 				}		
-				// HERE'S WHERE THE PROFILE DIFF WAS
-
-				/* LDAP COMPARISON (FUTURE DEVELOPMENT)
-			// set this up to pass netId to LDAP for uid search string
-			logger.debug("this is where we'll eventually compare to LDAP...");
-
-			Property HR_NETID = ResourceFactory.createProperty("http://vivo.cornell.edu/ns/hr/0.9/hr.owl#netId"); 
-			NodeIterator netIditer = mdlOnePersonVIVORDF.listObjectsOfProperty(HR_NETID);
-			String VIVOPersonNetId = "";
-			while (netIditer.hasNext(  )) {		
-				VIVOPersonNetId = netIditer.next(  ).toString(  );
-			}  //end while for netiditer
-
-			logger.debug("searching LDAP for " + VIVOPersonNetId);
-
-
-			// in the event that netID is blank, pass label to LDAP for uid search string
-			Property HR_LABEL = ResourceFactory.createProperty("http://www.w3.org/2000/01/rdf-schema#label"); 
-			NodeIterator labeliter = mdlOnePersonVIVORDF.listObjectsOfProperty(HR_LABEL);
-			String VIVOPersonlabel = "";
-			while (labeliter.hasNext(  )) {		
-				VIVOPersonlabel = labeliter.next(  ).toString(  );
-			}  //end while for labeliter
-
-			logger.debug("label: " + VIVOPersonlabel);
-
-			//NOTE fix query to accept emplId
-
-
-			String searchFilter = "";
-			//rebuild search filter to look at netID = uid first
-			searchFilter = makeLdapSearchFilter(VIVOPersonlabel);
-			logger.debug(searchFilter);
-			// turn this back on when LDAP is working
-
-			//LDAPSearchResults thisResult = searchLdap(searchFilter);
-			//String orgName = "orgName";
-			//String resultString = ldapResult2String(thisResult, orgName, searchFilter);
-			//logger.debug(resultString);
-
-				 */
 
 				//setup jobFamilymapping
 				// TODO: determine if this should be another Sesame map done via query?
@@ -221,8 +180,10 @@ public class UpdateVivoPerson extends IteratorMethods {
 				// RDF FOR POSITIONS
 
 				// now, look at positions for this person and compare VIVO positions with HRIS positions
-				// first, set up VIVO positions
+				
+				// first, examine VIVO positions
 				String vivoPersonURI = vivoIndiv.getURI();
+				
 				// take a VIVO URI and modify query to return all position RDF (less org links)
 				String vivoPersonURIString = ("<" + vivoPersonURI + ">");
 
@@ -230,8 +191,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 				// get list of D2R positions for person
 				String vivoPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetVivoPositionsForPerson.rq");
 
-				String[] qryArgs = {vivoPosnQuery, "VARVALUE" , vivoPersonURIString};
-				String qStrVivoPositions = rw.ModifyQuery(qryArgs); 
+				String[] getPositionsQryArgs = {vivoPosnQuery, "VARVALUE" , vivoPersonURIString};
+				String qStrVivoPositions = rw.ModifyQuery(getPositionsQryArgs); 
 				// construct model with all hris position RDF for one person
 
 				logger.trace("query for vivo positions for one person "+ qStrVivoPositions);
@@ -261,8 +222,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 					//  pass position RDF to VIVO getPositionRDF query
 
 					String vivoPosnURIString = ("<" + vivoPositionURI + ">");
-					String[] queryArg13 = {vivoPosnRDFQuery, "VARVALUE" , vivoPosnURIString};
-					String qStrVivoPosnRdf = rw.ModifyQuery(queryArg13); 
+					String[] vivoPositionRdfQueryArgs = {vivoPosnRDFQuery, "VARVALUE" , vivoPosnURIString};
+					String qStrVivoPosnRdf = rw.ModifyQuery(vivoPositionRdfQueryArgs); 
 					// construct model with all hris position RDF for one person
 
 					logger.trace("Here's the query for VIVO positions for " + vivoPersonURI + ":\n\n" + qStrVivoPosnRdf);
@@ -322,7 +283,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 
 					try {
 						Resource positionType = chd.getPositionType(vivoHRJobTitle, title2family);
-						logger.debug("getPositionType is changing " + vivoHRJobTitle + " to " + positionType);
+						logger.debug("getPositionType thinks that " + vivoHRJobTitle + " should get this position type:  " + positionType);
 						
 									
 						//mdlVIVOPosnRDF.add(stmt.getSubject(),  RDF.type, positionType );
@@ -345,21 +306,33 @@ public class UpdateVivoPerson extends IteratorMethods {
 					logger.debug(qStrmdlVivoOrgRDF + "\n");
 					startTime = System.currentTimeMillis();
 					OntModel mdlVivoOrgRDF = cm.MakeNewModelCONSTRUCT(qStrmdlVivoOrgRDF); 	
-					logger.debug("Here's the list of D2R orgs attached to this position.");
+					logger.debug("Here's the list of VIVO orgs attached to this position.");
 					rw.LogRDF(mdlVivoOrgRDF, "N-TRIPLE");
 					logger.debug("\nVIVOposn org link query time: " + (System.currentTimeMillis() - startTime) + "\n");	
 
 					mdlVivoPosnRDF.add(mdlVivoOrgRDF);
 
-				}
+				}  //done with VIVO position list
 
-				// this is all existing VIVO position RDF - will be retracted!
+				// this is all existing VIVO position RDF 
 				logger.debug("\n*VIVO position RDF*");
 				rw.LogRDF(mdlVivoPosnRDF, "N-TRIPLE");
 
+				
+				
+				//   ******************************
+				//   start HR position processing 
+                //   ******************************				
+				
 				// TODO consider renaming to MakeNewModel, parse as describe first?
+				
+				// setup resource to hold hr PersonURI (it's different) and ont model for all the hr RDF
+				
 				Resource hrisPersonUri = null;
+				Resource  hrisPositionUri = null;
 				OntModel mdlHRISPosnRDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+				OntModel mdlHRISOrgRDF = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+				
 				// now setup HRIS positions
 				try {
 
@@ -367,8 +340,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 					String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrJobForHrPerson.rq");
 
 					//  get D2R person URI and pass to HRIS position query
-					//!! THIS IS WHERE THE PROBLEM IS
-//					Resource hrisURI = mdlOnePersonHRISRDF.listSubjects().toList().get(0);
+					//   ***THIS IS WHERE THE TROUBLE IS ***
+					Resource hrisURI = mdlOnePersonHRISRDF.listSubjects().toList().get(0);
 					// with a model, iterate through all statements
 					StmtIterator hrisIter = mdlOnePersonHRISRDF.listStatements();
 
@@ -390,8 +363,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 					}
 					
 					String hrisURIString = ("<" + hrisPersonUri.getURI() + ">");
-					String[] queryArg11 = {hrisPosnQuery, "VARVALUE" , hrisURIString};
-					String qStrHRISPositions = rw.ModifyQuery(queryArg11); 
+					String[] getHrJobQryArgs = {hrisPosnQuery, "VARVALUE" , hrisURIString};
+					String qStrHRISPositions = rw.ModifyQuery(getHrJobQryArgs); 
 					// construct model with all hris position RDF for one person
 
 					logger.trace(qStrHRISPositions);
@@ -404,20 +377,23 @@ public class UpdateVivoPerson extends IteratorMethods {
 					OntModel mdlHRISPersonInPosn = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 					List<Statement> hrisPosnList = mdlHRISPositions.listStatements().toList();
 					Integer numHRISPosn = hrisPosnList.size();
-					logger.debug("number of HRIS positions: " + numHRISPosn);
+					logger.debug("number of HRIS position for this person: " + numHRISPosn);
 					// with list of positions in mdlHRISPositions, iterate to get all Hris Posn Rdf
-					for (Statement stmt11 : hrisPosnList ) {
-						String positionURI = stmt11.getObject().toString();
-						mdlHRISPersonInPosn.add(hrisPersonUri, PERSON_IN_POSN, stmt11.getObject() );
-						logger.info("just added it: "+ mdlHRISPersonInPosn);
+					for (Statement posnListForOnePerson : hrisPosnList ) {
+						String positionURI = posnListForOnePerson.getObject().toString();
+						mdlHRISPersonInPosn.add(hrisPersonUri, PERSON_IN_POSN, posnListForOnePerson.getObject() );
+						logger.info("TEST- is this a list of the HR positions?: "+ mdlHRISPersonInPosn);
+						// this is a bad name for this resource, consider changing it to hrPosition (meaning person relatedBy position)
+						hrisPositionUri = mdlHRISPersonInPosn.listSubjects().toList().get(0);
 
 						String hrisPosnRDFQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGatherHrPositionRdf.rq");
 
 						//  pass position RDF to HRIS getPositionRDF query
 
 						String posnURIString = ("<" + positionURI + ">");
-						String[] queryArg3 = {hrisPosnRDFQuery, "VARVALUE" , posnURIString};
-						String qStrHRISRdf = rw.ModifyQuery(queryArg3); 
+						
+						String[] posnRdfQryArgs = {hrisPosnRDFQuery, "VARVALUE" , posnURIString};
+						String qStrHRISRdf = rw.ModifyQuery(posnRdfQryArgs); 
 						// construct model with all hris position RDF for one person
 
 						logger.trace(qStrHRISRdf);
@@ -428,8 +404,29 @@ public class UpdateVivoPerson extends IteratorMethods {
 						logger.debug("\n*HRIS position RDF before corrections*");
 						rw.LogRDF(mdlHRISOnePosnRDF, "N-TRIPLE");
 						logger.debug("\nHRISposnRDF link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
+						
+						//MOVED  ORG DISCOVERY
+						// look at D2R position and generate D2R URI for orgs that don't appear in VIVO
+						// query contains all D2R RDF for the orgs in question
+
+						//String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetPosnForOneHrisPerson.txt");
+						logger.debug("now finding organization for this position : " + posnURIString);
+						String hrisOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrJobAndOrgForHrPosition.rq");
+						String[] queryArg4 = {hrisOrgQuery, "VARVALUE" , posnURIString};
+						String qStrmdlHRISOrgRDF = rw.ModifyQuery(queryArg4); 
+						logger.trace("This is the query for getting all the Orgs for one person: \n");
+						logger.trace(qStrmdlHRISOrgRDF);
+						startTime = System.currentTimeMillis();
+						 mdlHRISOrgRDF = cm.MakeNewModelCONSTRUCT(qStrmdlHRISOrgRDF); 	
+						logger.debug("Here's the list of D2R orgs attached to this position.");
+						rw.LogRDF(mdlHRISOrgRDF, "N-TRIPLE");
+						logger.debug("\nHRISposn org link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
+						
+						
 					} //end if for hris posn rdf
+					
 					mdlHRISPosnRDF.add(mdlHRISPersonInPosn);
+					mdlHRISPosnRDF.add(mdlHRISOrgRDF);
 					List<Statement> hrisPosnRdf = mdlHRISPosnRDF.listStatements((Resource) null, RDFS.label, (RDFNode) null).toList();
 					//Integer numHRISPosn = hrisPosnRdf.size();
 					//logger.debug("number of HRIS positions: " + numHRISPosn);
@@ -508,6 +505,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 							logger.error("problem getting position subclass. Error", e );
 						} 	
 
+						
+						/** REMOVED- not neccessary?
 						List<Statement> changePersInPosn = mdlHRISPosnRDF.listStatements((Resource) null, PERSON_IN_POSN, (RDFNode) null).toList();
 						for (Statement stmt2 : changePersInPosn ) {
 							mdlHRISPosnRDF.remove(stmt2);
@@ -519,7 +518,9 @@ public class UpdateVivoPerson extends IteratorMethods {
 							mdlHRISPosnRDF.remove(stmt3);
 							mdlHRISPosnRDF.add(stmt3.getSubject(), POSN_FOR_PERSON, vivoIndiv );
 						}
-
+  
+						**/
+						
 						try {
 							logger.debug("*HRIS position RDF BEFORE corrections* \n");
 							rw.LogRDF(mdlHRISPosnRDF, "N-TRIPLE");
@@ -569,13 +570,13 @@ public class UpdateVivoPerson extends IteratorMethods {
 					//logger.debug("*added VIVO orgs to position RDF* \n\n");
 					//mdlHRISPosnRDF.write(System.out, "N-TRIPLE");
 
-
+/** original location, moved inside the position iterator
 					// look at D2R position and generate D2R URI for orgs that don't appear in VIVO
 					// query contains all D2R RDF for the orgs in question
 
 					//String hrisPosnQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetPosnForOneHrisPerson.txt");
-					String hrisOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrJobAndOrgForHrPerson.rq");
-					String[] queryArg4 = {hrisOrgQuery, "VARVALUE" , hrisURIString};
+					String hrisOrgQuery = rw.ReadQueryString(IngestMain.fileQryPath + "qStrGetHrJobAndOrgForHrPosition.rq");
+					String[] queryArg4 = {hrisOrgQuery, "VARVALUE" , posnURIString};
 					String qStrmdlHRISOrgRDF = rw.ModifyQuery(queryArg4); 
 					logger.trace("This is the query for getting all the Orgs for one person: \n");
 					logger.trace(qStrmdlHRISOrgRDF);
@@ -584,7 +585,7 @@ public class UpdateVivoPerson extends IteratorMethods {
 					logger.debug("Here's the list of D2R orgs attached to this position.");
 					rw.LogRDF(mdlHRISOrgRDF, "N-TRIPLE");
 					logger.debug("\nHRISposn org link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
-
+**/
 					// TODO: somewhere in here, we need to make sure that core#organizationForPosition is in the VIVO model (if it exists)
 
 					//was Model mdlHRISOrgRDF = cm.getHRISOrgLinks(mdlHRISPosnRDF);
@@ -606,10 +607,13 @@ public class UpdateVivoPerson extends IteratorMethods {
                             // removed <> from string
 							
 							// does this HRIS org exist in VIVO? 
-							/////  TODO This is killing newly minted D2R orgs.  Need to fix.
+							/////  TODO ORG relates ORG - fix
+							
+							
+							
 							String[] queryArg5 = {hrisOrgVivoUriQuery, "VARVALUE" , hrisOrgUriString};	
 							String qStrmdlHRISOneOrgRDF = rw.ModifyQuery(queryArg5); 
-							logger.debug("Here is the query for oneorg: \n\n" + qStrmdlHRISOneOrgRDF);
+							logger.debug("TEST2- Here is the query for oneorg: \n\n" + qStrmdlHRISOneOrgRDF);
 							startTime = System.currentTimeMillis();
 							OntModel mdlHRISOneOrgRDF = cm.MakeNewModelCONSTRUCT(qStrmdlHRISOneOrgRDF); 
 							Resource orgVivoUri = null;
@@ -623,7 +627,8 @@ public class UpdateVivoPerson extends IteratorMethods {
 							} else {
 								// that org does exist in VIVO, so add the RDF that we got from the first query
 								// and retract the HRIS org URIs info
-								List<Statement> changeOrgLinks = mdlHRISOneOrgRDF.listStatements((Resource) null, RDF.type , (RDFNode) null).toList();
+						/** - Removed - no need to do this now?
+						 		List<Statement> changeOrgLinks = mdlHRISOneOrgRDF.listStatements((Resource) null, RDF.type , (RDFNode) null).toList();
 								for (Statement stmt7 : changeOrgLinks ) {
 									orgVivoUri = stmt7.getSubject();
 
@@ -633,7 +638,11 @@ public class UpdateVivoPerson extends IteratorMethods {
 									mdlHRISPosnRDF.add(orgVivoUri, ORGANIZATION_FOR_POSITION, positionUri );
 									mdlHRISPosnRDF.add(positionUri, POSITION_IN_ORGANIZATION, orgVivoUri );
 								}
+															**/
 							}	
+
+
+							rw.LogRDF(mdlHRISPosnRDF,  "N-TRIPLE");
 							logger.debug("RDF for HRIS org.");
 							rw.LogRDF(mdlHRISOneOrgRDF, "N-TRIPLE");
 							logger.debug("\nHRISOneOrg link query time: " + (System.currentTimeMillis() - startTime) + " \n");	
@@ -642,9 +651,10 @@ public class UpdateVivoPerson extends IteratorMethods {
 							logger.debug("we have the D2R org URI:" + hrisOrgUriString);	
 							logger.debug("we have the VIVO org URI:" + orgVivoUri + "\n");
 
-
+                           /**  REMOVED - this is just adding the type triple to the model.  Not needed.
 							mdlHRISPosnRDF.add(mdlHRISOneOrgRDF);
 							logger.info("Added RDF to mdlHRISPosnRDF.");
+						  **/
 						}
 
 

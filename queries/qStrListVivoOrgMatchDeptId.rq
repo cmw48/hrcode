@@ -1,4 +1,5 @@
 #
+# 
 # qStrListVivoOrgMatchDeptId.rq
 # updated 140623 - updated for vivo 1.6
 # to be used as a query against a model
@@ -32,9 +33,9 @@ WHERE {
    SERVICE <HRISSERV>
     {
       <VARVALUE> hr:jobInPosition ?position .
-      ?position vivo:positionInOrganization ?organization .
-      ?organization hr:deptCode ?deptCode . 
-    }
+      ?position vivo:positionInOrganization ?org .
+      ?org hr:DeptID ?deptId .
+      }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>
       {
