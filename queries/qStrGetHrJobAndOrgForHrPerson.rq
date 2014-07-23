@@ -24,8 +24,6 @@ WHERE
   # querying HRIS endpoint
   SERVICE <HRISSERV>
     {
-    # not coming in as person local name
-    # for whatever reason, we see qStrGetPosnOrgForOneHrisPerson
     VARVALUE hr:personInJob ?job .
     ?job hr:jobInPosition ?position .
     ?position vivo:positionInOrganization ?org .

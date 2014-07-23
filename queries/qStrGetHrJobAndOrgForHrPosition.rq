@@ -15,9 +15,9 @@ CONSTRUCT
   {
   VARVALUE vivo:relates ?vivoorg .
   ?vivoorg vivo:relatedBy VARVALUE .
-  VARVALUE hr:positionInUnit ?vivounit .
-  ?vivounit hr:unitForPosition VARVALUE .
-  ?vivoorg hr:orgHeadedBy ?vivoperson .
+  #VARVALUE hr:positionInUnit ?vivounit .
+  #?vivounit hr:unitForPosition VARVALUE .
+  #?vivoorg hr:orgHeadedBy ?vivoperson .
    }
 
 WHERE
@@ -37,7 +37,9 @@ WHERE
   SERVICE <VIVOSERV>
     {
       OPTIONAL {?vivoorg vivoc:departmentHRcode ?deptCode .}
-      OPTIONAL {?vivounit hr:unitId ?unitId .} 
-      OPTIONAL {?vivoperson hr:netId ?headedByNetId . }
+    #  OPTIONAL {?vivounit hr:unitId ?unitId .} 
+    #  OPTIONAL {?vivoperson hr:netId ?headedByNetId . }
     }  
+    FILTER (BOUND(?vivoorg)) 
+
 }

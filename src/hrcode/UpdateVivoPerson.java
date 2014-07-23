@@ -617,6 +617,10 @@ public class UpdateVivoPerson extends IteratorMethods {
 							startTime = System.currentTimeMillis();
 							OntModel mdlHRISOneOrgRDF = cm.MakeNewModelCONSTRUCT(qStrmdlHRISOneOrgRDF); 
 							Resource orgVivoUri = null;
+							
+							//  TODO:    # must have a VIVO match - if not, need to mint a new organization.
+							// fix minting of new orgs when they don't match a VIVO org.
+							
 							if (mdlHRISOneOrgRDF.isEmpty()) {
 								// if nothing in model, then that Org is not in VIVO.  Add with HRIS URI
 								String[] queryArg6 = {hrisOrgHrisUriQuery, "VARVALUE" , hrisOrgUriString};
@@ -627,6 +631,9 @@ public class UpdateVivoPerson extends IteratorMethods {
 							} else {
 								// that org does exist in VIVO, so add the RDF that we got from the first query
 								// and retract the HRIS org URIs info
+								
+								
+								
 						/** - Removed - no need to do this now?
 						 		List<Statement> changeOrgLinks = mdlHRISOneOrgRDF.listStatements((Resource) null, RDF.type , (RDFNode) null).toList();
 								for (Statement stmt7 : changeOrgLinks ) {

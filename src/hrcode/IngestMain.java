@@ -69,14 +69,22 @@ public class IngestMain {
 		// setup logging	
 		PropertyConfigurator.configure(fileLogPath + "loggercfg.txt");
 		logger.info("Entering application - initializing models.");
+        // variables for input filenames
 		String VivoUriFilename = null;
+		String HrisUriFilename = null;
+		String ActiveHrisPersonFilename = null;
+
+		// reference external classes
 		CreateModel cm = new CreateModel();
 		IteratorMethods im = new IteratorMethods();
 		
+		// check commandline arguments
+		//TODO: implement real argument parsing
 		try {
 		if (args.length != 0)  {
 			logger.debug("commandline arguments: " + args);
 			VivoUriFilename = cm.readFromFile(args);
+			
 		} else {
 		logger.debug("no commandline args.");
 		}
@@ -84,17 +92,15 @@ public class IngestMain {
 			logger.error("Something didn't work while reading from file.  Error" , e );
 		} 
 
-		// future development: would we ever need to work from a list of HRIS uris?
-		String HrisUriFilename = null;
-		String ActiveHrisPersonFilename = null;
-
 		// this is all NEW HRIS PERSON stuff
 		String updateStatus = null;
  		String allNEWAdditionsFileName = fileRDFPath + "allNEWAdditions.nt";	
+ 		HrisUriFilename = fileRDFPath + "newpeople.nt";	
  		// turn this switch to 1 to load HR Active persons from file
  		// set to 0 to renew list of active HR persons - use 0 when processing new HRIS data
- 		// input file should be set to process only hr new people: -f allNewHRISPeople.nt
-		Integer testingswitch = 1;
+ 		// input file should be set to process only hr new people: -h allNewHRISPeople.nt
+ 		
+		Integer testingswitch = 0;
 		if (testingswitch == 0) {     
 		    logger.info("renewing list of active HR persons...");
 		    // generate a model of all HRIS uris , check against VIVO model
@@ -113,7 +119,7 @@ public class IngestMain {
 				Scanner sc = new Scanner(System.in);
 				 while(!sc.nextLine().equals(""));
 			     
-		           updateStatus = ud.sparqlUpdate(mdlAllUrisAdded);
+		         //  updateStatus = ud.sparqlUpdate(mdlAllUrisAdded);
 			} else {
 				logger.info("No new HRIS persons to add!" );
 			}
@@ -129,7 +135,7 @@ public class IngestMain {
  		// set to 0 to renew list of VIVO Eligible  persons - *ALWAYS* use 0 when processing new VIVO data
  		// input file should be set to process only hr new people: -f allNewHRISPeople.nt
 
-		Integer vivotestswitch = 1;
+		Integer vivotestswitch = 0;
 		if (vivotestswitch == 0) {     		
             //  get a model of all (eligible) persons in VIVO
 		    logger.info("Creating new list of VIVO persons from most recent nightly backup...");

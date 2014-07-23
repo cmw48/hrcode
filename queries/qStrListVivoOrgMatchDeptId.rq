@@ -34,13 +34,13 @@ WHERE {
     {
       <VARVALUE> hr:jobInPosition ?position .
       ?position vivo:positionInOrganization ?org .
-      ?org hr:DeptID ?deptId .
+      ?org hr:DeptCode ?deptCode .
       }
     # querying VIVO endpoint
     SERVICE <VIVOSERV>
       {
       OPTIONAL {?vivoorg vivoc:departmentHRcode ?deptCode .}
       }  
-
+    # must have a VIVO match - if not, need to mint a new organization.
     FILTER (BOUND(?vivoorg)) 
 }

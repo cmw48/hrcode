@@ -39,14 +39,14 @@ public class CreateModel {
 		String readFromFile = null;
 		try {
 			if (args[0] != null) {
-				if (args[0].equals("-f")) {
+				if (args[0].equals("-v")) {
 					logger.info("reading VIVO URI's from file " + args[1]);
 					readFromFile = args[1];
 				}
-				//if (args[2].equals("-u")) {
-				//	logger.info("reading HRIS person URI's from file " + args[3]);
-				//	readFromFile = args[3];
-				//}
+				if (args[0].equals("-h")) {
+					logger.info("reading HRIS person URI's from file " + args[1]);
+					readFromFile = args[1];
+				}
 			}
 		} catch (Exception e) { 
 			logger.error("exception reading args!  Error" + e);
